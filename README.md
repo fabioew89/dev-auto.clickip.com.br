@@ -2,6 +2,7 @@ Ola, este e um pequeno projeto que tenho projeto, ainda esta pequeno mas acredit
 
 first, install virtual environmment (venv)
 
+Linux
 ```
 python3 -m venv .virt
 source .virt/bin/activate
