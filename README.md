@@ -9,4 +9,17 @@ source .virt/bin/activate
 pip install flask
 ```
 
-tchanram...
+Project Structure
+```
+Projetct
+└── app
+    ├── __pycache__
+    ├── controllers
+    ├── models
+    ├── static
+    │   ├── css
+    │   ├── img
+    │   ├── js
+    │   └── scss
+    └── templates
+```
