@@ -13,7 +13,6 @@ Project Structure
 ```
 Projetct
 └── app
-    ├── __pycache__
     ├── controllers
     ├── models
     ├── static
