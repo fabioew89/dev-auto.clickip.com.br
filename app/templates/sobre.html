@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre HTML</title>
-</head>
-<body>
-    <h2>Sobre HTML</h2>
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1> {% block title %} Sobre {% endblock %} </h1>
+{% endblock %}
+
+{% block content %}
+    <h2>Sobre - Flask</h2>
     <hr>
-</body>
-</html>
+{% endblock %}
