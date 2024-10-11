@@ -1,5 +1,6 @@
 from netmiko import ConnectHandler
 from getpass import getpass
+from rich import print
 
 vroute = {
     'device_type':'juniper',''
