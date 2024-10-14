@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 
-<!-- site content -->
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Olá, mundo!</h1>
+    <h1 class="display-4">Juniper</h1>
     <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
     
     <hr>
 
-    <form method="post">
+    <form method="POST" action="{{url_for('index')}}">
         <div class="form-group">
-            <label for="fdevice" class="fdevice">Router</label>
-            <input type="text" class="form-control" name="fdevice" id="fdevice" value="Juniper" readonly disabled>
+            <label for="host">Router</label>
+            <input type="text" class="form-control" name="host" id="host" placeholder="IP Address">
+            <small class="form-text text-muted">IP Address do equipamento</small>
         </div>
         
         <div class="form-group">
-            <label for="fuser" class="fuser">Tacacs User</label>
-            <input type="text" name="fuser" id="fuser" class="form-control" placeholder="Usuário">
+            <label for="username">Tacacs User</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário">
             <small class="form-text text-muted">usuário tacacs</small>
         </div>
         
         <div class="form-group">
-            <label for="fpassword" class="fpassword">Tacacs User</label>
-            <input type="password" name="fpassword" id="fpassword" class="form-control" placeholder="Senha">
+            <label for="password">Tacacs User</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
             <small class="form-text text-muted">Senha do tacacs</small>
         </div>
 
@@ -31,6 +31,5 @@
 </div>    
 {% endblock %}
 
-{% block footer %}
-rodape do index
-{% endblock %}
+<h2>Resultado</h2>
+<pre>{{ output }}</pre>
