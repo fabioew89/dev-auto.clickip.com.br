@@ -10,17 +10,13 @@
     <title>{% block title %}{% endblock %} - Flaskr</title>
   </head>
   <body class="container">
-    {% block navbar %}
     <nav class="nav nav-pills nav-justified">
-      <a class="nav-item nav-link active" href="{{url_for("index")}}">Home</a>
-      <a class="nav-item nav-link" href="{{url_for("about")}}">Sobre</a>
+      <a class="nav-item nav-link active" href="{{ url_for('index') }}">Home</a>
+      <a class="nav-item nav-link" href="{{ url_for('about') }}">Sobre</a>
       <a class="nav-item nav-link disabled" href="#">Desativado</a>
     </nav>
-    {% endblock %}
 
-    {% block content %}
-    data
-    {% endblock %}
+    {% block content %}{% endblock %}
 
     {% block footer %}
     footer
