@@ -8,4 +8,4 @@ from app.controllers import routes
 server = Server(app.wsgi_app)
 server.watch('app/templates/*.*')
 server.watch('app/static/*/*.*')
-server.serve()
+server.serve(port=5000)
