@@ -13,14 +13,9 @@
     <nav class="nav nav-pills nav-justified">
       <a class="nav-item nav-link active" href="{{ url_for('index') }}">Home</a>
       <a class="nav-item nav-link" href="{{ url_for('about') }}">Sobre</a>
-      <a class="nav-item nav-link disabled" href="#">Desativado</a>
     </nav>
 
     {% block content %}{% endblock %}
-
-    {% block footer %}
-    footer
-    {% endblock %}
 
     <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
