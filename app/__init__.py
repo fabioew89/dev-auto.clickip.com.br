@@ -3,9 +3,10 @@ from livereload import Server
 
 app = Flask(__name__)
 
-from app.controllers import routes
+from app.controller import routes
 
-server = Server(app.wsgi_app)
-server.watch('app/templates/*.*')
-server.watch('app/static/*/*.*')
-server.serve(port=5000)
+# # Only for frontend!
+# server = Server(app.wsgi_app)
+# server.watch('app/templates/*.*')
+# server.watch('app/static/*/*.*')
+# server.serve(port=5000)
