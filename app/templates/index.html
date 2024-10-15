@@ -7,31 +7,31 @@
     
     <hr>
 
-    <form method="POST" action="{{url_for('index')}}">
+    <form method="POST" action="{{url_for('index')}}" autocomplete="off">
         <div class="form-group">
             <label for="host">Router</label>
-            <input type="text" class="form-control" name="host" id="host" placeholder="IP Address">
+            <input type="text" class="form-control" name="host" id="host" placeholder="IP Address" required>
             <small class="form-text text-muted">IP Address do equipamento</small>
         </div>
         
         <div class="form-group">
             <label for="username">Tacacs User</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário">
+            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" required>
             <small class="form-text text-muted">usuário tacacs</small>
         </div>
         
         <div class="form-group">
             <label for="password">Tacacs User</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
             <small class="form-text text-muted">Senha do tacacs</small>
         </div>
 
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
+    <pre style="border: solid 1px rgba(0, 0, 0, .1); 
+                padding: 1rem; 
+                margin-top: 1rem; 
+                border-radius: 10px;">{{ output }}</pre>
     
-    <p style="padding-top: 1rem;">saida do output</p>
-    <textarea name="" id="">
-        {{ output }}
-    </textarea>
 </div>    
 {% endblock %}
