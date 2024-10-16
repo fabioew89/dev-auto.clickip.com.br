@@ -7,17 +7,26 @@
     
     <hr>
 
-    <form method="POST" action="{{url_for('index')}}" autocomplete="off">
+    <form method="POST" action="{{url_for('index')}}" autocomplete="on">
+
         <div class="form-group">
             <label for="host">Router</label>
-            <input type="text" class="form-control" name="host" id="host" placeholder="IP Address" required>
+            <select name="host" id="host" class="form-control">
+                <option value="143.137.92.254">vroute</option>
+                <option value="170.84.29.254">bgp</option>
+            </select>
             <small class="form-text text-muted">IP Address do equipamento</small>
         </div>
         
+        <!-- Tacacs -->
         <div class="form-group">
-            <label for="username">Tacacs User</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" required>
-            <small class="form-text text-muted">usuário tacacs</small>
+            <select name="username" id="username" class="form-control">
+                <label for="username">Selecione um usuário</label>
+                <option value="fabio.ewerton">fabio.ewerton</option>
+                <option value="glicia.santos">glicia.santos</option>
+                <option value="leo.duarte">leo.duarte</option>
+                <option value="roger.ochiai">roger.ochiai</option>
+            </select>
         </div>
         
         <div class="form-group">
@@ -28,10 +37,9 @@
 
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
-    <pre style="border: solid 1px rgba(0, 0, 0, .1); 
+    <pre class="pre-scrollable max-height" style="border: solid 1px rgba(0, 0, 0, .1); 
                 padding: 1rem; 
                 margin-top: 1rem; 
                 border-radius: 10px;">{{ output }}</pre>
-    
 </div>    
 {% endblock %}
