@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import Flask, render_template, request
 from app.controller.netmiko import sh_int_terse
 from app import app
 
