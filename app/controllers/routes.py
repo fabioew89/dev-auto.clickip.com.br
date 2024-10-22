@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from app.controller import netmiko
+from app.controllers import netmiko
 from app import app
 
 
