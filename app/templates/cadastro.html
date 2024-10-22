@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Cadastro - {{super()}}
+{% endblock %}
+
+{% block content %}
+<h1>Cadastro</h1>
+<form action="{{url_for('page_cadastro')}}" method="post" autocomplete="off">
+    {{form.hidden_tag()}}
+    {{form.username(class='form-control', placeholder='Usuário', style="margin-bottom='1rem'")}} <br>
+    {{form.email(class='form-control', placeholder='E-mail')}} <br>
+    {{form.password(class='form-control', placeholder='Password')}} <br>
+    {{form.submit(class='btn btn-primary')}}
+</form>
+{% endblock %}
