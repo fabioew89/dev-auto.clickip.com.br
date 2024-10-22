@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, url_for, redirect, request
 from app.controllers import netmiko
-from app import app
+from app.controllers.forms import CadastroForm
+from app.models.model import User
+from app import app, db
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -28,3 +30,10 @@ def sh_config_int_unit():
 @app.route('/about')
 def about():
     return 'about'
+
+
+@app.route('/cadastro_usuarios', methods=['GET', 'POST'])
+def page_cadastro():
+    form = CadastroForm() # form instance
+
+    if form.validate_on_submit():
