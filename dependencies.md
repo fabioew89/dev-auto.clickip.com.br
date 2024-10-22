@@ -4,7 +4,10 @@ cffi==1.17.1
 click==8.1.7
 cryptography==43.0.1
 Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-WTF==1.2.1
 future==1.0.0
+greenlet==3.1.1
 itsdangerous==2.2.0
 Jinja2==3.1.4
 livereload==2.7.0
@@ -23,6 +26,9 @@ rich==13.9.2
 scp==0.15.0
 setuptools==75.1.0
 six==1.16.0
+SQLAlchemy==2.0.36
 textfsm==1.1.3
 tornado==6.4.1
+typing_extensions==4.12.2
 Werkzeug==3.0.4
+WTForms==3.2.1
