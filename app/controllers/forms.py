@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, StringField, validators
-from wtforms.validators import DataRequired
+from wtforms import StringField, EmailField, PasswordField, BooleanField, validators, SubmitField
 
-class form_cad_user(Form):
-    username = StringField('Username', [validators.length(min=4, max=25)])
-    email = StringField('Email', [
-        validators.DataRequired()
-    ])
+class CadastroForm(FlaskForm):
+    username = StringField(label='username')
+    email = EmailField(label='email')
+    password = PasswordField(label='password')
+    password_confirm = PasswordField(label='confir password')
+    submit = SubmitField(label='Enviar')
