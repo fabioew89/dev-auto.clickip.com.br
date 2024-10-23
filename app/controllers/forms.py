@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, BooleanField, validators, SubmitField
+from wtforms import StringField, EmailField, PasswordField, SubmitField
 
 class CadastroForm(FlaskForm):
     username = StringField(label='username')
