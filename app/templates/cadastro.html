@@ -8,6 +8,7 @@
 
 <form action="{{url_for('page_cad_new_user')}}" method="POST">
     {{ form.hidden_tag() }}
+    {{ form.csrf_token() }}
 
     <label for="username" hidden></label>
     {{ form.username(class='form-control', placeholder='Usuario')}}
