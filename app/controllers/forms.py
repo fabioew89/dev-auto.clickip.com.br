@@ -7,4 +7,4 @@ class Form_Cad_User(FlaskForm):
     email = EmailField(name='email', id='email', validators=[DataRequired(), Length(min=4, max=32)])
     password = PasswordField(name='password', id='password', validators=[DataRequired(), Length(min=6)])
     password_confirm = PasswordField(name='password_confirm', id='password_confirm', validators=[DataRequired(), Length(min=6)])
-    submit = SubmitField(validators=[DataRequired()])
+    submit = SubmitField()

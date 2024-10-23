@@ -1,9 +1,8 @@
-from flask import Flask, render_template, url_for, redirect, request
-from app.controllers import netmiko
-from app.controllers.forms import CadastroForm
-from app.models.model import User
 from app import app, db
-
+from app.controllers import netmiko
+from app.controllers.forms import Form_Cad_User
+from app.models.model import Tab_User
+from flask import request, render_template, redirect, url_for
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -27,13 +26,17 @@ def sh_config_int_unit():
         return render_template('sh_config_int_unit.html', output=output)
     return render_template('sh_config_int_unit.html')
 
-@app.route('/about')
-def about():
-    return 'about'
+@app.route('/new_user', methods=['GET', 'POST']) # cad new user?
+def page_cad_new_user():
+    form = Form_Cad_User()
+    if request.method == 'POST' and form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
 
+        db.session.add(username, email)
+        db.session.commit
 
-@app.route('/cadastro_usuarios', methods=['GET', 'POST'])
-def page_cadastro():
-    form = CadastroForm() # form instance
+        print(f'sucesso {username}')
 
-    if form.validate_on_submit():
+    return render_template('cadastro.html', form=form)
+    # return render_template('cadastro.html',form=form)

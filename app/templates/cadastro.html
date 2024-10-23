@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1 class="display-4">{% block title %}Cadastro - {{ super() }} {% endblock %}</h1>
+<h1 class="display-4">{% block title %}Cadastro{% endblock %}</h1>
 <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
 
 <hr>
 
-<form action="{{url_for('page_cad_new_user')}}" method="post">
+<form action="{{url_for('page_cad_new_user')}}" method="POST">
     {{ form.hidden_tag() }}
 
     <label for="username" hidden></label>
