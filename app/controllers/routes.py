@@ -2,7 +2,8 @@ from app import app, db
 from app.controllers import netmiko
 from app.controllers.forms import Form_Cad_User
 from app.models.model import Tab_User
-from flask import request, render_template, redirect, url_for
+from wtforms import Form
+from flask import request, render_template, redirect, url_for, flash
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -26,17 +27,20 @@ def sh_config_int_unit():
         return render_template('sh_config_int_unit.html', output=output)
     return render_template('sh_config_int_unit.html')
 
-@app.route('/new_user', methods=['GET', 'POST']) # cad new user?
+# route for cad users.
+@app.route('/new_user', methods=['GET', 'POST'])
 def page_cad_new_user():
-    form = Form_Cad_User()
+    form = Form_Cad_User(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
+        tab = Tab_User(
+            username = form.username.data,
+            email = form.email.data,
+        )
+        db.session.add(tab)
+        db.session.commit()
 
-        db.session.add(username, email)
-        db.session.commit
+        flash('Thanks for registering')
 
-        print(f'sucesso {username}')
+        return redirect(url_for('index'))
 
     return render_template('cadastro.html', form=form)
-    # return render_template('cadastro.html',form=form)
