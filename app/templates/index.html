@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'layout.html' %}
 
 {% block content %}
 
@@ -30,7 +30,7 @@
         </div>
         
         <div class="form-group">
-            <label for="password">Tacacs User</label>
+            <label for="password"  hidden></label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
             <small class="form-text text-muted">Senha do tacacs</small>
         </div>
