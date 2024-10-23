@@ -13,18 +13,17 @@
 </head>
 
 <body class="container">
-
+  <!-- breadcrumb -->
   <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
       <a class="breadcrumb-item" href="{{url_for('index')}}">Home</a>
-      <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">unit</a>
-      <a class="breadcrumb-item" href="{{url_for('page_cadastro')}}">Cadastro</a>
+      <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Unit</a>
     </ul>
   </nav>
 
   <div class="jumbotron">
   {% block content %}
-
+  data
   {% endblock content %}
 </div>
 
