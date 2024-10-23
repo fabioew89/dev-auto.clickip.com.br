@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1 class="display-4">Juniper</h1>
+    <h1 class="display-4">{% block title %}Home - {{ super() }}{% endblock %}</h1>
     <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
     
     <hr>
