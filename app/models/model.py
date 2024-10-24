@@ -5,8 +5,8 @@ class Tab_User(db.Model):
 
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
-    username: Mapped[str] = mapped_column(nullable=False)
-    email: Mapped[str] = mapped_column(nullable=False)
+    username: Mapped[str] = mapped_column(nullable=False, unique=True)
+    email: Mapped[str] = mapped_column(nullable=False, unique=True)
     # password: Mapped[str] = mapped_column(nullable=False)
 
     def __repr__(self):
