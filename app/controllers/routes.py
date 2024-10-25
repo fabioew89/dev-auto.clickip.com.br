@@ -3,7 +3,6 @@ from app import app, db
 from app.controllers import netmiko
 from app.controllers.forms import Form_Cad_User
 from app.models.model import Tab_User
-from wtforms import Form
 
 @app.route('/', methods=['GET', 'POST'])
 def page_home():
@@ -30,20 +29,16 @@ def sh_config_int_unit():
 @app.route('/new_user', methods=['GET', 'POST'])
 def page_cad_new_user():
     form = Form_Cad_User(request.form)
-    try:
-        if request.method == 'POST' and form.validate_on_submit():
-            tab = Tab_User(
-                username = form.username.data,
-                email = form.email.data,
-            )
-            db.session.add(tab)
-            db.session.commit()
-
-            flash('Thanks for registering')
-
-            return redirect(url_for('page_home'))
-    except Exception as e:
-        db.session.rollback()
-        flash(f' Erro ao cadastrar usuario {e}')
-
+    if request.method == 'POST' and form.validate_on_submit():
+        user_table = Tab_User(
+            username = form.username.data,
+            email = form.email.data,
+        )
+        db.session.add(user_table)
+        db.session.commit()
+        flash('Thanks for registering')
+        return redirect(url_for('page_home'))
+    if form.errors != {}:
+        for err in form.errors.values():
+            flash(f' Erro ao cadastrar usuario {err}')
     return render_template('cadastro.html', form=form)
