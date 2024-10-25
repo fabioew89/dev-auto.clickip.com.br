@@ -1,9 +1,9 @@
+from flask import request, render_template, redirect, url_for, flash
 from app import app, db
 from app.controllers import netmiko
 from app.controllers.forms import Form_Cad_User
 from app.models.model import Tab_User
 from wtforms import Form
-from flask import request, render_template, redirect, url_for, flash
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -38,9 +38,10 @@ def page_cad_new_user():
         )
         db.session.add(tab)
         db.session.commit()
-
         flash('Thanks for registering')
-
         return redirect(url_for('index'))
+    if form.errors != {}:
+        for err in form.errors.values():
+            flash(f'Erro ao cadastrar usuário {err}')
 
     return render_template('cadastro.html', form=form)
