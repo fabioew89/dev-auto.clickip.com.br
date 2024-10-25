@@ -44,6 +44,6 @@ def page_cad_new_user():
             return redirect(url_for('page_home'))
     except Exception as e:
         db.session.rollback()
-        print(f' Erro ao cadastrar usuario {e}')
+        flash(f' Erro ao cadastrar usuario {e}')
 
     return render_template('cadastro.html', form=form)
