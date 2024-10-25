@@ -3,11 +3,14 @@ blinker==1.8.2
 cffi==1.17.1
 click==8.1.7
 cryptography==43.0.1
+dnspython==2.7.0
+email_validator==2.2.0
 Flask==3.0.3
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
 future==1.0.0
 greenlet==3.1.1
+idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.4
 livereload==2.7.0
