@@ -24,8 +24,8 @@
   <div class="jumbotron">
 
     {% with messages = get_flashed_messages(with_categories=True) %}
-    {% for message in messages %}
-    <p> {{message}} </p>
+    {% for msg in messages %}
+    <p> {{ msg }} </p>
     {% endfor %}
     {% endwith%}
 
