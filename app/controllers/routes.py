@@ -6,7 +6,7 @@ from app.models.model import Tab_User
 from wtforms import Form
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def page_home():
     if request.method == 'POST':
         host = request.form.get('host')
         username = request.form.get('username')
@@ -22,7 +22,6 @@ def sh_config_int_unit():
         username = request.form.get('fusername')
         password = request.form.get('fpassword')
         unit = request.form.get('funit')
-
         output = netmiko.sh_config_int_unit(host, username, password, unit)
         return render_template('sh_config_int_unit.html', output=output)
     return render_template('sh_config_int_unit.html')
@@ -31,17 +30,20 @@ def sh_config_int_unit():
 @app.route('/new_user', methods=['GET', 'POST'])
 def page_cad_new_user():
     form = Form_Cad_User(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
-        tab = Tab_User(
-            username = form.username.data,
-            email = form.email.data,
-        )
-        db.session.add(tab)
-        db.session.commit()
-        flash('Thanks for registering')
-        return redirect(url_for('index'))
-    if form.errors != {}:
-        for err in form.errors.values():
-            flash(f'Erro ao cadastrar usuário {err}')
+    try:
+        if request.method == 'POST' and form.validate_on_submit():
+            tab = Tab_User(
+                username = form.username.data,
+                email = form.email.data,
+            )
+            db.session.add(tab)
+            db.session.commit()
+
+            flash('Thanks for registering')
+
+            return redirect(url_for('page_home'))
+    except Exception as e:
+        db.session.rollback()
+        print(f' Erro ao cadastrar usuario {e}')
 
     return render_template('cadastro.html', form=form)
