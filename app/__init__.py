@@ -9,8 +9,9 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///application.db'
 app.config['SECRET_KEY'] = 'f6b42562bc1f3ee92dbad7c9'
+
 db.init_app(app)
 
 from app.controllers import routes
