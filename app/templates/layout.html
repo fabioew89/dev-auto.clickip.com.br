@@ -21,12 +21,18 @@
       <a class="breadcrumb-item" href="{{url_for('page_cad_new_user')}}">Cadastro</a>
     </ul>
   </nav>
-
   <div class="jumbotron">
-  {% block content %}
-  data
-  {% endblock content %}
-</div>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% for message in messages %}
+    <p> {{message}} </p>
+    {% endfor %}
+    {% endwith%}
+
+    {% block content %}
+    data
+    {% endblock content %}
+  </div>
 
   <!-- JavaScript (Opcional) -->
   <script src="{{url_for('static',filename='js/main.js')}}"></script>
