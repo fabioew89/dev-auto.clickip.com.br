@@ -40,5 +40,5 @@ def page_cad_new_user():
         return redirect(url_for('page_home'))
     if form.errors != {}:
         for err in form.errors.values():
-            flash(f' Erro ao cadastrar usuario {err}')
+            flash(f' Erro ao cadastrar usuario {err}', category='danger')
     return render_template('cadastro.html', form=form)
