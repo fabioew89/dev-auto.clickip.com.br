@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="display-4">{% block title %}Login{% endblock %}</h1>
+<p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
+
+<hr>
+
+<form action="{{url_for('page_new_cad')}}" method="POST" autocomplete="off">
+    {{ form.hidden_tag() }}
+
+    <label for="email" hidden></label>
+    {{ form.email(class='form-control', placeholder='E-mail corporativo')}}
+    <small class="form-text text-muted">E-mail corporativo</small>
+    <br>
+
+    <label for="password" hidden></label>
+    {{ form.password(class='form-control', placeholder='Senha do Tacacs') }}
+    <small class="form-text text-muted">Senha do Tacacs</small>
+    <br>
+
+    <label for="password_confirm" hidden></label>
+    {{ form.password_confirm(class='form-control', placeholder='password_confirm') }}
+    <small class="form-text text-muted">password_confirm</small>
+    <br>
+    
+    {{ form.submit(class='btn btn-primary') }}
+</form>
+{% endblock %}
