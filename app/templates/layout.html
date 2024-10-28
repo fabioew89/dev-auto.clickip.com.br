@@ -18,8 +18,8 @@
     <ul class="breadcrumb">
       <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
       <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Unit</a>
-      <a class="breadcrumb-item" href="{{url_for('page_cad_new_user')}}">Cadastro</a>
-      <a class="breadcrumb-item" href="{{url_for('page_new_cad')}}">Novo Cadastro</a>
+      <a class="breadcrumb-item" href="{{url_for('page_register')}}">Cadastro</a>
+      <a class="breadcrumb-item" href="#">login</a>
     </ul>
   </nav>
   <div class="jumbotron">
@@ -28,7 +28,7 @@
     {% for category, msg in messages %}
     <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
-      <p style="margin: auto;">{{ msg }}</p>  
+      <p style="margin: auto;">{{ msg }}</p>
     </div>
     {% endfor %}
     {% endwith%}
