@@ -41,3 +41,7 @@ def page_register():
         for err in form.errors.values():
             flash(f' Erro ao cadastrar usuario {err}', category='danger')
     return render_template('register.html', form=form)
+
+@app.route('/login')
+def page_login():
+    return render_template('login.html')
