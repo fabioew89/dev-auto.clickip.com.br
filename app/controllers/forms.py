@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, SubmitField
+from wtforms import EmailField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError
 from app.models.model import Tab_Register
 
@@ -13,3 +13,9 @@ class Form_Register(FlaskForm):
     password         = PasswordField(validators=[DataRequired(), Length(min=6)])
     password_confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
     submit = SubmitField('Cadastrar')
+
+
+class Form_Login(FlaskForm):
+    email           = EmailField(validators=[DataRequired()])
+    password        = PasswordField(validators=[DataRequired()])
+    submit          = SubmitField()

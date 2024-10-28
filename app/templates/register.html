@@ -2,7 +2,8 @@
 
 {% block content %}
 <h1 class="display-4">{% block title %}Cadastro{% endblock %}</h1>
-<p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
+<p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.
+</p>
 
 <hr>
 
@@ -23,7 +24,10 @@
     {{ form.password_confirm(class='form-control', placeholder='Confirme Senha') }}
     <small class="form-text text-muted">Confirme Senha</small>
     <br>
-              
-    {{ form.submit(class='btn btn-primary') }}
+
+    <div class="d-flex justify-content-between">
+        {{ form.submit(class='btn btn-primary') }}
+        <a class="btn btn-secondary" href="{{url_for('page_login')}}">Login</a>
+    </div>
 </form>
 {% endblock %}
