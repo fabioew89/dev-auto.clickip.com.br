@@ -9,7 +9,7 @@ class Form_Register(FlaskForm):
         if email:
             raise ValidationError('Email ja cadastrado!!!')        
         
-    email            = EmailField(validators=   [DataRequired(), Length(min=20, max=35), Email()])
+    email            = EmailField(validators=   [DataRequired(), Length(min=15, max=35), Email()])
     password         = PasswordField(validators=[DataRequired(), Length(min=6)])
     password_confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
     submit = SubmitField('Cadastrar')

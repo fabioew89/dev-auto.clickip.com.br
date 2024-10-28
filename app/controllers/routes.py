@@ -29,11 +29,11 @@ def sh_config_int_unit():
 def page_register():
     form = Form_Register(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        user_table = Tab_Register(
+        table_user = Tab_Register(
             email = form.email.data,
             password_bcrypt = form.password.data,
         )
-        db.session.add(user_table)
+        db.session.add(table_user)
         db.session.commit()
         flash('Thanks for registering')
         return redirect(url_for('page_home'))

@@ -18,7 +18,12 @@
     {{ form.password(class='form-control', placeholder='Password') }}
     <small class="form-text text-muted">Informe sua senha</small>
     <br>
-       
+
+    <label for="password_confirm" hidden></label>
+    {{ form.password_confirm(class='form-control', placeholder='Confirme Senha') }}
+    <small class="form-text text-muted">Confirme Senha</small>
+    <br>
+              
     {{ form.submit(class='btn btn-primary') }}
 </form>
 {% endblock %}
