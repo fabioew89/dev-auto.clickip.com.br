@@ -18,4 +18,4 @@ class Form_Register(FlaskForm):
 class Form_Login(FlaskForm):
     email_login    = EmailField(validators=[DataRequired()])
     password_login = PasswordField(validators=[DataRequired()])
-    submit_login   = SubmitField()
+    submit_login   = SubmitField('Entrar')
