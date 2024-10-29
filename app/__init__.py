@@ -20,7 +20,9 @@ bcrypt = Bcrypt(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'loing'
+login_manager.login_view = 'page_login'
+login_manager.login_message = 'Faça seu login'
+login_manager.login_message_category = 'info'
 
 # login_manager = LoginManager().init_app(app)
 
