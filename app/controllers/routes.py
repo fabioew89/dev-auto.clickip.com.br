@@ -1,5 +1,5 @@
 from flask import request, render_template, redirect, url_for, flash
-from flask_login import login_user
+from flask_login import login_user, logout_user
 from app import app, db
 from app.controllers import netmiko
 from app.controllers.forms import Form_Register, Form_Login
@@ -87,6 +87,16 @@ def page_login():
                 flash(f'Erro no campo {field_name}: {err}', category='danger')
 
     return render_template('login.html', form=form)
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### ## LOGOUT # ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+@app.route('/logout')
+def page_logout():
+    logout_user()
+    flash(f'Deslogado!!!', category='info')
+    return redirect(url_for('page_home'))
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ### END ### ##### ##### ##### ##### 
