@@ -16,6 +16,6 @@ class Form_Register(FlaskForm):
 
 
 class Form_Login(FlaskForm):
-    email           = EmailField(validators=[DataRequired()])
-    password        = PasswordField(validators=[DataRequired()])
-    submit          = SubmitField()
+    email_login    = EmailField(validators=[DataRequired()])
+    password_login = PasswordField(validators=[DataRequired()])
+    submit_login   = SubmitField()
