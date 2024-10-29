@@ -7,22 +7,38 @@
 
 <hr>
 
-<form action="{{url_for('page_login')}}" method="POST">
+<form method="POST" action="{{ url_for('page_login') }}">
     {{ form.hidden_tag() }}
 
-    <label for="email" hidden></label>
-    {{ form.email(class='form-control', placeholder='E-mail corporativo')}}
-    <small class="form-text text-muted">E-mail corporativo</small>
-    <br>
+    <div>
+        {{ form.email_login.label }}
+        {{ form.email_login(class_="form-control") }}
+        {% if form.email_login.errors %}
+        <ul>
+            {% for error in form.email_login.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 
-    <label for="password" hidden></label>
-    {{ form.password(class='form-control', placeholder='Senha do Tacacs') }}
-    <small class="form-text text-muted">Senha do Tacacs</small>
-    <br>
+    <div>
+        {{ form.password_login.label }}
+        {{ form.password_login(class_="form-control") }}
+        {% if form.password_login.errors %}
+        <ul>
+            {% for error in form.password_login.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 
     <div class="d-flex justify-content-between">
-        {{ form.submit(class='btn btn-primary') }}
-        <a class="btn btn-secondary" href="{{url_for('page_register')}}">Cadastro</a>
+        {{ form.submit_login(class='btn btn-primary') }}
+        <a class="btn btn-secondary" href="{{url_for('page_register')}}">Register</a>
     </div>
 </form>
+
+
 {% endblock %}
