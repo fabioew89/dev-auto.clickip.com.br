@@ -1,5 +1,5 @@
 from flask import request, render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from app import app, db
 from app.controllers import netmiko
 from app.controllers.forms import Form_Register, Form_Login
@@ -11,6 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def page_home():
     if request.method == 'POST':
         host = request.form.get('host')
@@ -25,6 +26,7 @@ def page_home():
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/unit', methods=['GET', 'POST'])
+@login_required
 def sh_config_int_unit():
     if request.method == 'POST':
         host = request.form.get('fhost')
