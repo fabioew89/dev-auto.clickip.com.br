@@ -11,8 +11,8 @@
     {{ form.hidden_tag() }}
 
     <div>
-        {{ form.email_login.label }}
-        {{ form.email_login(class_="form-control") }}
+        {{ form.email_login(class_="form-control", placeholder='Email') }}
+        <small class="form-text text-muted">E-mail corporativo</small>
         {% if form.email_login.errors %}
         <ul>
             {% for error in form.email_login.errors %}
@@ -23,8 +23,8 @@
     </div>
 
     <div>
-        {{ form.password_login.label }}
-        {{ form.password_login(class_="form-control") }}
+        {{ form.password_login(class_="form-control", placeholder='Senha') }}
+        <small class="form-text text-muted">Informe sua senha</small>
         {% if form.password_login.errors %}
         <ul>
             {% for error in form.password_login.errors %}
@@ -34,7 +34,7 @@
         {% endif %}
     </div>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between" style="margin-top: 1rem;">
         {{ form.submit_login(class='btn btn-primary') }}
         <a class="btn btn-secondary" href="{{url_for('page_register')}}">Register</a>
     </div>
