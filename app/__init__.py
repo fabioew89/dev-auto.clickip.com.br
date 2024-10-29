@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 app = Flask(__name__)
 
@@ -16,6 +17,12 @@ app.config['SECRET_KEY'] = 'f6b42562bc1f3ee92dbad7c9'
 db.init_app(app)
 
 bcrypt = Bcrypt(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'loing'
+
+# login_manager = LoginManager().init_app(app)
 
 from app.controllers import routes
 
