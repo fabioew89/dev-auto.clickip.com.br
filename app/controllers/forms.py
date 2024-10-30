@@ -9,13 +9,13 @@ class Form_Register(FlaskForm):
         if email:
             raise ValidationError('Email ja cadastrado!!!')        
         
-    email            = EmailField(validators=   [DataRequired(), Length(min=15, max=35), Email()])
-    password         = PasswordField(validators=[DataRequired(), Length(min=6)])
-    password_confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
-    submit = SubmitField('Cadastrar')
+    email               = EmailField(validators=   [DataRequired(), Length(min=15, max=35), Email()])
+    password            = PasswordField(validators=[DataRequired(), Length(min=6)])
+    password_confirm    = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
+    submit              = SubmitField('Cadastrar')
 
 
 class Form_Login(FlaskForm):
-    email_login    = EmailField(validators=[DataRequired()])
-    password_login = PasswordField(validators=[DataRequired()])
-    submit_login   = SubmitField('Entrar')
+    email_login         = EmailField(validators=[DataRequired()])
+    password_login      = PasswordField(validators=[DataRequired()])
+    submit_login        = SubmitField('Entrar')

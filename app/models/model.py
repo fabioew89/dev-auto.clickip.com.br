@@ -8,9 +8,9 @@ def load_user(user_id):
 
 class Tab_Register(db.Model, UserMixin):
     __tablename__ = 'Tab_Register'
-    id:    Mapped[int] = mapped_column(primary_key=True)
-    email:    Mapped[str] = mapped_column(unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(unique=True, nullable=False)
+    id:         Mapped[int] = mapped_column(primary_key=True)
+    email:      Mapped[str] = mapped_column(unique=True, nullable=False)
+    password:   Mapped[str] = mapped_column(unique=True, nullable=False)
     
     def __repr__(self):
         return f'<User {self.email}>'
