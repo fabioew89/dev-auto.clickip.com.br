@@ -24,8 +24,6 @@ login_manager.login_view = 'page_login'
 login_manager.login_message = 'Faça seu login'
 login_manager.login_message_category = 'info'
 
-# login_manager = LoginManager().init_app(app)
-
 from app.controllers import routes
 
 # # Only for frontend!

@@ -14,3 +14,4 @@ class Tab_Register(db.Model, UserMixin):
     
     def __repr__(self):
         return f'<User {self.email}>'
+    
