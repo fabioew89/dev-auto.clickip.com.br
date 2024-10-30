@@ -16,12 +16,17 @@
   <!-- breadcrumb -->
   <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
+      {% if current_user.is_authenticated %}
       <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
       <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Unit</a>
-      <a class="breadcrumb-item" href="{{url_for('page_login')}}">Login</a>
       <a class="breadcrumb-item" href="{{url_for('page_register')}}">Cadastro</a>
+      <a class="breadcrumb-item" href="{{url_for('page_logout')}}">Logout</a>
+      {% else %}
+      <a class="breadcrumb-item" href="{{url_for('page_login')}}">Login</a>
+      {% endif %}
     </ul>
   </nav>
+
   <div class="jumbotron">
 
     {% with messages = get_flashed_messages(with_categories=True) %}
