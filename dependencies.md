@@ -6,6 +6,8 @@ cryptography==43.0.1
 dnspython==2.7.0
 email_validator==2.2.0
 Flask==3.0.3
+Flask-Bcrypt==1.0.1
+Flask-Login==0.6.3
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
 future==1.0.0
