@@ -7,12 +7,12 @@ from app.models.model import Tab_Register
 from werkzeug.security import generate_password_hash, check_password_hash
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### ## HOME ### ##### ##### ##### ##### 
+##### ##### ##### ##### ## INDEX ## ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/', methods=['GET', 'POST'])
 @login_required
-def page_home():
+def page_index():
     if request.method == 'POST':
         host = request.form.get('host')
         username = request.form.get('username')
@@ -20,6 +20,15 @@ def page_home():
         output = netmiko.sh_int_terse(host, username, password)
         return render_template('index.html', output=output)
     return render_template('index.html')
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### ## HOME ### ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+@app.route('/home')
+def page_home():
+    emails = Tab_Register.query.with_entities(Tab_Register.email).all()
+    return render_template('home.html', emails=emails)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### # NETMIKO # ##### ##### ##### ##### 
@@ -101,5 +110,15 @@ def page_logout():
     return redirect(url_for('page_home'))
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### ## TEST ### ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+@app.route('/test')
+def page_test():
+    email_table = Tab_Register.query.all()
+    return render_template('test.html', emails=email_table)
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ### END ### ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
