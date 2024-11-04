@@ -13,5 +13,5 @@ class Tab_Register(db.Model, UserMixin):
     password:   Mapped[str] = mapped_column(unique=True, nullable=False)
     
     def __repr__(self):
-        return f'<User {self.email}>'
+        return self.email
     
