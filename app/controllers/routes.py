@@ -27,7 +27,7 @@ def page_index():
 
 @app.route('/home')
 def page_home():
-    emails = Tab_Register.query.with_entities(Tab_Register.email).all()
+    emails = db.session.execute(db.select(Tab_Register.email)).scalars().all()
     return render_template('home.html', emails=emails)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
