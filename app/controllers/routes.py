@@ -2,40 +2,42 @@ from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from app import app, db
 from app.controllers import netmiko
-from app.controllers.forms import Form_Register, Form_Login
-from app.models.model import Tab_Register
+from app.controllers.forms import *
+from app.models.model import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## INDEX ## ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
-@app.route('/', methods=['GET', 'POST'])
-@login_required
-def page_index():
-    if request.method == 'POST':
-        host = request.form.get('host')
-        username = request.form.get('username')
-        password = request.form.get('password')
-        output = netmiko.sh_int_terse(host, username, password)
-        return render_template('index.html', output=output)
-    return render_template('index.html')
+@app.route('/')
+def page_home():
+    return render_template('home.html')
+
+# @app.route('/', methods=['GET', 'POST'])
+# def page_home():
+#     if request.method == 'POST':
+#         host = request.form.get('host')
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+#         output = netmiko.sh_int_terse(host, username, password)
+#         return render_template('home.html', output=output)
+#     return render_template('home.html')
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## HOME ### ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
-@app.route('/home')
-def page_home():
-    emails = db.session.execute(db.select(Tab_Register.email)).scalars().all()
-    return render_template('home.html', emails=emails)
+# @app.route('/')
+# def page_home():
+#     table = db.session.execute(db.select(Tab_Register)).scalars().all()
+#     return render_template('home.html', table=table)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### # NETMIKO # ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/unit', methods=['GET', 'POST'])
-@login_required
 def sh_config_int_unit():
     if request.method == 'POST':
         host = request.form.get('fhost')
@@ -51,7 +53,8 @@ def sh_config_int_unit():
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/register', methods=['GET', 'POST']) #register users?
-def page_register():
+@login_required
+def page_register_user():
     form = Form_Register(request.form)
     if form.validate_on_submit():
         
@@ -66,7 +69,25 @@ def page_register():
     if form.errors != {}:
         for err in form.errors.values():
             flash(f' Erro ao cadastrar usuario {err}', category='danger')
-    return render_template('register.html', form=form)
+    return render_template('page_register_user.html', form=form)
+
+@app.route('/device', methods=['GET', 'POST'])
+def page_register_device():
+    form_device = Form_Devices(request.form)
+    if form_device.validate_on_submit():
+        new_device_on_table = Table_Devices(
+            device_name = form_device.device_name.data,
+            ip_address = form_device.ip_address.data
+        )
+        db.session.add(new_device_on_table)
+        db.session.commit()
+        flash(f'Thanks for registering a new device!')
+        redirect(url_for('page_home'))
+    
+    if form_device.errors != {}:
+        for err in form_device.errors.values():
+            flash(f' Erro ao cadastrar usuario {err}', category='danger')        
+    render_template('page_register_device.html', form=form_device)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 
@@ -110,15 +131,5 @@ def page_logout():
     return redirect(url_for('page_home'))
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### ## TEST ### ##### ##### ##### ##### 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-@app.route('/test')
-def page_test():
-    email_table = Tab_Register.query.all()
-    return render_template('test.html', emails=email_table)
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ### END ### ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
