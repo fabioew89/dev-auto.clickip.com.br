@@ -30,8 +30,6 @@ def page_home():
 
 # @app.route('/')
 # def page_home():
-#     table = db.session.execute(db.select(Tab_Register)).scalars().all()
-#     return render_template('home.html', table=table)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### # NETMIKO # ##### ##### ##### ##### 
@@ -53,7 +51,6 @@ def sh_config_int_unit():
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/register', methods=['GET', 'POST']) #register users?
-@login_required
 def page_register_user():
     form = Form_Register(request.form)
     if form.validate_on_submit():
@@ -69,25 +66,52 @@ def page_register_user():
     if form.errors != {}:
         for err in form.errors.values():
             flash(f' Erro ao cadastrar usuario {err}', category='danger')
-    return render_template('page_register_user.html', form=form)
+    return render_template('page_register_user.html', form=form, table=Tab_Register())
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/device', methods=['GET', 'POST'])
 def page_register_device():
     form_device = Form_Devices(request.form)
+    table = db.session.execute(db.select(Table_Devices)).scalars().all()
     if form_device.validate_on_submit():
         new_device_on_table = Table_Devices(
-            device_name = form_device.device_name.data,
+            hostname = form_device.hostname.data,
             ip_address = form_device.ip_address.data
         )
+        
         db.session.add(new_device_on_table)
         db.session.commit()
-        flash(f'Thanks for registering a new device!')
-        redirect(url_for('page_home'))
+        flash(f'Thanks for registering a new device!', category='success')
+        return redirect(url_for('page_register_device'))
     
     if form_device.errors != {}:
         for err in form_device.errors.values():
-            flash(f' Erro ao cadastrar usuario {err}', category='danger')        
-    render_template('page_register_device.html', form=form_device)
+            flash(f' Erro ao cadastrar usuario {err}', category='danger')
+    return render_template('page_register_device.html', form=form_device, table=table)
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+@app.route('/<int:id>/edit_device', methods=['GET', 'POST'])
+def page_edit_device(id):
+    device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
+    form_device = Form_Devices(obj=device)
+    
+    if device is None:
+        flash(f'Device with ID {id} not found.', category='danger')
+        return redirect(url_for('page_home'))
+    
+    if form_device.validate_on_submit():
+        # Atualiza os dados do dispositivo
+        device.hostname = form_device.hostname.data
+        device.ip_address = form_device.ip_address.data
+        
+        db.session.commit()  # Salva as alterações no banco de dados
+        flash('Dispositivo atualizado com sucesso!', category='success')
+        return redirect(url_for('page_register_device'))
+    
+    return render_template('page_edit_device.html', device=device, form=form_device)
+
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 

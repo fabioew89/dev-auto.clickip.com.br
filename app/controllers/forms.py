@@ -20,12 +20,12 @@ class Form_Login(FlaskForm):
     submit_login        = SubmitField('Entrar')
     
 class Form_Cad_User(FlaskForm):
-    username          = StringField(validators=[DataRequired(), Length(min=3, max=20)])
-    user_pass         = PasswordField(validators=[DataRequired(), Length(min=6)])
-    user_pass_confirm = PasswordField(DataRequired(), EqualTo('password', message='Password must match'))
-    submit_login      = SubmitField('Entrar')
+    username            = StringField(validators=[DataRequired(), Length(min=3, max=20)])
+    user_pass           = PasswordField(validators=[DataRequired(), Length(min=6)])
+    user_pass_confirm   = PasswordField(DataRequired(), EqualTo('password', message='Password must match'))
+    submit_login        = SubmitField('Entrar')
     
 class Form_Devices(FlaskForm):
-    device_name = StringField(validators=[DataRequired(),Length(min=5)])
-    ip_address  = StringField(validators=[DataRequired(IPAddress())])
-    subit       = SubmitField('Cadastrar')
+    hostname    = StringField(validators=[DataRequired(),Length(min=5)])
+    ip_address  = StringField(validators=[DataRequired(), IPAddress()])
+    submit      = SubmitField('Cadastrar')

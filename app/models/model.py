@@ -18,8 +18,8 @@ class Tab_Register(db.Model, UserMixin):
 class Table_Devices(db.Model):
     __tablename__ = 'Table_Devices'
     id:                 Mapped[int] = mapped_column(primary_key=True)
-    device_name:        Mapped[str] = mapped_column(unique=True, nullable=False)
+    hostname:           Mapped[str] = mapped_column(unique=True, nullable=False)
     ip_address:         Mapped[str] = mapped_column(unique=True, nullable=False)
     
-    def __repr__(self):
-        return self.device_name
+    def __str__(self):
+        return self.hostname, self.ip_address

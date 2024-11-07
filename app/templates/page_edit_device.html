@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="display-4">{% block title %}Edit Device{% endblock %}</h1>
+<p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.
+</p>
+
+<hr>
+
+<form action="{{ url_for('page_edit_device', id=device.id) }}" method="POST">
+    {{ form.hidden_tag() }}
+
+    <label for="hostname" hidden></label>
+    <input type="text" id="hostname" class="form-control" value="{{ device.hostname }}">
+    <br>
+
+    <label for="ip_address" hidden></label>
+    <input type="text" id="ip_address" class="form-control" value="{{ device.ip_address }}">
+    <br>
+
+    {{ form.submit(class='btn btn-primary') }}
+</form>
+<br>
+{% endblock %}
