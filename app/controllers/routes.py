@@ -92,25 +92,60 @@ def page_register_device():
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/<int:id>/edit_device', methods=['GET', 'POST'])
 def page_edit_device(id):
     device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
-    form_device = Form_Devices(obj=device)
+    form = Form_Devices()
     
     if device is None:
         flash(f'Device with ID {id} not found.', category='danger')
         return redirect(url_for('page_home'))
-    
-    if form_device.validate_on_submit():
-        # Atualiza os dados do dispositivo
-        device.hostname = form_device.hostname.data
-        device.ip_address = form_device.ip_address.data
         
-        db.session.commit()  # Salva as alterações no banco de dados
+    if form.validate_on_submit():
+        device.hostname = 'novo valor'
+        db.session.commit()
+        
         flash('Dispositivo atualizado com sucesso!', category='success')
-        return redirect(url_for('page_register_device'))
+        return redirect(url_for('page_register_device', id=id))
     
-    return render_template('page_edit_device.html', device=device, form=form_device)
+    return render_template('page_edit_device.html', device=device, form=form)
+
+
+
+
+
+
+
+
+
+
+
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+@app.route('/<int:id>/remove_device')
+def page_remove_device(id):
+    device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
+    
+    if device:
+        db.session.delete(device)
+        db.session.commit()
+        flash('Device excluído com sucesso.', category='success')
+    else:
+        flash('Device não encontrado.', category='danger')
+
+    return redirect(url_for('page_register_device'))
 
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
