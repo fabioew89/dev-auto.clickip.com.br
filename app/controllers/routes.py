@@ -92,17 +92,6 @@ def page_register_device():
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/<int:id>/edit_device', methods=['GET', 'POST'])
 def page_edit_device(id):
     device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
@@ -121,16 +110,6 @@ def page_edit_device(id):
         return redirect(url_for('page_register_device', id=id))
     
     return render_template('page_edit_device.html', device=device, form=form)
-
-
-
-
-
-
-
-
-
-
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
