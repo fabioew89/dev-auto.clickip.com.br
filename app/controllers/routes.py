@@ -106,21 +106,21 @@ def page_register_device():
 @app.route('/<int:id>/edit_device', methods=['GET', 'POST'])
 def page_edit_device(id):
     device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
-    form = Form_Devices()
+    form = Form_Devices(obj=device)
     
     if device is None:
         flash(f'Device with ID {id} not found.', category='danger')
         return redirect(url_for('page_home'))
-        
+    
     if form.validate_on_submit():
-        device.hostname = 'novo valor'
-        db.session.commit()
+        device.hostname = form.hostname.data
+        device.ip_address = form.ip_address.data
         
+        db.session.commit()
         flash('Dispositivo atualizado com sucesso!', category='success')
         return redirect(url_for('page_register_device', id=id))
     
     return render_template('page_edit_device.html', device=device, form=form)
-
 
 
 

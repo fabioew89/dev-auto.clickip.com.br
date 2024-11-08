@@ -26,6 +26,6 @@ class Form_Cad_User(FlaskForm):
     submit_login        = SubmitField('Entrar')
     
 class Form_Devices(FlaskForm):
-    hostname    = StringField(validators=[DataRequired(),Length(min=5)])
+    hostname    = StringField(validators=[DataRequired(), Length(min=5)])
     ip_address  = StringField(validators=[DataRequired(), IPAddress()])
     submit      = SubmitField('Cadastrar')

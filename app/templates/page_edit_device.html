@@ -11,11 +11,11 @@
     {{ form.hidden_tag() }}
 
     <label for="hostname" hidden></label>
-    <input type="text" id="hostname" class="form-control" value="{{ device.hostname }}">
+    {{ form.hostname(class='form-control') }}
     <br>
-
+    
     <label for="ip_address" hidden></label>
-    <input type="text" id="ip_address" class="form-control" value="{{ device.ip_address }}">
+    {{ form.ip_address(class='form-control') }}
     <br>
 
     {{ form.submit(class='btn btn-primary') }}
