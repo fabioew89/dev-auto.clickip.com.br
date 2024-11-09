@@ -9,23 +9,23 @@ class Form_Register(FlaskForm):
         if email:
             raise ValidationError('Email ja cadastrado!!!')        
         
-    email               = EmailField(validators=   [DataRequired(), Length(min=15, max=35), Email()])
-    password            = PasswordField(validators=[DataRequired(), Length(min=6)])
-    password_confirm    = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
+    email               = EmailField(validators=    [DataRequired(), Length(min=15, max=35), Email()])
+    password            = PasswordField(validators= [DataRequired(), Length(min=6)])
+    password_confirm    = PasswordField(validators= [DataRequired(), EqualTo('password', message='Password must match')])
     submit              = SubmitField('Cadastrar')
 
 class Form_Login(FlaskForm):
-    email_login         = EmailField(validators=[DataRequired()])
-    password_login      = PasswordField(validators=[DataRequired()])
+    email_login         = EmailField(validators=    [DataRequired()])
+    password_login      = PasswordField(validators= [DataRequired()])
     submit_login        = SubmitField('Entrar')
     
 class Form_Cad_User(FlaskForm):
-    username            = StringField(validators=[DataRequired(), Length(min=3, max=20)])
-    user_pass           = PasswordField(validators=[DataRequired(), Length(min=6)])
+    username            = StringField(validators=   [DataRequired(), Length(min=3, max=20)])
+    user_pass           = PasswordField(validators= [DataRequired(), Length(min=6)])
     user_pass_confirm   = PasswordField(DataRequired(), EqualTo('password', message='Password must match'))
     submit_login        = SubmitField('Entrar')
     
 class Form_Devices(FlaskForm):
-    hostname    = StringField(validators=[DataRequired(), Length(min=3, max=10)])
-    ip_address  = StringField(validators=[DataRequired(), IPAddress()])
-    submit      = SubmitField('Cadastrar')
+    hostname            = StringField(validators=   [DataRequired(), Length(min=3, max=10)])
+    ip_address          = StringField(validators=   [DataRequired(), IPAddress()])
+    submit              = SubmitField('Cadastrar')
