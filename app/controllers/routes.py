@@ -1,9 +1,9 @@
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from app import app, db
-from app.controllers import netmiko
-from app.controllers.forms import *
 from app.models.model import *
+from app.controllers.forms import *
+from app.controllers import netmiko
 from werkzeug.security import generate_password_hash, check_password_hash
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
@@ -21,9 +21,11 @@ def page_home():
 @app.route('/register', methods=['GET', 'POST'])
 def page_register():
     form = Form_Register()
+    table = db.session.execute(db.select(Table_Register)).scalars().all()
+    
     if form.validate_on_submit():
         
-        user = Tab_Register(
+        user = Table_Register(
             username = form.username.data,
             password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
         )
@@ -36,7 +38,7 @@ def page_register():
         for err in form.errors.values():
             flash(f' Erro ao cadastrar usuario {err}', category='danger')
     
-    return render_template('page_register_user.html', form=form, table=Tab_Register())
+    return render_template('page_register_user.html', form=form, table=table)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 
@@ -54,7 +56,7 @@ def page_login():
         password = form.password.data
         
         # Obter o usuário pelo nome de usuário
-        user = db.session.execute(db.select(Tab_Register).filter_by(username=username)).scalar_one_or_none()
+        user = db.session.execute(db.select(Table_Register).filter_by(username=username)).scalar_one_or_none()
 
         if user and check_password_hash(user.password, password):  # Verifique se a senha corresponde ao hash
             login_user(user)  # Passa o objeto do usuário, não o nome de usuário

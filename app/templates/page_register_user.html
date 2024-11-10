@@ -23,8 +23,31 @@
     <br>
 
     <div class="d-flex justify-content-between">
-        {{ form.submit(class='btn btn-primary') }}
-        <a class="btn btn-secondary" href="{{url_for('page_login')}}">Login</a>
+        {{ form.submit(class='btn btn-sm btn-primary') }}
+        <a class="btn btn-sm btn-secondary" href="{{url_for('page_login')}}">Login</a>
     </div>
 </form>
+<br>
+
+<table class="table table-sm table-striped">
+    <caption>Usuario Cadastrados</caption>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tab in table %}
+        <tr>
+            <td> {{ tab.id}} </td>
+            <td> {{ tab.username}} </td>
+            <td>
+                <!-- <a href="{{tab.id}}/edit_device" class="btn btn-sm btn-primary px-3">Editar</a>
+                <a href="{{tab.id}}/remove_device" class="btn btn-sm btn-danger px-3">Excluir</a> -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
