@@ -29,7 +29,7 @@ def page_register():
         )
         db.session.add(user)
         db.session.commit()
-        flash('Thanks for registering')
+        flash('Thanks for registering', category='success')
         return redirect(url_for('page_register'))
     
     if form.errors != {}:

@@ -1,21 +1,20 @@
 from app import db
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError, IPAddress
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError, IPAddress
 from app.models.model import Tab_Register
 
 class Form_Register(FlaskForm):
-    def validate_username(self, extra_validators = None):
-        username = db.session.execute(db.select(Tab_Register).filter_by(username=extra_validators.data)).scalar_one()
+    def validate_username(self, field):
+        username = db.session.execute(db.select(Tab_Register).filter_by(username=field.data)).scalar_one_or_none()
         if username:
-            raise ValidationError('Usuario ja cadastrado')
-        return super().validate_username(extra_validators)
+            raise ValidationError('Usuário já cadastrado')
 
-    username         = StringField  (validators=[DataRequired(), Length(min=3, max=25)])
-    password         = PasswordField(validators=[DataRequired(), Length(min=6)])
-    password_confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
+    username         = StringField('Username', validators=[DataRequired(), Length(min=3, max=25)])
+    password         = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
+    password_confirm = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='As senhas devem coincidir')])
     submit           = SubmitField('Cadastrar')
-        
+
 class Form_Login(FlaskForm):
     username         = StringField(validators=[DataRequired()])
     password         = PasswordField(validators=[DataRequired()])
