@@ -7,22 +7,19 @@
 
 <hr>
 
-<form action="{{url_for('page_register_user')}}" method="POST">
+<form action="{{url_for('page_register')}}" method="POST">
     {{ form.hidden_tag() }}
 
-    <label for="email" hidden></label>
-    {{ form.email(class='form-control', placeholder='E-mail')}}
-    <small class="form-text text-muted">E-mail corporativo</small>
+    <label for="username" hidden></label>
+    {{ form.username(class='form-control', placeholder='user.name')}}
     <br>
 
     <label for="password" hidden></label>
     {{ form.password(class='form-control', placeholder='Password') }}
-    <small class="form-text text-muted">Informe sua senha</small>
     <br>
 
     <label for="password_confirm" hidden></label>
     {{ form.password_confirm(class='form-control', placeholder='Confirme Senha') }}
-    <small class="form-text text-muted">Confirme Senha</small>
     <br>
 
     <div class="d-flex justify-content-between">

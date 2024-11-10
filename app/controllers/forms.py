@@ -1,19 +1,21 @@
+from app import db
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError, IPAddress
 from app.models.model import Tab_Register
 
 class Form_Register(FlaskForm):
-    def validate_email(self, check_email):
-        email = Tab_Register.query.filter_by(email=check_email.data).first()
-        if email:
-            raise ValidationError('Email ja cadastrado!!!')        
-        
-    email               = EmailField(validators=    [DataRequired(), Length(min=15, max=35), Email()])
-    password            = PasswordField(validators= [DataRequired(), Length(min=6)])
-    password_confirm    = PasswordField(validators= [DataRequired(), EqualTo('password', message='Password must match')])
-    submit              = SubmitField('Cadastrar')
+    def validate_username(self, extra_validators = None):
+        username = db.session.execute(db.select(Tab_Register).filter_by(username=extra_validators.data)).scalar_one()
+        if username:
+            raise ValidationError('Usuario ja cadastrado')
+        return super().validate_username(extra_validators)
 
+    username         = StringField  (validators=[DataRequired(), Length(min=3, max=25)])
+    password         = PasswordField(validators=[DataRequired(), Length(min=6)])
+    password_confirm = PasswordField(validators=[DataRequired(), EqualTo('password', message='Password must match')])
+    submit           = SubmitField('Cadastrar')
+        
 class Form_Login(FlaskForm):
     email_login         = EmailField(validators=    [DataRequired()])
     password_login      = PasswordField(validators= [DataRequired()])

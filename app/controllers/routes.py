@@ -50,22 +50,24 @@ def sh_config_int_unit():
 ##### ##### ##### ##### REGISTER ## ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
-@app.route('/register', methods=['GET', 'POST']) #register users?
-def page_register_user():
-    form = Form_Register(request.form)
+@app.route('/register', methods=['GET', 'POST'])
+def page_register():
+    form = Form_Register()
     if form.validate_on_submit():
         
-        new_user = Tab_Register(
-            email = form.email.data,
+        user = Tab_Register(
+            username = form.username.data,
             password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
         )
-        db.session.add(new_user)
+        db.session.add(user)
         db.session.commit()
         flash('Thanks for registering')
-        return redirect(url_for('page_home'))
+        return redirect(url_for('page_register'))
+    
     if form.errors != {}:
         for err in form.errors.values():
             flash(f' Erro ao cadastrar usuario {err}', category='danger')
+    
     return render_template('page_register_user.html', form=form, table=Tab_Register())
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
