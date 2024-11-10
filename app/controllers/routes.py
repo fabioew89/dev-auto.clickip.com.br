@@ -14,38 +14,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def page_home():
     return render_template('home.html')
 
-# @app.route('/', methods=['GET', 'POST'])
-# def page_home():
-#     if request.method == 'POST':
-#         host = request.form.get('host')
-#         username = request.form.get('username')
-#         password = request.form.get('password')
-#         output = netmiko.sh_int_terse(host, username, password)
-#         return render_template('home.html', output=output)
-#     return render_template('home.html')
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### ## HOME ### ##### ##### ##### ##### 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-# @app.route('/')
-# def page_home():
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### # NETMIKO # ##### ##### ##### ##### 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-@app.route('/unit', methods=['GET', 'POST'])
-def sh_config_int_unit():
-    if request.method == 'POST':
-        host = request.form.get('fhost')
-        username = request.form.get('fusername')
-        password = request.form.get('fpassword')
-        unit = request.form.get('funit')
-        output = netmiko.sh_config_int_unit(host, username, password, unit)
-        return render_template('sh_config_int_unit.html', output=output)
-    return render_template('sh_config_int_unit.html')
-
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### REGISTER ## ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
@@ -70,6 +38,41 @@ def page_register():
     
     return render_template('page_register_user.html', form=form, table=Tab_Register())
 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+from werkzeug.security import check_password_hash
+from flask_login import login_user
+
+@app.route('/login', methods=['GET', 'POST'])
+def page_login():
+    form = Form_Login()
+    
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        
+        # Obter o usuário pelo nome de usuário
+        user = db.session.execute(db.select(Tab_Register).filter_by(username=username)).scalar_one_or_none()
+
+        if user and check_password_hash(user.password, password):  # Verifique se a senha corresponde ao hash
+            login_user(user)  # Passa o objeto do usuário, não o nome de usuário
+            flash(f'Sucesso ao logar {username}', category='success')
+            return redirect(url_for('page_home'))
+        else:
+            flash('Email ou senha incorretos', category='danger')
+    
+    if form.errors:
+        for field_name, err_messages in form.errors.items():
+            for err in err_messages:
+                flash(f'Erro no campo {field_name}: {err}', category='danger')
+
+    return render_template('login.html', form=form)
+
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ### REGISTER DEVICE ### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/device', methods=['GET', 'POST'])
@@ -130,37 +133,6 @@ def page_remove_device(id):
 
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-@app.route('/login', methods=['GET', 'POST']) # login users?
-def page_login():
-    form = Form_Login()
-    
-    if form.validate_on_submit():  # Valida os dados do formulário
-        email = form.email_login.data
-        password = form.password_login.data
-        
-        # Tenta encontrar o usuário no banco de dados
-        loged_user = Tab_Register.query.filter_by(email=email).first()
-
-        # Verifica a senha usando check_password_hash
-        if loged_user and check_password_hash(loged_user.password, password):
-            login_user(loged_user)
-            flash(f'Sucesso ao logar {loged_user.email}', category='success')
-            return redirect(url_for('page_home'))
-        else:
-            flash('Email ou senha incorretos', category='danger')
-    
-    # Exibe erros de validação, se houver
-    if form.errors:
-        for field_name, err_messages in form.errors.items():
-            for err in err_messages:
-                flash(f'Erro no campo {field_name}: {err}', category='danger')
-
-    return render_template('login.html', form=form)
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## LOGOUT # ##### ##### ##### ##### 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
@@ -169,6 +141,38 @@ def page_logout():
     logout_user()
     flash(f'Deslogado!!!', category='info')
     return redirect(url_for('page_home'))
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### # NETMIKO # ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+@app.route('/unit', methods=['GET', 'POST'])
+def sh_config_int_unit():
+    if request.method == 'POST':
+        host = request.form.get('fhost')
+        username = request.form.get('fusername')
+        password = request.form.get('fpassword')
+        unit = request.form.get('funit')
+        output = netmiko.sh_config_int_unit(host, username, password, unit)
+        return render_template('sh_config_int_unit.html', output=output)
+    return render_template('sh_config_int_unit.html')
+
+# @app.route('/', methods=['GET', 'POST'])
+# def page_home():
+#     if request.method == 'POST':
+#         host = request.form.get('host')
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+#         output = netmiko.sh_int_terse(host, username, password)
+#         return render_template('home.html', output=output)
+#     return render_template('home.html')
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### ## HOME ### ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+
+# @app.route('/')
+# def page_home():
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ### END ### ##### ##### ##### ##### 

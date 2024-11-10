@@ -17,9 +17,11 @@ class Form_Register(FlaskForm):
     submit           = SubmitField('Cadastrar')
         
 class Form_Login(FlaskForm):
-    email_login         = EmailField(validators=    [DataRequired()])
-    password_login      = PasswordField(validators= [DataRequired()])
-    submit_login        = SubmitField('Entrar')
+    username         = StringField(validators=[DataRequired()])
+    password         = PasswordField(validators=[DataRequired()])
+    submit           = SubmitField('Entrar')
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### #####     
     
 class Form_Cad_User(FlaskForm):
     username            = StringField(validators=   [DataRequired(), Length(min=3, max=20)])
