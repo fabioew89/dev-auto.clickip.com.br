@@ -35,6 +35,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Username</th>
+            <th scope="col">Ação</th>
         </tr>
     </thead>
     <tbody>
@@ -43,8 +44,8 @@
             <td> {{ tab.id}} </td>
             <td> {{ tab.username}} </td>
             <td>
-                <!-- <a href="{{tab.id}}/edit_device" class="btn btn-sm btn-primary px-3">Editar</a>
-                <a href="{{tab.id}}/remove_device" class="btn btn-sm btn-danger px-3">Excluir</a> -->
+                <a href="{{tab.id}}/edit_user" class="btn btn-sm btn-primary px-3">Editar</a>
+                <a href="{{tab.id}}/remove_user" class="btn btn-sm btn-danger px-3">Excluir</a>
             </td>
         </tr>
         {% endfor %}

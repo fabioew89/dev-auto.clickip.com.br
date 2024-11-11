@@ -41,11 +41,46 @@ def page_register():
     return render_template('page_register_user.html', form=form, table=table)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 
+
+@app.route('/<int:id>/edit_user', methods=['GET', 'POST'])
+def page_edit_user(id):
+    user = db.session.execute(db.select(Table_Register).filter_by(id=id)).scalar_one_or_none()
+    form = Form_Register(obj=user)
+    
+    if user is None:
+        flash(f'Usuário com ID {id} não encontrado.', category='danger')
+        return redirect(url_for('page_home'))
+    
+    if form.validate_on_submit():
+        # Adicionando print para verificar o valor
+        print("Username recebido do form:", form.username.data)
+        user.username = form.username.data
+        user.password = form.password.data
+        user.password_confirm = form.password.data
+        db.session.commit()
+        flash('Usuário atualizado com sucesso!', category='success')
+        return redirect(url_for('page_register'))
+    
+    return render_template('page_edit_user.html', user=user, form=form)
+
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
-from werkzeug.security import check_password_hash
-from flask_login import login_user
+@app.route('/<int:id>/remove_user')
+def remove_user(id):
+    device = db.session.execute(db.select(Table_Register).filter_by(id=id)).scalar_one_or_none()
+    
+    if device:
+        db.session.delete(device)
+        db.session.commit()
+        flash('User excluído com sucesso.', category='success')
+    else:
+        flash('Device não encontrado.', category='danger')
+
+    return redirect(url_for('page_register'))
+
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
+##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 
+##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/login', methods=['GET', 'POST'])
 def page_login():
@@ -55,11 +90,10 @@ def page_login():
         username = form.username.data
         password = form.password.data
         
-        # Obter o usuário pelo nome de usuário
         user = db.session.execute(db.select(Table_Register).filter_by(username=username)).scalar_one_or_none()
 
-        if user and check_password_hash(user.password, password):  # Verifique se a senha corresponde ao hash
-            login_user(user)  # Passa o objeto do usuário, não o nome de usuário
+        if user and check_password_hash(user.password, password):
+            login_user(user)
             flash(f'Sucesso ao logar {username}', category='success')
             return redirect(url_for('page_home'))
         else:
@@ -71,7 +105,6 @@ def page_login():
                 flash(f'Erro no campo {field_name}: {err}', category='danger')
 
     return render_template('login.html', form=form)
-
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ### REGISTER DEVICE ### ##### ##### ##### 
@@ -121,7 +154,7 @@ def page_edit_device(id):
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @app.route('/<int:id>/remove_device')
-def page_remove_device(id):
+def remove_device(id):
     device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
     
     if device:
@@ -132,7 +165,6 @@ def page_remove_device(id):
         flash('Device não encontrado.', category='danger')
 
     return redirect(url_for('page_register_device'))
-
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## LOGOUT # ##### ##### ##### ##### 

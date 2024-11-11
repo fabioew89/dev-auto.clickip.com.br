@@ -24,12 +24,4 @@ class Form_Devices(FlaskForm):
     hostname            = StringField(validators=   [DataRequired(), Length(min=3, max=10)])
     ip_address          = StringField(validators=   [DataRequired(), IPAddress()])
     submit              = SubmitField('Cadastrar')
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### #####     
-    
-# class Form_Cad_User(FlaskForm):
-#     username            = StringField(      validators= [DataRequired(), Length(min=3, max=20)])
-#     user_pass           = PasswordField(    validators= [DataRequired(), Length(min=6)])
-#     user_pass_confirm   = PasswordField(DataRequired(), EqualTo('password', message='Password must match'))
-#     submit_login        = SubmitField('Entrar')
     

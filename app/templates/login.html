@@ -6,16 +6,14 @@
 </p>
 
 <hr>
-
 <form method="POST" action="{{ url_for('page_login') }}">
     {{ form.hidden_tag() }}
 
-        {{ form.username(class_="form-control", placeholder='Email') }}
-        <small class="form-text text-muted">E-mail corporativo</small>
-        
+    {{ form.username(class_="form-control mb-3", placeholder='user.name') }}
+    <!-- <small class="form-text text-muted">Username</small> -->
 
-        {{ form.password(class_="form-control", placeholder='Senha') }}
-        <small class="form-text text-muted">Informe sua senha</small>
+    {{ form.password(class_="form-control", placeholder='passowrd') }}
+    <!-- <small class="form-text text-muted">Informe sua senha</small> -->
 
 
     <div class="d-flex justify-content-between" style="margin-top: 1rem;">
@@ -23,6 +21,4 @@
         <a class="btn btn-secondary" href="{{url_for('page_register')}}">Register</a>
     </div>
 </form>
-
-
 {% endblock %}
