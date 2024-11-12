@@ -41,7 +41,7 @@ def page_edit_user(id):
     
     if user is None:
         flash(f'Usuário com ID {id} não encontrado.', category='danger')
-        return redirect(url_for('home.page_home'))
+        return redirect(url_for('page_home'))
     
     if form.validate_on_submit():
         # Adicionando print para verificar o valor
