@@ -1,9 +1,12 @@
 from flask import Flask
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
-from flask_login import LoginManager
+from app.controllers.blueprints.user_routes import user_bp
 
 app = Flask(__name__)
+
+app.register_blueprint(user_bp)
 
 class Base(DeclarativeBase):
     pass

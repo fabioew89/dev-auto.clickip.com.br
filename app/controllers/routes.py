@@ -6,77 +6,9 @@ from app.controllers.forms import *
 from app.controllers import netmiko
 from werkzeug.security import generate_password_hash, check_password_hash
 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### ## INDEX ## ##### ##### ##### ##### 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
 @app.route('/')
 def page_home():
     return render_template('home.html')
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-##### ##### ##### ##### REGISTER ## ##### ##### ##### ##### 
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-@app.route('/register', methods=['GET', 'POST'])
-def page_register():
-    form = Form_Register()
-    table = db.session.execute(db.select(Table_Register)).scalars().all()
-    
-    if form.validate_on_submit():
-        
-        user = Table_Register(
-            username = form.username.data,
-            password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-        )
-        db.session.add(user)
-        db.session.commit()
-        flash('Thanks for registering', category='success')
-        return redirect(url_for('page_register'))
-    
-    if form.errors != {}:
-        for err in form.errors.values():
-            flash(f' Erro ao cadastrar usuario {err}', category='danger')
-    
-    return render_template('page_register_user.html', form=form, table=table)
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-@app.route('/<int:id>/edit_user', methods=['GET', 'POST'])
-def page_edit_user(id):
-    user = db.session.execute(db.select(Table_Register).filter_by(id=id)).scalar_one_or_none()
-    form = Form_Register(obj=user)
-    
-    if user is None:
-        flash(f'Usuário com ID {id} não encontrado.', category='danger')
-        return redirect(url_for('page_home'))
-    
-    if form.validate_on_submit():
-        # Adicionando print para verificar o valor
-        print("Username recebido do form:", form.username.data)
-        user.username = form.username.data
-        user.password = form.password.data
-        user.password_confirm = form.password.data
-        db.session.commit()
-        flash('Usuário atualizado com sucesso!', category='success')
-        return redirect(url_for('page_register'))
-    
-    return render_template('page_edit_user.html', user=user, form=form)
-
-##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
-
-@app.route('/<int:id>/remove_user')
-def remove_user(id):
-    device = db.session.execute(db.select(Table_Register).filter_by(id=id)).scalar_one_or_none()
-    
-    if device:
-        db.session.delete(device)
-        db.session.commit()
-        flash('User excluído com sucesso.', category='success')
-    else:
-        flash('Device não encontrado.', category='danger')
-
-    return redirect(url_for('page_register'))
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 ##### ##### ##### ##### ## LOGIN ## ##### ##### ##### ##### 

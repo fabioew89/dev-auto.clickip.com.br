@@ -7,7 +7,7 @@
 
 <hr>
 
-<form method="POST" action="{{ url_for('page_edit_user', id=user.id) }}">
+<form method="POST" action="{{ url_for('user.page_edit_user', id=user.id) }}">
     {{ form.hidden_tag() }}
     <label for="username" hidden></label>
     {{ form.username(class='form-control') }}
@@ -23,6 +23,3 @@
 </form>
 
 {% endblock %}
-
-
-place
