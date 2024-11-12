@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, redirect, url_for, render_template, request
 
-device_bp = Blueprint('device',__name__,url_prefix='/device')
+device_bp = Blueprint('device',__name__)
 
 @device_bp.route('/register', methods=['GET', 'POST'])
 def page_register_device():
