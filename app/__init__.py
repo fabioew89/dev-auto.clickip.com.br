@@ -3,10 +3,12 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from app.controllers.blueprints.user_routes import user_bp
+from app.controllers.blueprints.device_routes import device_bp
 
 app = Flask(__name__)
 
-app.register_blueprint(user_bp)
+app.register_blueprint(user_bp, url_prefix='/user')
+app.register_blueprint(device_bp, url_prefix='/device')
 
 class Base(DeclarativeBase):
     pass

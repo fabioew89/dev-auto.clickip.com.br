@@ -1,15 +1,15 @@
 from flask import Blueprint, flash, redirect, url_for, render_template
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
-user_bp = Blueprint('user',__name__,url_prefix='/user')
+user_bp = Blueprint('user',__name__)
 
 ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### 
 
 @user_bp.route('/register', methods=['GET', 'POST'])
 def page_register():
     from app import db
-    from app.controllers.forms import Form_Register, Form_Devices, Form_Login
-    from app.models.model import Table_Register, Table_Devices
+    from app.controllers.forms import Form_Register
+    from app.models.model import Table_Register
 
     form = Form_Register()
     table = db.session.execute(db.select(Table_Register)).scalars().all()
@@ -33,8 +33,8 @@ def page_register():
 @user_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 def page_edit_user(id):
     from app import db
-    from app.controllers.forms import Form_Register, Form_Devices, Form_Login
-    from app.models.model import Table_Register, Table_Devices
+    from app.controllers.forms import Form_Register
+    from app.models.model import Table_Register
         
     user = db.session.execute(db.select(Table_Register).filter_by(id=id)).scalar_one_or_none()
     form = Form_Register(obj=user)
@@ -44,8 +44,6 @@ def page_edit_user(id):
         return redirect(url_for('page_home'))
     
     if form.validate_on_submit():
-        # Adicionando print para verificar o valor
-        print("Username recebido do form:", form.username.data)
         user.username = form.username.data
         user.password = form.password.data
         user.password_confirm = form.password.data
@@ -60,8 +58,7 @@ def page_edit_user(id):
 @user_bp.route('/<int:id>/remove')
 def remove_user(id):
     from app import db
-    from app.controllers.forms import Form_Register, Form_Devices, Form_Login
-    from app.models.model import Table_Register, Table_Devices
+    from app.models.model import Table_Register
           
     device = db.session.execute(db.select(Table_Register).filter_by(id=id)).scalar_one_or_none()
     

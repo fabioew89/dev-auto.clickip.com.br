@@ -41,11 +41,11 @@
     <tbody>
         {% for tab in table %}
         <tr>
-            <td> {{ tab.id}} </td>
-            <td> {{ tab.username}} </td>
+            <td> {{ tab.id }} </td>
+            <td> {{ tab.username }} </td>
             <td>
-                <a href="{{tab.id}}/edit_user" class="btn btn-sm btn-primary px-3">Editar</a>
-                <a href="{{tab.id}}/remove_user" class="btn btn-sm btn-danger px-3">Excluir</a>
+                <a href="{{ tab.id }}/edit" class="btn btn-sm btn-primary px-3">Editar</a>
+                <a href="{{ tab.id }}/remove" class="btn btn-sm btn-danger px-3">Excluir</a>
             </td>
         </tr>
         {% endfor %}

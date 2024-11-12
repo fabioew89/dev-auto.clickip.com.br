@@ -7,7 +7,7 @@
 
 <hr>
 
-<form action="{{url_for('page_register_device')}}" method="POST">
+<form action="{{url_for('device.page_register_device')}}" method="POST">
     {{ form.hidden_tag() }}
 
     <label for="hostname" hidden></label>
@@ -35,12 +35,12 @@
     <tbody>
         {% for tab in table %}
         <tr>
-            <td> {{ tab.id}} </td>
-            <td> {{ tab.hostname}} </td>
-            <td> {{ tab.ip_address}} </td>
+            <td> {{ tab.id }} </td>
+            <td> {{ tab.hostname }} </td>
+            <td> {{ tab.ip_address }} </td>
             <td>
-                <a href="{{tab.id}}/edit_device" class="btn btn-sm btn-primary px-3">Editar</a>
-                <a href="{{tab.id}}/remove_device" class="btn btn-sm btn-danger px-3">Excluir</a>
+                <a href="{{ tab.id }}/edit" class="btn btn-sm btn-primary px-3">Editar</a>
+                <a href="{{ tab.id }}/remove" class="btn btn-sm btn-danger px-3">Excluir</a>
             </td>
         </tr>
         {% endfor %}
