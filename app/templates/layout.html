@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-  <!-- Meta tags Obrigatórias -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <!-- non necessary yet -->
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
-  <title>{% block title %}Automation python{% endblock %}</title>
+    <!-- non necessary yet -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
+    <title>{% block title %}Automation python{% endblock %}</title>
 </head>
 
 <body class="container" style="background-color: cadetblue;">
@@ -22,9 +22,10 @@
         <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Unit</a>
       </ul>
     </nav>
-
+    
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
+      <span class="mr-3 text-uppercase text-monospace">&lceil; {{ current_user.username }} &rfloor;</span>
       <div class="dropdown">
         <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">Cadastrar</a>
