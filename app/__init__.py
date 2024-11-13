@@ -9,15 +9,13 @@ app = Flask(__name__)
 
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(device_bp, url_prefix='/device')
-
-class Base(DeclarativeBase):
-    pass
-
-db = SQLAlchemy(model_class=Base)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///application.db'
 app.config['SECRET_KEY'] = 'f6b42562bc1f3ee92dbad7c9'
 
+
+class Base(DeclarativeBase):
+    pass
+db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
 login_manager = LoginManager()
