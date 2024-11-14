@@ -1,36 +1,31 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1 class="display-4">{% block title %}Unit{% endblock %}</h1>
+<h1 class="display-4">{% block title %}Get Summary{% endblock %}</h1>
 <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.
 </p>
 
 <hr>
 
-<form method="POST" action="{{url_for('network.sh_config_int_unit')}}" autocomplete="off">
+<form method="POST" action="{{ url_for('network.get_interface_summary') }}" autocomplete="off">
     <div class="form-row">
         <!-- Routers -->
         <div class="form-group col">
-            <label for="fhost" hidden>Selecione um Router</label>
-            <select name="fhost" id="fhost" class="form-control">
+            <label for="hostname" hidden>Selecione um Router</label>
+            <select name="hostname" id="hostname" class="form-control">
                 <option value="143.137.92.254">vroute</option>
                 <option value="170.84.29.254">bgp</option>
             </select>
         </div>
 
-        <!-- Unit/Vlan -->
-        <div class="form-group col">
-            <label for="funit" hidden>Informe a interface do cliente.</label>
-            <input type="number" class="form-control" name="funit" id="funit" placeholder="unit vlan" required>
-        </div>
     </div>
 
     <div class="form-row">
         <!-- Usuários -->
         <div class="form-group col">
-            <label for="fusername" hidden>Selecione o usuário.</label>
-            <select name="fusername" id="fusername" class="form-control">
-                <label for="fusername">Selecione um usuário</label>
+            <label for="username" hidden>Selecione o usuário.</label>
+            <select name="username" id="username" class="form-control">
+                <label for="username">Selecione um usuário</label>
                 <option value="fabio.ewerton">fabio.ewerton</option>
                 <option value="glicia.santos">glicia.santos</option>
                 <option value="leo.duarte">leo.duarte</option>
@@ -40,8 +35,8 @@
 
         <!-- Passwords -->
         <div class="form-group col">
-            <label for="fpassword" hidden>Senha</label>
-            <input type="password" class="form-control" name="fpassword" id="fpassword" placeholder="Senha" required>
+            <label for="password" hidden>Senha</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
         </div>
     </div>
 

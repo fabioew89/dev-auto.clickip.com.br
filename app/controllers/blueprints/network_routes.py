@@ -1,26 +1,31 @@
-from flask import Blueprint, request, render_template
+from app import db
+from app.models.model import Table_Register
 from app.controllers.netmiko import netmiko
+from flask import Blueprint, request, render_template
 
 network_bp = Blueprint('network',__name__)
 
+# username = db.session.execute(db.select(Table_Register).filter_by(username=username)).scalar_one_or_none()
 
-@network_bp.route('/unit', methods=['GET', 'POST'])
-def sh_config_int_unit():
+# Mostra a configuração de uma interface do Juniper - get_interface_configuration
+@network_bp.route('/get_interface_configuration', methods=['GET','POST'])
+def get_interface_configuration():
     if request.method == 'POST':
-        host = request.form.get('fhost')
-        username = request.form.get('fusername')
-        password = request.form.get('fpassword')
-        unit = request.form.get('funit')
-        output = netmiko.sh_config_int_unit(host, username, password, unit)
-        return render_template('router/sh_config_int_unit.html', output=output)
-    return render_template('router/sh_config_int_unit.html')
+        host = request.form.get('hostname')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        unit = request.form.get('unit')
+        output = netmiko.get_interface_summary(host, username, password, unit)
+        return render_template('router/get_interface_configuration.html', output=output)
+    return render_template('router/get_interface_configuration.html')
 
-# @app.route('/', methods=['GET', 'POST'])
-# def page_home():
-#     if request.method == 'POST':
-#         host = request.form.get('host')
-#         username = request.form.get('username')
-#         password = request.form.get('password')
-#         output = netmiko.sh_int_terse(host, username, password)
-#         return render_template('home.html', output=output)
-#     return render_template('home.html')
+@network_bp.route('/get_interface_summary', methods=['GET','POST'])
+def get_interface_summary():
+    if request.method == 'POST':
+        hostname = request.form.get('hostname')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        output = netmiko.get_interface_summary(hostname, username, password)
+        return render_template('router/get_interface_summary.html', output=output)
+    return render_template('router/get_interface_summary.html')

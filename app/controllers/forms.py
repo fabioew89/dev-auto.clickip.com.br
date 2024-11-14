@@ -10,18 +10,18 @@ class Form_Register(FlaskForm):
         if username:
             raise ValidationError('Usuário já cadastrado')
 
-    username         = StringField('Username',          validators=[DataRequired(), Length(min=3, max=25)])
-    password         = PasswordField('Password',        validators=[DataRequired(), Length(min=6)])
+    username         = StringField('Username', validators=[DataRequired(), Length(min=3, max=25)])
+    password         = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
     password_confirm = PasswordField('Confirm Password',validators=[DataRequired(), EqualTo('password', message='As senhas devem coincidir')])
     submit           = SubmitField('Cadastrar')
 
 class Form_Login(FlaskForm):
-    username         = StringField(     validators=[DataRequired()])
+    username         = StringField(validators=[DataRequired()])
     password         = PasswordField(   validators=[DataRequired()])
     submit           = SubmitField('Entrar')
 
 class Form_Devices(FlaskForm):
-    hostname            = StringField(validators=   [DataRequired(), Length(min=3, max=10)])
-    ip_address          = StringField(validators=   [DataRequired(), IPAddress()])
+    hostname            = StringField(validators=[DataRequired(), Length(min=3, max=10)])
+    ip_address          = StringField(validators=[DataRequired(), IPAddress()])
     submit              = SubmitField('Cadastrar')
     
