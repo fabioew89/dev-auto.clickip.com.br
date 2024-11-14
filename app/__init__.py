@@ -25,9 +25,13 @@ login_manager.login_message_category = 'info'
 # Registrando blueprints - **importando os blueprints depois da configuração do app**
 from app.controllers.blueprints.user_routes import user_bp
 from app.controllers.blueprints.device_routes import device_bp
+from app.controllers.blueprints.network_routes import network_bp
+from app.controllers.blueprints.auth_routes import auth_bp
 
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(device_bp, url_prefix='/device')
+app.register_blueprint(network_bp, url_prefix='/network')
+app.register_blueprint(auth_bp, url_prefix='/auth')
 
 # Importando rotas adicionais se necessário
 from app.controllers import routes
