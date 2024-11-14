@@ -20,14 +20,14 @@
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
         <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
-        <!-- <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Router</a> -->
+        <!-- <a class="breadcrumb-item" href="{{url_for('network.sh_config_int_unit')}}">Router</a> -->
 
         <div class="dropdown dropright">
           <a href="#" class="dropdown-toggle ml-3" type="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">REAL</a>
           <div class="dropdown-menu">
             <a href="#" class="dropdown-item">show int ae0 - lo0</a>
-            <a href="{{ url_for('sh_config_int_unit') }}" class="dropdown-item">show int ae0 unit</a>
+            <a href="{{ url_for('network.sh_config_int_unit') }}" class="dropdown-item">show int ae0 unit</a>
           </div>
         </div>
       </ul>
@@ -35,7 +35,7 @@
 
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
-      <span class="mr-3 text-uppercase text-monospace">&lceil; {{ current_user.username }} &rfloor;</span>
+      <span class="mr-3 text-uppercase text-monospace">&lceil; logged as {{ current_user.username }} &rfloor;</span>
 
       <div class="dropdown">
         <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -46,9 +46,9 @@
         </div>
       </div>
 
-      <a class="breadcrumb-item" href="{{url_for('page_logout')}}">Logout</a>
+      <a class="breadcrumb-item" href="{{url_for('auth.page_logout')}}">Logout</a>
       {% else %}
-      <a class="breadcrumb-item" href="{{url_for('page_login')}}">Login</a>
+      <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
       {% endif %}
     </nav>
   </div>

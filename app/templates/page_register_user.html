@@ -23,8 +23,8 @@
     <br>
 
     <div class="d-flex justify-content-between">
-        {{ form.submit(class='btn btn-sm btn-primary') }}
-        <a class="btn btn-sm btn-secondary" href="{{url_for('page_login')}}">Login</a>
+        {{ form.submit(class='btn btn-primary') }}
+        <a class="btn btn-secondary" href="{{url_for('auth.page_login')}}">Login</a>
     </div>
 </form>
 <br>
@@ -44,8 +44,8 @@
             <td> {{ tab.id }} </td>
             <td> {{ tab.username }} </td>
             <td>
-                <a href="{{ tab.id }}/edit" class="btn btn-sm btn-primary px-3">Editar</a>
-                <a href="{{ tab.id }}/remove" class="btn btn-sm btn-danger px-3">Excluir</a>
+                <a href="{{ tab.id }}/edit" class="btn btn-primary px-3">Editar</a>
+                <a href="{{ tab.id }}/remove" class="btn btn-danger px-3">Excluir</a>
             </td>
         </tr>
         {% endfor %}

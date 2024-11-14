@@ -6,15 +6,12 @@
 </p>
 
 <hr>
-<form method="POST" action="{{ url_for('page_login') }}">
+<form method="POST" action="{{ url_for('auth.page_login') }}">
     {{ form.hidden_tag() }}
 
     {{ form.username(class_="form-control mb-3", placeholder='user.name') }}
-    <!-- <small class="form-text text-muted">Username</small> -->
 
     {{ form.password(class_="form-control", placeholder='passowrd') }}
-    <!-- <small class="form-text text-muted">Informe sua senha</small> -->
-
 
     <div class="d-flex justify-content-between" style="margin-top: 1rem;">
         {{ form.submit(class='btn btn-primary') }}
