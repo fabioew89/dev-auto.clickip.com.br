@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  
-  <head>
-    <!-- Meta tags Obrigatórias -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+
+<head>
+  <!-- Meta tags Obrigatórias -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- non necessary yet -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
-    <title>{% block title %}Automation python{% endblock %}</title>
+  <!-- non necessary yet -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
+  <title>{% block title %}Automation python{% endblock %}</title>
 </head>
 
 <body class="container" style="background-color: cadetblue;">
   <!-- breadcrumb -->
   <div class="d-flex justify-content-between">
+
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
         <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
-        <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Unit</a>
+        <!-- <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Router</a> -->
+
+        <div class="dropdown dropright">
+          <a href="#" class="dropdown-toggle ml-3" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">REAL</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">show int ae0 - lo0</a>
+            <a href="{{ url_for('sh_config_int_unit') }}" class="dropdown-item">show int ae0 unit</a>
+          </div>
+        </div>
       </ul>
     </nav>
-    
+
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
       <span class="mr-3 text-uppercase text-monospace">&lceil; {{ current_user.username }} &rfloor;</span>
+
       <div class="dropdown">
         <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">Cadastrar</a>
@@ -34,12 +45,12 @@
           <a href="{{url_for('device.page_register_device')}}" class="dropdown-item">Device</a>
         </div>
       </div>
+
       <a class="breadcrumb-item" href="{{url_for('page_logout')}}">Logout</a>
       {% else %}
       <a class="breadcrumb-item" href="{{url_for('page_login')}}">Login</a>
       {% endif %}
     </nav>
-
   </div>
 
   <!-- jumbotron -->
@@ -48,7 +59,7 @@
     {% with messages = get_flashed_messages(with_categories=True) %}
     {% for category, message in messages %}
     <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-      <p style="margin: auto;">{{ message }}</p>
+      <p class="m-auto">{{ message }}</p>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
     </div>
     {% endfor %}
