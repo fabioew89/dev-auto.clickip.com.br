@@ -11,11 +11,11 @@ network_bp = Blueprint('network',__name__)
 @network_bp.route('/get_interface_configuration', methods=['GET','POST'])
 def get_interface_configuration():
     if request.method == 'POST':
-        host = request.form.get('hostname')
+        hostname = request.form.get('hostname')
         username = request.form.get('username')
         password = request.form.get('password')
         unit = request.form.get('unit')
-        output = netmiko.get_interface_summary(host, username, password, unit)
+        output = netmiko.get_interface_summary(hostname, username, password, unit)
         return render_template('router/get_interface_configuration.html', output=output)
     return render_template('router/get_interface_configuration.html')
 
