@@ -15,6 +15,9 @@
             <select name="hostname" id="hostname" class="form-control">
                 <option value="143.137.92.254">vroute</option>
                 <option value="170.84.29.254">bgp</option>
+                {% for device in devices %}
+                <option value="{{device.ip_address}}">{{device.hostname}}</option>
+                {% endfor %}
             </select>
         </div>
 
@@ -30,6 +33,9 @@
                 <option value="glicia.santos">glicia.santos</option>
                 <option value="leo.duarte">leo.duarte</option>
                 <option value="roger.ochiai">roger.ochiai</option>
+                {% for user in users %}
+                <option value="{{user.username}}">{{user.username}}</option>
+                {% endfor %}
             </select>
         </div>
 
