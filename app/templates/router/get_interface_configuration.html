@@ -11,37 +11,32 @@
     <div class="form-row">
         <!-- Routers -->
         <div class="form-group col">
-            <label for="fhost" hidden>Selecione um Router</label>
-            <select name="fhost" id="fhost" class="form-control">
-                <option value="143.137.92.254">vroute</option>
-                <option value="170.84.29.254">bgp</option>
+            <select name="hostname" id="hostname" class="form-control">
+                {% for device in devices %}
+                <option value="{{device.ip_address}}">{{device.hostname}}</option>
+                {% endfor %}
             </select>
         </div>
 
         <!-- Unit/Vlan -->
         <div class="form-group col">
-            <label for="funit" hidden>Informe a interface do cliente.</label>
-            <input type="number" class="form-control" name="funit" id="funit" placeholder="unit vlan" required>
+            <input type="number" class="form-control" name="unit" id="unit" placeholder="Unit Vlan" required>
         </div>
     </div>
 
     <div class="form-row">
         <!-- Usuários -->
         <div class="form-group col">
-            <label for="fusername" hidden>Selecione o usuário.</label>
-            <select name="fusername" id="fusername" class="form-control">
-                <label for="fusername">Selecione um usuário</label>
-                <option value="fabio.ewerton">fabio.ewerton</option>
-                <option value="glicia.santos">glicia.santos</option>
-                <option value="leo.duarte">leo.duarte</option>
-                <option value="roger.ochiai">roger.ochiai</option>
+            <select name="username" id="username" class="form-control">
+                {% for user in users %}
+                <option value="{{user.username}}">{{user.username}}</option>
+                {% endfor %}
             </select>
         </div>
 
         <!-- Passwords -->
         <div class="form-group col">
-            <label for="fpassword" hidden>Senha</label>
-            <input type="password" class="form-control" name="fpassword" id="fpassword" placeholder="Senha" required>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
         </div>
     </div>
 
