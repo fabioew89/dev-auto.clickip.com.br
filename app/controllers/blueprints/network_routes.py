@@ -38,7 +38,7 @@ def get_interface_configuration():
         username = request.form.get('username')
         password = request.form.get('password')
         unit = request.form.get('unit')
-        output = netmiko.get_interface_summary(hostname, username, password, unit)
+        output = netmiko.get_interface_configuration(hostname, username, password, unit)
     return render_template('router/get_interface_configuration.html', 
                                output=output, 
                                users=users, 
