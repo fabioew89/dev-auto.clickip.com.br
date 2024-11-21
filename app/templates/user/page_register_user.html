@@ -26,7 +26,7 @@
 </form>
 <br>
 
-<table class="table table-sm table-striped">
+<table class="table table-striped">
     <caption>Usuario Cadastrados</caption>
     <thead>
         <tr>
@@ -41,8 +41,13 @@
             <td> {{ tab.id }} </td>
             <td> {{ tab.username }} </td>
             <td>
+<<<<<<< HEAD:app/templates/user/page_register_user.html
                 <a href="{{tab.id}}/edit_user" class="btn btn-primary px-3">Editar</a>
                 <a href="{{tab.id}}/remove_user" class="btn btn-danger px-3">Excluir</a>
+=======
+                <a href="{{ tab.id }}/edit" class="btn btn-primary px-3">Editar</a>
+                <a href="{{ tab.id }}/remove" class="btn btn-danger px-3">Excluir</a>
+>>>>>>> 2c0d98195d753f1a79cc745413b572c5c299943d:app/templates/page_register_user.html
             </td>
         </tr>
         {% endfor %}
