@@ -7,27 +7,48 @@
 
 <hr>
 
-<form action="{{url_for('page_register_user')}}" method="POST">
+<form action="{{url_for('page_register')}}" method="POST">
     {{ form.hidden_tag() }}
 
-    <label for="email" hidden></label>
-    {{ form.email(class='form-control', placeholder='E-mail')}}
-    <small class="form-text text-muted">E-mail corporativo</small>
+    <label for="username" hidden></label>
+    {{ form.username(class='form-control', placeholder='user.name')}}
     <br>
 
     <label for="password" hidden></label>
     {{ form.password(class='form-control', placeholder='Password') }}
-    <small class="form-text text-muted">Informe sua senha</small>
     <br>
 
     <label for="password_confirm" hidden></label>
     {{ form.password_confirm(class='form-control', placeholder='Confirme Senha') }}
-    <small class="form-text text-muted">Confirme Senha</small>
     <br>
 
     <div class="d-flex justify-content-between">
-        {{ form.submit(class='btn btn-primary') }}
-        <a class="btn btn-secondary" href="{{url_for('page_login')}}">Login</a>
+        {{ form.submit(class='btn btn-sm btn-primary') }}
+        <a class="btn btn-sm btn-secondary" href="{{url_for('page_login')}}">Login</a>
     </div>
 </form>
+<br>
+
+<table class="table table-sm table-striped">
+    <caption>Usuario Cadastrados</caption>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tab in table %}
+        <tr>
+            <td> {{ tab.id}} </td>
+            <td> {{ tab.username}} </td>
+            <td>
+                <a href="{{tab.id}}/edit_user" class="btn btn-sm btn-primary px-3">Editar</a>
+                <a href="{{tab.id}}/remove_user" class="btn btn-sm btn-danger px-3">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

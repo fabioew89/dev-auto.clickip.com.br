@@ -1,31 +1,27 @@
+from app import db
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError, IPAddress
-from app.models.model import Tab_Register
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError, IPAddress
+from app.models.model import Table_Register
 
 class Form_Register(FlaskForm):
-    def validate_email(self, check_email):
-        email = Tab_Register.query.filter_by(email=check_email.data).first()
-        if email:
-            raise ValidationError('Email ja cadastrado!!!')        
-        
-    email               = EmailField(validators=    [DataRequired(), Length(min=15, max=35), Email()])
-    password            = PasswordField(validators= [DataRequired(), Length(min=6)])
-    password_confirm    = PasswordField(validators= [DataRequired(), EqualTo('password', message='Password must match')])
-    submit              = SubmitField('Cadastrar')
+    def validate_username(self, field):
+        username = db.session.execute(db.select(Table_Register).filter_by(username=field.data)).scalar_one_or_none()
+        if username:
+            raise ValidationError('Usuário já cadastrado')
+
+    username         = StringField('Username',          validators=[DataRequired(), Length(min=3, max=25)])
+    password         = PasswordField('Password',        validators=[DataRequired(), Length(min=6)])
+    password_confirm = PasswordField('Confirm Password',validators=[DataRequired(), EqualTo('password', message='As senhas devem coincidir')])
+    submit           = SubmitField('Cadastrar')
 
 class Form_Login(FlaskForm):
-    email_login         = EmailField(validators=    [DataRequired()])
-    password_login      = PasswordField(validators= [DataRequired()])
-    submit_login        = SubmitField('Entrar')
-    
-class Form_Cad_User(FlaskForm):
-    username            = StringField(validators=   [DataRequired(), Length(min=3, max=20)])
-    user_pass           = PasswordField(validators= [DataRequired(), Length(min=6)])
-    user_pass_confirm   = PasswordField(DataRequired(), EqualTo('password', message='Password must match'))
-    submit_login        = SubmitField('Entrar')
-    
+    username         = StringField(     validators=[DataRequired()])
+    password         = PasswordField(   validators=[DataRequired()])
+    submit           = SubmitField('Entrar')
+
 class Form_Devices(FlaskForm):
     hostname            = StringField(validators=   [DataRequired(), Length(min=3, max=10)])
     ip_address          = StringField(validators=   [DataRequired(), IPAddress()])
     submit              = SubmitField('Cadastrar')
+    
