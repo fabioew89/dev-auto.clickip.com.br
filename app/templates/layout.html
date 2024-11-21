@@ -19,15 +19,23 @@
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
         <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
-        <a class="breadcrumb-item" href="{{url_for('sh_config_int_unit')}}">Unit</a>
+
+        <!-- Routers -->
+        <div class="dropdown ml-3">
+          <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Routers</a>
+          <div class="dropdown-menu">
+            <a href="{{url_for('network.get_interface_summary')}}" class="dropdown-item">get_interface_summary</a>
+            <a href="{{url_for('network.get_interface_configuration')}}" class="dropdown-item">get_interface_configuration</a>
+          </div>
+        </div>
+
       </ul>
     </nav>
 
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
-      
       <span class="mr-3 text-uppercase text-monospace">&lfloor; {{ current_user.username }} &rceil;</span>
-      
       <div class="dropdown">
         <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">Cadastrar</a>
