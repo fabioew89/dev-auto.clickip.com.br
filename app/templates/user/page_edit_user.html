@@ -7,22 +7,16 @@
 
 <hr>
 
-<form method="POST" action="{{ url_for('page_edit_user', id=user.id) }}">
+<form method="POST" action="{{ url_for('user.page_edit_user', id=user.id) }}">
     {{ form.hidden_tag() }}
-    <label for="username" hidden></label>
     {{ form.username(class='form-control') }}
     <br>
     
-    <label for="username" hidden></label>
     {{ form.password(class='form-control', placeholder='new password') }}
     <br>
     
-    <label for="username" hidden></label>
     {{ form.password_confirm(class='form-control', placeholder='confirm your new password') }}
     <br>{{ form.submit(class='btn btn-primary') }}
 </form>
 
 {% endblock %}
-
-
-place
