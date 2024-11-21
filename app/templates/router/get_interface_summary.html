@@ -9,10 +9,7 @@
 
 <form method="POST" action="{{ url_for('network.get_interface_summary') }}" autocomplete="off">
     <div class="form-row">
-<<<<<<< HEAD
        
-=======
->>>>>>> 2c0d98195d753f1a79cc745413b572c5c299943d
         <!-- Routers -->
         <div class="form-group col">
             <label for="hostname" hidden>Selecione um Router</label>
@@ -20,10 +17,7 @@
                 {% for device in devices %}
                 <option value="{{device.ip_address}}">{{device.hostname}}</option>
                 {% endfor %}
-<<<<<<< HEAD
                 <option value="10.1.1.10">10.1.1.10</option>
-=======
->>>>>>> 2c0d98195d753f1a79cc745413b572c5c299943d
             </select>
         </div>
 

@@ -21,7 +21,6 @@
       <ul class="breadcrumb">
         <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
 
-<<<<<<< HEAD
         <!-- Routers -->
         <div class="dropdown ml-3">
           <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -32,28 +31,12 @@
           </div>
         </div>
 
-=======
-        <div class="dropdown">
-          <a href="#" class="dropdown-toggle ml-3" type="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Router</a>
-          <div class="dropdown-menu">
-            <a href="{{url_for("network.get_interface_summary")}}" class="dropdown-item">get_interface_summary</a>
-            <a href="{{url_for("network.get_interface_configuration")}}"
-              class="dropdown-item">get_interface_configuration</a>
-          </div>
-        </div>
->>>>>>> 2c0d98195d753f1a79cc745413b572c5c299943d
       </ul>
     </nav>
 
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
-<<<<<<< HEAD
       <span class="mr-3 text-uppercase text-monospace">&lfloor; {{ current_user.username }} &rceil;</span>
-=======
-      <span class="mr-3 text-uppercase text-monospace">&lceil; logged as {{ current_user.username }} &rfloor;</span>
-
->>>>>>> 2c0d98195d753f1a79cc745413b572c5c299943d
       <div class="dropdown">
         <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">Cadastrar</a>
@@ -62,10 +45,6 @@
           <a href="{{url_for('device.page_register_device')}}" class="dropdown-item">Device</a>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 2c0d98195d753f1a79cc745413b572c5c299943d
       <a class="breadcrumb-item" href="{{url_for('auth.page_logout')}}">Logout</a>
       {% else %}
       <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
