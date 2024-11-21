@@ -25,6 +25,9 @@
 
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
+      
+      <span class="mr-3 text-uppercase text-monospace">&lfloor; {{ current_user.username }} &rceil;</span>
+      
       <div class="dropdown">
         <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">Cadastrar</a>
