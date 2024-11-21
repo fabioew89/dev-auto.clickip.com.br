@@ -7,7 +7,7 @@
 
 <hr>
 
-<form action="{{ url_for('page_edit_device', id=device.id) }}" method="POST">
+<form action="{{ url_for('device.page_edit_device', id=device.id) }}" method="POST">
     {{ form.hidden_tag() }}
 
     <label for="hostname" hidden></label>
