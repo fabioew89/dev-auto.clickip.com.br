@@ -1,7 +1,6 @@
-from flask import request, render_template, redirect, url_for, flash
-from app import app, db
+from flask import render_template
+from app import app
 from app.models.model import *
-from app.controllers import netmiko
 
 @app.route('/')
 def page_home():
