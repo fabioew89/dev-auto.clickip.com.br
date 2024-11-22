@@ -12,7 +12,7 @@ class Table_Register(db.Model, UserMixin):
     username:   Mapped[str] = mapped_column(unique=True, nullable=False)
     password:   Mapped[str] = mapped_column(unique=True, nullable=False)
     
-    def __repr__(self):
+    def __str__(self):
         return self.id, self.username
 
 class Table_Devices(db.Model):

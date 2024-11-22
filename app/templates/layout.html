@@ -16,6 +16,7 @@
 <body class="container" style="background-color: cadetblue;">
   <!-- breadcrumb -->
   <div class="d-flex justify-content-between">
+
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
         <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
@@ -49,7 +50,6 @@
       <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
       {% endif %}
     </nav>
-
   </div>
 
   <!-- jumbotron -->
@@ -58,7 +58,7 @@
     {% with messages = get_flashed_messages(with_categories=True) %}
     {% for category, message in messages %}
     <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-      <p style="margin: auto;">{{ message }}</p>
+      <p class="m-auto">{{ message }}</p>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
     </div>
     {% endfor %}
