@@ -6,6 +6,7 @@ from app import db
 # Inicializa o Blueprint
 network_bp = Blueprint('network', __name__)
 
+
 # Rota: get_interface_summary
 @network_bp.route('/get_interface_summary', methods=['GET', 'POST'])
 def get_interface_summary():
@@ -27,6 +28,7 @@ def get_interface_summary():
         devices=devices
     )
 
+
 # Rota: get_interface_configuration
 @network_bp.route('/get_interface_configuration', methods=['GET', 'POST'])
 def get_interface_configuration():
@@ -40,11 +42,38 @@ def get_interface_configuration():
         password = request.form.get('password')
         unit = request.form.get('unit')
 
-        output = netmiko.get_interface_configuration(hostname, username, password, unit)
+        output = netmiko.get_interface_configuration(
+            hostname, username, password, unit
+            )
 
     return render_template(
         'router/get_interface_configuration.html',
         output=output,
         users=users,
         devices=devices
+    )
+
+
+# Rota: config_interface_unit
+@network_bp.route('/config_interface_unit', methods=['GET', 'POST'])
+def config_interface_unit():
+    users = db.session.execute(db.select(Table_Register)).scalars().all()
+    devices = db.session.execute(db.select(Table_Devices)).scalars().all()
+
+    output = None
+    if request.method == 'POST':
+        hostname = request.form.get('hostname')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        unit = request.form.get('unit')
+
+        output = netmiko.get_interface_configuration(
+            hostname, username, password, unit
+            )
+
+    return render_template(
+        'router/config_interface_unit.html',
+        output=output,
+        users=users,
+        devices=devices,
     )
