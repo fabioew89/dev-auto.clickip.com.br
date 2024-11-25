@@ -12,7 +12,9 @@ Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
 future==1.0.0
 greenlet==3.1.1
+gunicorn==23.0.0
 idna==3.10
+iniconfig==2.0.0
 itsdangerous==2.2.0
 Jinja2==3.1.4
 livereload==2.7.0
@@ -21,11 +23,14 @@ MarkupSafe==2.1.5
 mdurl==0.1.2
 netmiko==4.4.0
 ntc_templates==7.1.0
+packaging==24.2
 paramiko==3.5.0
+pluggy==1.5.0
 pycparser==2.22
 Pygments==2.18.0
 PyNaCl==1.5.0
 pyserial==3.5
+pytest==8.3.3
 PyYAML==6.0.2
 rich==13.9.2
 scp==0.15.0
