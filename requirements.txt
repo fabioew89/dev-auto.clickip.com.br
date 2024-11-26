@@ -5,6 +5,7 @@ click==8.1.7
 cryptography==43.0.1
 dnspython==2.7.0
 email_validator==2.2.0
+flake8==7.1.1
 Flask==3.0.3
 Flask-Bcrypt==1.0.1
 Flask-Login==0.6.3
@@ -20,13 +21,16 @@ Jinja2==3.1.4
 livereload==2.7.0
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
+mccabe==0.7.0
 mdurl==0.1.2
 netmiko==4.4.0
 ntc_templates==7.1.0
 packaging==24.2
 paramiko==3.5.0
 pluggy==1.5.0
+pycodestyle==2.12.1
 pycparser==2.22
+pyflakes==3.2.0
 Pygments==2.18.0
 PyNaCl==1.5.0
 pyserial==3.5
