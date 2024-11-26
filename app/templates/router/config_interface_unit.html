@@ -1,50 +1,147 @@
-{% extends "layout.html" %}
-
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <h1 class="display-4">{% block title %}Config interface{% endblock %}</h1>
-<p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.
+<p class="lead">
+  Este é um simples componente jumbotron para chamar mais atenção a um
+  determinado conteúdo ou informação.
 </p>
 
-<hr>
+<hr />
 
-<form method="POST" action="{{ url_for('network.get_interface_summary') }}" autocomplete="off">
-    <div class="form-row">
-       
-        <!-- Routers -->
-        <div class="form-group col">
-            <label for="hostname" hidden>Selecione um Router</label>
-            <select name="hostname" id="hostname" class="form-control">
-                {% for device in devices %}
-                <option value="{{device.ip_address}}">{{device.hostname}}</option>
-                {% endfor %}
-            </select>
-        </div>
+<form method="POST" action="#" autocomplete="off">
+  <!-- Router -->
+  <div class="form-row">
+    <div class="form-group col">
+      <select name="hostname" id="hostname" class="form-control">
+        {% for device in devices %}
+        <option value="{{device.ip_address}}">{{device.hostname}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
 
+  <!-- Unit/Description -->
+  <div class="form-row">
+    <div class="form-group col-3">
+      <input
+        type="number"
+        name="unit"
+        id="unit"
+        class="form-control"
+        placeholder="unit vlan"
+      />
+    </div>
+    <div class="form-group col">
+      <input
+        type="text"
+        name="descrption"
+        id="descrption"
+        class="form-control"
+        placeholder="descrption"
+      />
+    </div>
+  </div>
+
+  <!-- Bandwith -->
+  <div class="form-row">
+    <div class="form-group col">
+      <input
+        type="range"
+        name="bandwith"
+        id="bandwith"
+        class="form-control-range"
+        placeholder="bandwith"
+      />
+    </div>
+  </div>
+
+  <!-- ipv4_address -->
+  <div class="form-row">
+    <div class="form-group col-4">
+      <input
+        type="text"
+        name="ipv4_address"
+        id="ipv4_address"
+        class="form-control"
+        placeholder="ipv4_address"
+      />
     </div>
 
-    <div class="form-row">
-        <!-- Usuários -->
-        <div class="form-group col">
-            <label for="username" hidden>Selecione o usuário.</label>
-            <select name="username" id="username" class="form-control">
-                <label for="username">Selecione um usuário</label>
-                {% for user in users %}
-                <option value="{{user.username}}">{{user.username}}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <div class="col">
+      <input
+        type="text"
+        name="bandwith"
+        id="bandwith"
+        placeholder="bandwith"
+        class="form-control"
+        readonly
+      />
+    </div>
+  </div>
 
-        <!-- Passwords -->
-        <div class="form-group col">
-            <label for="password" hidden>Senha</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
-        </div>
+  <!-- ipv6_address -->
+  <div class="form-row">
+    <div class="form-group col">
+      <input
+        type="text"
+        name="ipv6_address"
+        id="ipv6_address"
+        class="form-control"
+        placeholder="ipv6_gw"
+      />
+    </div>
+    <div class="form-group col">
+      <input
+        type="text"
+        name="ipv6_address"
+        id="ipv6_address"
+        class="form-control"
+        placeholder="ipv6_cli"
+      />
+    </div>
+    <div class="form-group col">
+      <input
+        type="text"
+        name="ipv6_address"
+        id="ipv6_address"
+        class="form-control"
+        placeholder="ipv6_48"
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <!-- Usuários and Password-->
+    <div class="form-group col">
+      <select name="username" id="username" class="form-control">
+        {% for user in users %}
+        <option value="{{user.username}}">{{user.username}}</option>
+        {% endfor %}
+      </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <div class="form-group col">
+      <input
+        class="form-control"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Senha"
+        required
+      />
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
-<pre class="max-height" style=" border: solid 1px rgba(0, 0, 0, .1); 
-                                    padding: 1rem; 
-                                    margin-top: 1rem; 
-                                    border-radius: 10px;">{{ output }}</pre>
+<pre
+  class="max-height"
+  style="
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+  "
+>
+{{ output }}</pre
+>
 {% endblock %}
