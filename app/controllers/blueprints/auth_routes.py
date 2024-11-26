@@ -37,5 +37,5 @@ def page_login():
 @auth_bp.route('/logout')
 def page_logout():
     logout_user()
-    flash(f'Deslogado!!!', category='info')
+    flash('Deslogado!!!', category='info')
     return redirect(url_for('page_home'))
