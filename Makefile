@@ -28,7 +28,8 @@ run: venv
 clean:
 	@rm -rf $(VENV)
 	@find . -type d -name "__pycache__" -exec rm -rf {} +
-	@echo "Ambiente virtual removido e cache."
+	@find . -type d -name ".pytest_cache" -exec rm -rf {} +
+	@echo "Ambiente virtual removido e caches."
 
 # faz o da aplicacao
 .PHONY: build
