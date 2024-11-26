@@ -8,13 +8,13 @@ PIP=$(VENV)/bin/pip
 venv:
 	@python3 -m venv $(VENV)
 	@echo "Ambiente virtual criado em $(VENV)."
-	@$(PIP) install --upgrade pip
+	@$(PIP) install --upgrade pip > /dev/null
 	@echo "Pip atualizado."
 
 # Instalar dependências usando o ambiente virtual
 .PHONY: install
 install: venv
-	@$(PIP) install -r requirements.txt
+	@$(PIP) install -r requirements.txt > /dev/null
 	@echo "Dependências instaladas."
 
 # Rodar a aplicação usando o ambiente virtual
@@ -32,5 +32,5 @@ clean:
 
 # faz o da aplicacao
 .PHONY: build
-build: venv install run
+build: clean venv install run
 	@echo "Aplicacao rodando..."
