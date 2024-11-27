@@ -35,3 +35,10 @@ clean:
 .PHONY: build
 build: clean venv install run
 	@echo "Aplicacao rodando..."
+
+# faz o ls dos containers e imagens do docker.
+.PHONY: docker-ls
+docker-ls:
+	@docker container ls -a
+	@echo
+	@docker images
