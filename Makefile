@@ -42,3 +42,8 @@ docker-ls:
 	@docker container ls -a
 	@echo
 	@docker images
+
+# faz o test do flake8 no code excluído o venv
+.PHONY: test
+test: 
+	@flake8 --exclude $(VENV)
