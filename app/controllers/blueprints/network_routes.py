@@ -1,4 +1,5 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, flash, redirect, url_for
+from app.controllers.forms import Network_Form
 from app.controllers.netmiko import netmiko
 from app.models.model import Table_Register, Table_Devices
 from app import db
@@ -76,4 +77,30 @@ def config_interface_unit():
         output=output,
         users=users,
         devices=devices,
+    )
+
+
+@network_bp.route('/set_interface_unit', methods=['GET', 'POST'])
+def set_interface_unit():
+    form = Network_Form()
+
+    output = None
+
+    devices = db.session.execute(
+        db.select(Table_Devices).order_by(Table_Devices.id)
+    ).scalars()
+
+    form.device.choices = [
+        (device.ip_address, device.hostname) for device in devices
+    ]
+
+    if form.validate_on_submit():
+        selected_device = form.device.data  # ignore_error
+        flash('', )
+        return redirect(url_for('set_interface_unit'))
+
+    return render_template(
+        'router/set_interface_unit.html',
+        output=output,
+        form=form
     )
