@@ -8,8 +8,56 @@
 <hr />
 
 <form method="POST">
-  {{ form.hidden_tag() }} 
-  {{ form.device(class="form-control mb-3") }}
+  {{ form.hidden_tag() }}
+
+  <!-- ROW -->
+  <div class="form-row">
+    <div class="form-group col">{{ form.device(class="form-control") }}</div>
+  </div>
+
+  <!-- ROW -->
+  <div class="form-row">
+    <div class="form-group col-3">
+      {{ form.unit_vlan(class="form-control", placeholder="Unit_Vlan") }}
+    </div>
+    <div class="form-group col">
+      {{ form.description(class="form-control", placeholder="Description") }}
+    </div>
+  </div>
+
+  <!-- ROW -->
+  <div class="form-row">
+    <div class="form-group col-4">
+      {{ form.ipv4_gw(class="form-control", placeholder="ipv4_gw") }}
+    </div>
+    <div class="form-grou col">
+      {{ form.bandwith(class="form-control", placeholder="Bandwith",
+      readonly="true") }}
+    </div>
+  </div>
+
+  <!-- ROW -->
+  <div class="form-row">
+    <div class="form-group col-4">
+      {{ form.ipv6_gw(class="form-control", placeholder="ipv6_gw") }}
+    </div>
+    <div class="form-group col-4">
+      {{ form.ipv6_cli(class="form-control", placeholder="ipv6.cli") }}
+    </div>
+    <div class="form-group col-4">
+      {{ form.ipv6_48(class="form-control", placeholder="ipv6.48") }}
+    </div>
+  </div>
+
+  <!-- ROW -->
+  <div class="form-row">
+    <div class="form-group col">{{ form.username(class="form-control") }}</div>
+    <div class="form-group col">
+      {{ form.password(class="form-control", placeholder="Password") }}
+    </div>
+  </div>
+
+  {{ form.submit(class="btn btn-primary") }}
 </form>
 
 <pre
@@ -20,5 +68,7 @@
     margin-top: 1rem;
     border-radius: 10px;
   "
-> {{ output }}</pre>
+>
+ {{ output }}</pre
+>
 {% endblock %}
