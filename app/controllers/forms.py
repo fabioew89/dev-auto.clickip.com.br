@@ -57,16 +57,16 @@ class Network_Form(FlaskForm):
         'Username', choices=[]
     )
     password = PasswordField(
-        'Password', validators=[DataRequired()]
+        'Password',     validators=[DataRequired()]
     )
     unit_vlan = IntegerField(
-        'Unit VLAN', validators=[DataRequired()]
+        'Unit VLAN',    validators=[DataRequired()]
     )
     description = StringField(
-        'Description', validators=[DataRequired()]
+        'Description',  validators=[DataRequired()]
     )
     bandwith = FloatField(
-        'Bandwidth', validators=[DataRequired()]
+        'Bandwidth',    validators=[DataRequired()]
     )
     ipv4_gw = StringField(
         'IPv4 Address', validators=[DataRequired(), IPAddress(ipv4=True)]
@@ -75,9 +75,9 @@ class Network_Form(FlaskForm):
         'IPv6 Gateway', validators=[DataRequired(), IPAddress(ipv6=True)]
     )
     ipv6_cli = StringField(
-        'IPv6 Client', validators=[DataRequired(), IPAddress(ipv6=True)]
+        'IPv6 Client',  validators=[DataRequired(), IPAddress(ipv6=True)]
     )
     ipv6_48 = StringField(
-        'IPv6 /48', validators=[DataRequired(), IPAddress(ipv6=True)]
+        'IPv6 /48',     validators=[DataRequired(), IPAddress(ipv6=True)]
     )
     submit = SubmitField('Enviar')
