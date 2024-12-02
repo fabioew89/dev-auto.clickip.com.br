@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, flash
+from flask import Blueprint, request, render_template, flash, redirect, url_for
 from app.controllers.forms import Network_Form
 from app.controllers.netmiko import netmiko
 from app.models.model import Table_Register, Table_Devices
@@ -15,18 +15,19 @@ def get_interface_summary():
     devices = db.session.execute(db.select(Table_Devices)).scalars().all()
 
     output = None
+
     if request.method == 'POST':
         hostname = request.form.get('hostname')
         username = request.form.get('username')
         password = request.form.get('password')
 
-        output = netmiko.get_interface_summary(hostname, username, password)
+        output = netmiko.get_interface_summary(
+            hostname, username, password
+        )
 
     return render_template(
         'router/get_interface_summary.html',
-        output=output,
-        users=users,
-        devices=devices
+        output=output, users=users, devices=devices
     )
 
 
@@ -37,6 +38,7 @@ def get_interface_configuration():
     devices = db.session.execute(db.select(Table_Devices)).scalars().all()
 
     output = None
+
     if request.method == 'POST':
         hostname = request.form.get('hostname')
         username = request.form.get('username')
@@ -45,13 +47,11 @@ def get_interface_configuration():
 
         output = netmiko.get_interface_configuration(
             hostname, username, password, unit
-            )
+        )
 
     return render_template(
         'router/get_interface_configuration.html',
-        output=output,
-        users=users,
-        devices=devices
+        output=output, users=users, devices=devices
     )
 
 
@@ -62,27 +62,45 @@ def set_interface_unit():
 
     output = None
 
-    # list users and devices in database
     users = db.session.execute(
         db.select(Table_Register).order_by(Table_Register.id)
     ).scalars()
-
-    devices = db.session.execute(
+    hosts = db.session.execute(
         db.select(Table_Devices).order_by(Table_Devices.id)
     ).scalars()
 
-    # create a tupla for users and devices
     form.username.choices = [
-        (username.username, username.username) for username in users
+        (user.username, user.username) for user in users
     ]
-
-    form.device.choices = [
-        (device.ip_address, device.hostname) for device in devices
+    form.hostname.choices = [
+        (host.ip_address, host.hostname) for host in hosts
     ]
 
     if form.validate_on_submit():
-        # selected_device = form.device.data
-        flash('', )
+        hostname = form.hostname.data
+        username = form.username.data
+        password = form.password.data
+        unit = form.unit_vlan.data
+        description = form.description.data
+        ipv4_gw = form.ipv4_gw.data
+        bandwidth = form.bandwidth.data
+        ipv6_gw = form.ipv6_gw.data
+        ipv6_cli = form.ipv6_cli.data
+        inet6_48 = form.ipv6_48.data
+
+        output = netmiko.set_interface_unit(
+            hostname, username, password, unit, description,
+            ipv4_gw, bandwidth, ipv6_gw, ipv6_cli, inet6_48
+        )
+
+        flash('Formulário enviado com sucesso!', category='success')
+        return redirect(url_for('network.set_interface_unit'))
+
+    else:
+        if form.errors:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"Erro no campo {field}: {error}", category='danger')
 
     return render_template(
         'router/set_interface_unit.html',

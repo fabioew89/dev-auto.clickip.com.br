@@ -7,18 +7,18 @@
 
 <hr />
 
-<form method="POST">
+<form action="{{url_for('network.set_interface_unit')}}" method="POST">
   {{ form.hidden_tag() }}
 
   <!-- ROW -->
   <div class="form-row">
-    <div class="form-group col">{{ form.device(class="form-control") }}</div>
+    <div class="form-group col">{{ form.hostname(class="form-control") }}</div>
   </div>
 
   <!-- ROW -->
   <div class="form-row">
     <div class="form-group col-3">
-      {{ form.unit_vlan(class="form-control", placeholder="Unit_Vlan") }}
+      {{ form.unit_vlan(class="form-control", placeholder="Unit VLAN") }}
     </div>
     <div class="form-group col">
       {{ form.description(class="form-control", placeholder="Description") }}
@@ -28,11 +28,10 @@
   <!-- ROW -->
   <div class="form-row">
     <div class="form-group col-4">
-      {{ form.ipv4_gw(class="form-control", placeholder="ipv4_gw") }}
+      {{ form.ipv4_gw(class="form-control", placeholder="Gateway - IPv4") }}
     </div>
-    <div class="form-grou col">
-      {{ form.bandwith(class="form-control", placeholder="Bandwith",
-      readonly="true") }}
+    <div class="form-group col">
+      {{ form.bandwidth(class="form-control", placeholder="Bandwidth") }}
     </div>
   </div>
 
@@ -51,7 +50,9 @@
 
   <!-- ROW -->
   <div class="form-row">
-    <div class="form-group col">{{ form.username(class="form-control") }}</div>
+    <div class="form-group col">
+      {{ form.username(class="form-control") }}
+    </div>
     <div class="form-group col">
       {{ form.password(class="form-control", placeholder="Password") }}
     </div>
@@ -69,6 +70,7 @@
     border-radius: 10px;
   "
 >
- {{ output }}</pre
->
+  {{ output }}
+</pre>
+
 {% endblock %}

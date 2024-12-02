@@ -5,8 +5,16 @@ from wtforms import StringField, PasswordField, SubmitField, \
 from wtforms.validators import DataRequired, Length, EqualTo, \
     ValidationError, IPAddress, NumberRange
 
+import ipaddress
 from app import db
 from app.models.model import Table_Register
+
+
+def validate_ipv6(form, field):
+    try:
+        ipaddress.IPv6Address(field.data)
+    except ValueError:
+        raise ValidationError('Invalid IPv6 address format.')
 
 
 class Form_Register(FlaskForm):
@@ -50,8 +58,8 @@ class Form_Devices(FlaskForm):
 
 
 class Network_Form(FlaskForm):
-    device = SelectField(
-        'Devices', choices=[]
+    hostname = SelectField(
+        'Hostname', choices=[]
     )
     username = SelectField(
         'Username', choices=[]
@@ -60,27 +68,93 @@ class Network_Form(FlaskForm):
         'Password',     validators=[DataRequired()]
     )
     unit_vlan = IntegerField(
+<<<<<<< HEAD
         'Unit VLAN',    validators=[
             DataRequired(),
             NumberRange(min=1, max=4096)
         ]
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        'Unit VLAN', validators=[DataRequired()]
+=======
+=======
+>>>>>>> Stashed changes
+        'Unit VLAN', validators=[
+            DataRequired(),
+            NumberRange(min=1, max=4096)
+        ]
+>>>>>>> Stashed changes
+>>>>>>> test
     )
     description = StringField(
         'Description',  validators=[DataRequired()]
     )
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     bandwith = FloatField(
+<<<<<<< HEAD
         'Bandwidth',    validators=[DataRequired()]
+=======
+=======
+    bandwidth = FloatField(
+>>>>>>> Stashed changes
+=======
+    bandwidth = FloatField(
+>>>>>>> Stashed changes
+        'Bandwidth', validators=[DataRequired()]
+>>>>>>> test
     )
     ipv4_gw = StringField(
-        'IPv4 Address', validators=[DataRequired(), IPAddress(ipv4=True)]
+        'IPv4 Address', validators=[
+            DataRequired(),
+            IPAddress(ipv4=True)
+        ]
     )
     ipv6_gw = StringField(
-        'IPv6 Gateway', validators=[DataRequired(), IPAddress(ipv6=True)]
+        'IPv6 Gateway', validators=[
+            DataRequired(),
+            validate_ipv6
+        ]
     )
     ipv6_cli = StringField(
+<<<<<<< HEAD
         'IPv6 Client',  validators=[DataRequired(), IPAddress(ipv6=True)]
     )
     ipv6_48 = StringField(
         'IPv6 /48',     validators=[DataRequired(), IPAddress(ipv6=True)]
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        'IPv6 Client', validators=[DataRequired(), IPAddress(ipv6=True)]
     )
-    submit = SubmitField('Enviar')
+    ipv6_48 = StringField(
+        'IPv6 /48', validators=[DataRequired(), IPAddress(ipv6=True)]
+=======
+        'IPv6 Client', validators=[
+            DataRequired(),
+            validate_ipv6
+        ]
+    )
+    ipv6_48 = StringField(
+=======
+        'IPv6 Client', validators=[
+            DataRequired(),
+            validate_ipv6
+        ]
+    )
+    ipv6_48 = StringField(
+>>>>>>> Stashed changes
+        'IPv6 /48', validators=[
+            DataRequired(),
+            validate_ipv6
+        ]
+    )
+    submit = SubmitField(
+        'Enviar'
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+>>>>>>> test
+    )
