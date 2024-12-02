@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, \
     SelectField, IntegerField, FloatField
 
 from wtforms.validators import DataRequired, Length, EqualTo, \
-    ValidationError, IPAddress  # Optional
+    ValidationError, IPAddress, NumberRange
 
 from app import db
 from app.models.model import Table_Register
@@ -60,7 +60,10 @@ class Network_Form(FlaskForm):
         'Password',     validators=[DataRequired()]
     )
     unit_vlan = IntegerField(
-        'Unit VLAN',    validators=[DataRequired()]
+        'Unit VLAN',    validators=[
+            DataRequired(),
+            NumberRange(min=1, max=4096)
+        ]
     )
     description = StringField(
         'Description',  validators=[DataRequired()]
