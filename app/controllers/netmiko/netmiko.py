@@ -1,5 +1,6 @@
 from netmiko import ConnectHandler
 
+
 # Obtém o resumo das interfaces de um dispositivo Juniper
 def get_interface_summary(host, username, password):
     vroute = {
@@ -15,6 +16,7 @@ def get_interface_summary(host, username, password):
     ssh.disconnect()
 
     return output
+
 
 # Obtém a configuração detalhada de uma interface de um dispositivo Juniper
 def get_interface_configuration(host, username, password, unit):
