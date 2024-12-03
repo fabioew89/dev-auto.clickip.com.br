@@ -5,6 +5,7 @@ from app.controllers.forms import Form_Devices
 
 device_bp = Blueprint('device', __name__)
 
+
 # Rota para registrar um novo dispositivo
 @device_bp.route('/create', methods=['GET', 'POST'])
 def page_register_device():
@@ -27,13 +28,19 @@ def page_register_device():
         for error in errors:
             flash(f'Erro ao cadastrar dispositivo: {error}', category='danger')
 
-    return render_template('device/page_register_device.html', form=form_device, table=table)
+    return render_template(
+        'device/page_register_device.html',
+        form=form_device,
+        table=table)
+
 
 # Rota para editar os dados de um dispositivo existente
 @device_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 def page_edit_device(id):
     # Localiza o dispositivo pelo ID
-    device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
+    device = db.session.execute(
+        db.select(Table_Devices).filter_by(id=id)
+    ).scalar_one_or_none()
     if device is None:
         flash(f'Dispositivo com ID {id} não encontrado.', category='danger')
         return redirect(url_for('device.page_register_device'))
@@ -49,14 +56,20 @@ def page_edit_device(id):
         flash('Dispositivo atualizado com sucesso!', category='success')
         return redirect(url_for('device.page_register_device'))
 
-    return render_template('device/page_edit_device.html', device=device, form=form)
+    return render_template(
+        'device/page_edit_device.html',
+        device=device,
+        form=form)
+
 
 # Rota para remover um dispositivo existente
 @device_bp.route('/<int:id>/del')
 def remove_device(id):
     # Localiza o dispositivo pelo ID
-    device = db.session.execute(db.select(Table_Devices).filter_by(id=id)).scalar_one_or_none()
-    
+    device = db.session.execute(
+        db.select(Table_Devices).filter_by(id=id)
+    ).scalar_one_or_none()
+
     if device:
         # Remove o dispositivo localizado
         db.session.delete(device)
