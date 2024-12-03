@@ -1,18 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, \
-    SelectField, IntegerField, FloatField
+    SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, EqualTo, \
     ValidationError, IPAddress, NumberRange
-import ipaddress
 from app import db
 from app.models.model import Table_Register
-
-
-def validate_ipv6(form, field):
-    try:
-        ipaddress.IPv6Address(field.data)
-    except ValueError:
-        raise ValidationError('Invalid IPv6 address format.')
 
 
 class Form_Register(FlaskForm):
@@ -24,33 +16,53 @@ class Form_Register(FlaskForm):
             raise ValidationError('Usuário já cadastrado')
 
     username = StringField(
-        'Username', validators=[DataRequired(), Length(min=3, max=25)]
+        'Username', validators=[
+            DataRequired(),
+            Length(min=3, max=25)
+        ]
     )
     password = PasswordField(
-        'Password', validators=[DataRequired(), Length(min=6)]
+        'Password', validators=[
+            DataRequired(),
+            Length(min=6)
+        ]
     )
     password_confirm = PasswordField(
         'Confirm Password', validators=[
             DataRequired(),
-            EqualTo('password', message='As senhas devem coincidir')]
+            EqualTo('password', message='As senhas devem coincidir')
+        ]
     )
     submit = SubmitField('Cadastrar')
 
 
 class Form_Login(FlaskForm):
     username = StringField(
-        'Username', validators=[DataRequired()]
+        'Username', validators=[
+            DataRequired()
+        ]
     )
     password = PasswordField(
-        'Password', validators=[DataRequired()])
+        'Password', validators=[
+            DataRequired()
+        ]
+    )
     submit = SubmitField('Entrar')
 
 
 class Form_Devices(FlaskForm):
     hostname = StringField(
-        'Hostname', validators=[DataRequired(), Length(min=3, max=10)])
+        'Hostname', validators=[
+            DataRequired(),
+            Length(min=3, max=10)
+        ]
+    )
     ip_address = StringField(
-        'IP Address', validators=[DataRequired(), IPAddress()]
+        'IP Address',
+        validators=[
+            DataRequired(),
+            IPAddress()
+        ]
     )
     submit = SubmitField('Cadastrar')
 
@@ -63,7 +75,9 @@ class Network_Form(FlaskForm):
         'Username', choices=[]
     )
     password = PasswordField(
-        'Password', validators=[DataRequired()]
+        'Password', validators=[
+            DataRequired()
+        ]
     )
     unit_vlan = IntegerField(
         'Unit VLAN', validators=[
@@ -72,10 +86,15 @@ class Network_Form(FlaskForm):
         ]
     )
     description = StringField(
-        'Description', validators=[DataRequired()]
+        'Description', validators=[
+            DataRequired()
+        ]
     )
     bandwidth = IntegerField(
-        'Bandwidth', validators=[DataRequired()]
+        'Bandwidth', validators=[
+            DataRequired(),
+            NumberRange(min=1, max=9999)
+        ]
     )
     ipv4_gw = StringField(
         'IPv4 Address', validators=[
@@ -86,19 +105,19 @@ class Network_Form(FlaskForm):
     ipv6_gw = StringField(
         'IPv6 Gateway', validators=[
             DataRequired(),
-            validate_ipv6
+            IPAddress(ipv6=True)
         ]
     )
     ipv6_cli = StringField(
         'IPv6 Client', validators=[
             DataRequired(),
-            validate_ipv6
+            IPAddress(ipv6=True)
         ]
     )
     ipv6_48 = StringField(
         'IPv6 /48', validators=[
             DataRequired(),
-            validate_ipv6
+            IPAddress(ipv6=True)
         ]
     )
-    submit = SubmitField('Enviar')
+    submit = SubmitField('Commitar')
