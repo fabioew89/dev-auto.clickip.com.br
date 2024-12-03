@@ -82,19 +82,18 @@ def set_interface_unit():
         password = form.password.data
         unit = form.unit_vlan.data
         description = form.description.data
-        ipv4_gw = form.ipv4_gw.data
         bandwidth = form.bandwidth.data
+        ipv4_gw = form.ipv4_gw.data
         ipv6_gw = form.ipv6_gw.data
         ipv6_cli = form.ipv6_cli.data
         inet6_48 = form.ipv6_48.data
 
         output = netmiko.set_interface_unit(
             hostname, username, password, unit, description,
-            ipv4_gw, bandwidth, ipv6_gw, ipv6_cli, inet6_48
+            bandwidth, ipv4_gw, ipv6_gw, ipv6_cli, inet6_48
         )
 
         flash('Formulário enviado com sucesso!', category='success')
-        return redirect(url_for('network.set_interface_unit'))
 
     else:
         if form.errors:
