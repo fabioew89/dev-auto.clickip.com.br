@@ -86,19 +86,19 @@ class Network_Form(FlaskForm):
     ipv6_gw = StringField(
         'IPv6 Gateway', validators=[
             DataRequired(),
-            validate_ipv6()
+            validate_ipv6
         ]
     )
     ipv6_cli = StringField(
         'IPv6 Client', validators=[
             DataRequired(),
-            validate_ipv6()
+            validate_ipv6
         ]
     )
     ipv6_48 = StringField(
         'IPv6 /48', validators=[
             DataRequired(),
-            validate_ipv6()
+            validate_ipv6
         ]
     )
     submit = SubmitField('Enviar')
