@@ -16,7 +16,7 @@
     {{ form.password(class='form-control', placeholder='Password') }}
     <br>
 
-    {{ form.password_confirm(class='form-control', placeholder='Confirme Senha') }}
+    {{ form.password_confirm(class='form-control', placeholder='Password Confirm') }}
     <br>
 
     <div class="d-flex justify-content-between">
@@ -25,27 +25,4 @@
     </div>
 </form>
 <br>
-
-<table class="table table-striped">
-    <caption>Usuario Cadastrados</caption>
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Ação</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for tab in table %}
-        <tr>
-            <td> {{ tab.id }} </td>
-            <td> {{ tab.username }} </td>
-            <td>
-                <a href="{{tab.id}}/edit" class="btn btn-primary px-3">Editar</a>
-                <a href="{{tab.id}}/del" class="btn btn-danger px-3">Excluir</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 {% endblock %}
