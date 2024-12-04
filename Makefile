@@ -19,7 +19,7 @@ install: venv
 
 # Rodar a aplicação usando o ambiente virtual
 .PHONY: run
-run: venv
+run: venv 
 	@$(PYTHON) -m flask --app run.py run --debug
 	@echo "Aplicação em execução."
 
@@ -37,6 +37,6 @@ build: clean venv install run
 	@echo "Aplicacao rodando..."
 
 # faz o test do flake8 no code excluído o venv
-.PHONY: test
-test: 
+.PHONY: flake
+flake: 
 	@flake8 --exclude $(VENV)
