@@ -53,7 +53,7 @@ def set_interface_unit(hostname, username, password, unit, description,
     ssh.commit()  # not yet, but, soon
 
     output = ssh.send_command(f'run show configuration interfaces ae0 unit {unit}')  # noqa: E501
-    # output = ssh.send_config_set(f'show configuration interfaces ae0 unit {unit}')
+    # output = ssh.send_config_set(f'show configuration interfaces ae0 unit {unit}') # noqa: E501
 
     # output = [
     #     ssh.send_config_set(f'run show configuration interfaces ae0 unit {unit}\n'),                                                        # noqa: E501
