@@ -36,13 +36,6 @@ clean:
 build: clean venv install run
 	@echo "Aplicacao rodando..."
 
-# faz o ls dos containers e imagens do docker.
-.PHONY: docker-ls
-docker-ls:
-	@docker container ls -a
-	@echo
-	@docker images
-
 # faz o test do flake8 no code excluído o venv
 .PHONY: test
 test: 
