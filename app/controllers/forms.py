@@ -58,8 +58,7 @@ class Form_Devices(FlaskForm):
         ]
     )
     ip_address = StringField(
-        'IP Address',
-        validators=[
+        'IP Address', validators=[
             DataRequired(),
             IPAddress()
         ]
