@@ -6,7 +6,13 @@ from app import create_app
 from app.controllers.forms import Form_Register, Network_Form
 # from wtforms.validators import ValidationError
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+sys.path.insert(
+    0, os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__), '../'
+        )
+    )
+)
 
 
 @pytest.fixture
