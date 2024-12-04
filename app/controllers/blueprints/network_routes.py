@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, flash, redirect, url_for
+from flask import Blueprint, request, render_template, flash
 from app.controllers.forms import Network_Form
 from app.controllers.netmiko import netmiko
 from app.models.model import Table_Register, Table_Devices
