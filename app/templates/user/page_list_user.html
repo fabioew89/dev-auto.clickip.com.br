@@ -1,4 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>: )</h1>
+<h1 class="display-4">{% block title %}List User{% endblock %}</h1>
+<p class="lead">
+    Aplicação Flask para automatizar configurações de rede, integrando validação de endereços IPv4/IPv6, autenticação de usuários e registro de dispositivos, com suporte a Netmiko para execução de comandos SSH.
+</p>
+
+<hr>
+
+<table class="table table-striped">
+    <caption>Usuario Cadastrados</caption>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tab in table %}
+        <tr>
+            <td> {{ tab.id }} </td>
+            <td> {{ tab.username }} </td>
+            <td>
+                <a href="{{tab.id}}/edit" class="btn btn-primary px-3">Editar</a>
+                <a href="{{tab.id}}/del" class="btn btn-danger px-3">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
