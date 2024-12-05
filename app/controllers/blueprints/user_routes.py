@@ -11,8 +11,6 @@ user_bp = Blueprint('user', __name__)
 @user_bp.route('/create', methods=['GET', 'POST'])
 def page_register():
     form = Form_Register()
-    table = db.session.execute(db.select(Table_Register)).scalars().all()
-
     if form.validate_on_submit():
         # Criação de um novo usuário com senha criptografada
         user = Table_Register(
@@ -33,14 +31,22 @@ def page_register():
 
     return render_template(
         'user/page_register_user.html',
-        form=form, table=table
+        form=form,
     )
 
 
-@user_bp.route('/list', methods=['GET'])
+@user_bp.route('/list', methods=['GET', 'POST'])
 def page_list_user():
+    form = Form_Register()
+
+    table = db.session.execute(
+        db.select(Table_Register)
+    ).scalars().all()
+
     return render_template(
-        'user/page_list_user.html'
+        'user/page_list_user.html',
+        table=table,
+        form=form,
     )
 
 
@@ -67,7 +73,6 @@ def page_edit_user(id):
             )
         db.session.commit()
         flash('Usuário atualizado com sucesso!', category='success')
-        return redirect(url_for('user.page_register'))
 
     return render_template('user/page_edit_user.html', user=user, form=form)
 
@@ -88,4 +93,4 @@ def remove_user(id):
     else:
         flash('Usuário não encontrado.', category='danger')
 
-    return redirect(url_for('user.page_register'))
+    return redirect(url_for('user.page_list_user'))
