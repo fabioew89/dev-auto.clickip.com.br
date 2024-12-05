@@ -38,5 +38,6 @@ build: clean venv install run
 
 # faz o test do flake8 no code excluído o venv
 .PHONY: flake
-flake: 
+flake:
+	@echo 'Checking flake8...'
 	@flake8 --exclude $(VENV)
