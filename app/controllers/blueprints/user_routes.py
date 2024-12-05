@@ -37,6 +37,13 @@ def page_register():
     )
 
 
+@user_bp.route('/list', methods=['GET'])
+def page_list_user():
+    return render_template(
+        'user/page_list_user.html'
+    )
+
+
 # Página para edição de usuários
 @user_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 def page_edit_user(id):
