@@ -10,6 +10,23 @@
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- non necessary yet -->
   <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
+   <style>
+    .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: auto;
+      right: 100%;
+      display: none;
+      min-width: auto;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+   </style>
   <title>{% block title %}Automation python{% endblock %}</title>
 </head>
 <body class="container" style="background-color: cadetblue;">
@@ -31,13 +48,14 @@
         </div>
       </ul>
     </nav>
+
+
     <!-- right side -->
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
       <span class="mr-3 text-uppercase text-monospace">&lfloor; {{ current_user.username }} &rceil;</span>
       <div class="dropdown">
-        <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">Cadastrar</a>
+        <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar</a>
         <div class="dropdown-menu">
           <a href="{{url_for('user.page_register')}}" class="dropdown-item">Usuário</a>
           <a href="{{url_for('device.page_register_device')}}" class="dropdown-item">Device</a>
@@ -47,24 +65,47 @@
       {% else %}
       <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
       {% endif %}
-    </nav>
+      
+      <!-- Right menu II -->
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle ml-3" type="button" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Editar</a>
+        <div class="dropdown-menu">
+          <!-- Submenu -->
+          <div class="dropdown-submenu">
+            <a href="#" class="dropdown-item dropdown-toggle">Usuário</a>
+            <div class="dropdown-menu">
+              <a href="{{url_for('user.page_register')}}" class="dropdown-item">Novo</a>
+              <a href="{{url_for('user.page_list_user')}}" class="dropdown-item">Lista</a>
+            </div>
+          </div>
+          <a href="#" class="dropdown-item">Device</a>
+          <a href="#" class="dropdown-item">Informação</a>
+        </div>
+      </div>
+    </nav> 
+</div>
+
+
+<!-- jumbotron -->
+<div class="jumbotron">
+  <!-- Flash messages with flask -->
+  {% with messages = get_flashed_messages(with_categories=True) %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+    <p class="m-auto">{{ message }}</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
   </div>
-  <!-- jumbotron -->
-  <div class="jumbotron">
-    <!-- Flash messages with flask -->
-    {% with messages = get_flashed_messages(with_categories=True) %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-      <p class="m-auto">{{ message }}</p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
-    </div>
-    {% endfor %}
-    {% endwith%}
-    <!-- site content -->
-    {% block content %}
-    data
-    {% endblock content %}
-  </div>
+  {% endfor %}
+  {% endwith%}
+
+
+  <!-- site content -->
+  {% block content %}
+  data
+  {% endblock content %}
+</div>
+
+
   <!-- JavaScript (Opcional) -->
   <script src="{{url_for('static',filename='js/main.js')}}"></script>
   <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
