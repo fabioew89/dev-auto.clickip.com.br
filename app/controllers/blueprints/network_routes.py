@@ -26,7 +26,7 @@ def get_interface_summary():
         )
 
     return render_template(
-        'router/get_interface_summary.html',
+        'route/get_interface_summary.html',
         output=output, users=users, devices=devices
     )
 
@@ -50,7 +50,7 @@ def get_interface_configuration():
         )
 
     return render_template(
-        'router/get_interface_configuration.html',
+        'route/get_interface_configuration.html',
         output=output, users=users, devices=devices
     )
 
@@ -102,7 +102,7 @@ def set_interface_unit():
                     flash(f"Erro no campo {field}: {error}", category='danger')
 
     return render_template(
-        'router/set_interface_unit.html',
+        'route/set_interface_unit.html',
         output=output,
         form=form
     )
