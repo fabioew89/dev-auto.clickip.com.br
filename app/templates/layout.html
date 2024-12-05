@@ -11,6 +11,9 @@
   <!-- non necessary yet -->
   <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
    <style>
+    .dropdown-menu {
+      min-width: auto;
+    }
     .dropdown-submenu {
       position: relative;
     }
@@ -27,12 +30,13 @@
       display: block;
     }
    </style>
+   
   <title>{% block title %}Automation python{% endblock %}</title>
 </head>
 <body class="container" style="background-color: cadetblue;">
   <!-- breadcrumb -->
   <div class="d-flex justify-content-between">
-    <!-- left side -->
+    <!-- left side menu -->
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
         <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
@@ -49,27 +53,14 @@
       </ul>
     </nav>
 
-
-    <!-- right side -->
+    <!-- right side menu -->
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
-      <span class="mr-3 text-uppercase text-monospace">&lfloor; {{ current_user.username }} &rceil;</span>
+      <span class="mr-3 text-uppercase font-weight-light "> &#8764; {{current_user.username}} &#8764;</span>
       <div class="dropdown">
-        <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar</a>
+        <a href="#" class="dropdown-toggle mr-3" type="button" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Editar</a>
         <div class="dropdown-menu">
-          <a href="{{url_for('user.page_register')}}" class="dropdown-item">Usuário</a>
-          <a href="{{url_for('device.page_register_device')}}" class="dropdown-item">Device</a>
-        </div>
-      </div>
-      <a class="breadcrumb-item" href="{{url_for('auth.page_logout')}}">Logout</a>
-      {% else %}
-      <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
-      {% endif %}
-      
-      <!-- Right menu II -->
-      <div class="dropdown">
-        <a href="#" class="dropdown-toggle ml-3" type="button" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Editar</a>
-        <div class="dropdown-menu">
+          <h6 class="dropdown-header">Ações</h6>
           <!-- Submenu -->
           <div class="dropdown-submenu">
             <a href="#" class="dropdown-item dropdown-toggle">Usuário</a>
@@ -78,10 +69,16 @@
               <a href="{{url_for('user.page_list_user')}}" class="dropdown-item">Lista</a>
             </div>
           </div>
-          <a href="#" class="dropdown-item">Device</a>
-          <a href="#" class="dropdown-item">Informação</a>
+          <a class="dropdown-item" href="{{url_for('device.page_register_device')}}">Device</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item disabled" href="{{url_for('auth.page_logout')}}">Logout</a>
         </div>
       </div>
+      {% else %}
+      <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
+      {% endif %}
+      
+
     </nav> 
 </div>
 
