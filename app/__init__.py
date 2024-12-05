@@ -41,7 +41,6 @@ def create_app():
     # Rota básica para teste
     @app.route('/')
     def page_home():
-        # return "App está funcionando!"
         return render_template('home.html')
 
     return app
