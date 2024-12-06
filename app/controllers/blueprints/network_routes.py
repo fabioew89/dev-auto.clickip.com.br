@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, flash
 from app.controllers.forms import Network_Form
-from app.controllers.netmiko import netmiko
+from app.controllers.networks import set_interface_unit, \
+    get_interface_summary, get_interface_configuration
 from app.models.model import Table_Register, Table_Devices
 from app import db
 
@@ -10,7 +11,7 @@ network_bp = Blueprint('network', __name__)
 
 # Rota: get_interface_summary
 @network_bp.route('/get_interface_summary', methods=['GET', 'POST'])
-def get_interface_summary():
+def interface_summary():
     users = db.session.execute(db.select(Table_Register)).scalars().all()
     devices = db.session.execute(db.select(Table_Devices)).scalars().all()
 
@@ -21,19 +22,23 @@ def get_interface_summary():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        output = netmiko.get_interface_summary(
-            hostname, username, password
+        output = get_interface_summary(
+            hostname,
+            username,
+            password,
         )
 
     return render_template(
         'route/get_interface_summary.html',
-        output=output, users=users, devices=devices
+        users=users,
+        output=output,
+        devices=devices,
     )
 
 
 # Rota: get_interface_configuration
 @network_bp.route('/get_interface_configuration', methods=['GET', 'POST'])
-def get_interface_configuration():
+def interface_configuration():
     users = db.session.execute(db.select(Table_Register)).scalars().all()
     devices = db.session.execute(db.select(Table_Devices)).scalars().all()
 
@@ -45,19 +50,21 @@ def get_interface_configuration():
         password = request.form.get('password')
         unit = request.form.get('unit')
 
-        output = netmiko.get_interface_configuration(
+        output = get_interface_configuration(
             hostname, username, password, unit
         )
 
     return render_template(
         'route/get_interface_configuration.html',
-        output=output, users=users, devices=devices
+        users=users,
+        output=output,
+        devices=devices,
     )
 
 
 # Rota: set_interface_unit
 @network_bp.route('/set_interface_unit', methods=['GET', 'POST'])
-def set_interface_unit():
+def interface_unit():
     form = Network_Form()
 
     output = None
@@ -88,7 +95,7 @@ def set_interface_unit():
         ipv6_cli = form.ipv6_cli.data
         inet6_48 = form.ipv6_48.data
 
-        output = netmiko.set_interface_unit(
+        output = set_interface_unit(
             hostname, username, password, unit, description,
             bandwidth, ipv4_gw, ipv6_gw, ipv6_cli, inet6_48
         )
@@ -103,6 +110,6 @@ def set_interface_unit():
 
     return render_template(
         'route/set_interface_unit.html',
+        form=form,
         output=output,
-        form=form
     )
