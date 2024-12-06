@@ -19,14 +19,13 @@ install: venv
 
 # Rodar a aplicação usando o ambiente virtual
 .PHONY: run
-run: venv 
+run: venv install
 	@$(PYTHON) -m flask --app run.py run --debug
 	@echo "Aplicação em execução."
 
 # Limpar o ambiente virtual
 .PHONY: clean
 clean:
-	@rm -rf $(VENV)
 	@find . -type d -name "__pycache__" -exec rm -rf {} +
 	@find . -type d -name ".pytest_cache" -exec rm -rf {} +
 	@echo "Ambiente virtual removido e caches."
