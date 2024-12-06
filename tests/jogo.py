@@ -1,0 +1,2 @@
+def brincadeira(numero):
+    pass
