@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block content %}
-<h1 class="display-4">{% block title %}Config interface{% endblock %}</h1>
+<h1 class="display-4">{% block title %}Set Config interface{% endblock %}</h1>
 <p class="lead">
   Este é um simples componente jumbotron para chamar mais atenção a um
   determinado conteúdo ou informação.
@@ -7,7 +7,7 @@
 
 <hr />
 
-<form action="{{url_for('network.set_interface_unit')}}" method="POST">
+<form action="{{url_for('network.interface_unit')}}" method="POST">
   {{ form.hidden_tag() }}
 
   <!-- ROW -->
