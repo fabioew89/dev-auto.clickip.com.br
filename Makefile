@@ -7,7 +7,7 @@ PIP=$(VENV)/bin/pip
 .PHONY: venv
 venv:
 	@python3 -m venv $(VENV)
-	@echo "Ambiente virtual criado em $(VENV)."
+	@echo "Ambiente virtual criado em $(VENV)"
 	@$(PIP) install --upgrade pip > /dev/null
 	@echo "Pip atualizado."
 
@@ -28,12 +28,8 @@ run: venv install
 clean:
 	@find . -type d -name "__pycache__" -exec rm -rf {} +
 	@find . -type d -name ".pytest_cache" -exec rm -rf {} +
-	@echo "Ambiente virtual removido e caches."
-
-# faz o da aplicacao
-.PHONY: build
-build: clean venv install run
-	@echo "Aplicacao rodando..."
+	@rm -rf $(VENV)
+	@echo "Ambiente virtual removido e caches..."
 
 # faz o test do flake8 no code excluído o venv
 .PHONY: flake
