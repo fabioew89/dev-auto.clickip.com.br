@@ -54,7 +54,7 @@ class Form_Devices(FlaskForm):
     hostname = StringField(
         'Hostname', validators=[
             DataRequired(),
-            Length(min=3, max=10)
+            Length(min=3, max=30)
         ]
     )
     ip_address = StringField(
