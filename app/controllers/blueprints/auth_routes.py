@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user
+from flask_login import login_required, login_user, logout_user
 from app import db
 from app.models.model import Table_Register
 from app.controllers.forms import Form_Login
@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
 
-
+#  page login
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def page_login():
     form = Form_Login()
@@ -22,7 +22,7 @@ def page_login():
         if user and check_password_hash(user.password, password):
             login_user(user)
             flash(f'Sucesso ao logar {username}', category='success')
-            return redirect(url_for('page_home'))
+            return redirect(url_for('network.interface_summary'))
         else:
             flash('Email ou senha incorretos', category='danger')
 
@@ -33,9 +33,10 @@ def page_login():
 
     return render_template('login.html', form=form)
 
-
+#  page logout
 @auth_bp.route('/logout')
+@login_required
 def page_logout():
     logout_user()
     flash('Deslogado!!!', category='info')
-    return redirect(url_for('page_home'))
+    return redirect(url_for('network.interface_summary'))
