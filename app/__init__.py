@@ -24,7 +24,7 @@ def create_app():
     login_manager.init_app(app)
 
     login_manager.login_view = 'auth.page_login'
-    login_manager.login_message = 'Faça seu login'
+    login_manager.login_message = 'Please log in to access this page.'
     login_manager.login_message_category = 'info'
 
     # Registrando blueprints
