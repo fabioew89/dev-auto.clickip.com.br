@@ -20,7 +20,7 @@ def page_login():
         ).scalar_one_or_none()
 
         if user and check_password_hash(user.password, password):
-            login_user(user)
+            login_user(user, remember=True)
             flash(f'Sucesso ao logar {username}', category='success')
             return redirect(url_for('network.interface_summary'))
         else:
