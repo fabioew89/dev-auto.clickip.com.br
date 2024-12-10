@@ -26,6 +26,12 @@ def create_app():
     login_manager.login_view = 'auth.page_login'
     login_manager.login_message = 'Please log in to access this page.'
     login_manager.login_message_category = 'info'
+    login_manager.session_protection = "strong"
+    login_manager.refresh_view = "accounts.reauthenticate"
+    login_manager.needs_refresh_message = (
+        u"To protect your account, please reauthenticate to access this page."
+    )
+    login_manager.needs_refresh_message_category = "info"
 
     # Registrando blueprints
     from app.controllers.blueprints.user_routes import user_bp
