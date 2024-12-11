@@ -16,8 +16,7 @@ login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-    app.config['SECRET_KEY'] = 'f6b42562bc1f3ee92dbad7c9'
+    app.config.from_pyfile('config.py')
 
     # Inicializando extensões com o app
     db.init_app(app)
