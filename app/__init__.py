@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_admin import Admin
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
@@ -11,7 +12,8 @@ class Base(DeclarativeBase):
 
 # Inicializando extensões
 db = SQLAlchemy(model_class=Base)
-login_manager = LoginManager()
+lm = LoginManager()
+admin = Admin(name='auto.clickip.local', template_mode='bootstrap4')
 
 
 def create_app():
@@ -20,17 +22,18 @@ def create_app():
 
     # Inicializando extensões com o app
     db.init_app(app)
-    login_manager.init_app(app)
+    lm.init_app(app)
+    admin.init_app(app)
 
-    login_manager.login_view = 'auth.page_login'
-    login_manager.login_message = 'Please log in to access this page.'
-    login_manager.login_message_category = 'info'
-    login_manager.session_protection = "strong"
-    login_manager.refresh_view = "accounts.reauthenticate"
-    login_manager.needs_refresh_message = (
+    lm.login_view = 'auth.page_login'
+    lm.login_message = 'Please log in to access this page.'
+    lm.login_message_category = 'info'
+    lm.session_protection = "strong"
+    lm.refresh_view = "accounts.reauthenticate"
+    lm.needs_refresh_message = (
         u"To protect your account, please reauthenticate to access this page."
     )
-    login_manager.needs_refresh_message_category = "info"
+    lm.needs_refresh_message_category = "info"
 
     # Registrando blueprints
     from app.controllers.blueprints.user_routes import user_bp
