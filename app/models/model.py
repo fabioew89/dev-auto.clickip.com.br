@@ -1,9 +1,9 @@
-from app import db, login_manager
+from app import db, lm
 from sqlalchemy.orm import Mapped, mapped_column
 from flask_login import UserMixin
 
 
-@login_manager.user_loader
+@lm.user_loader
 def load_user(user_id):
     return Table_Register.query.get(int(user_id))
 
