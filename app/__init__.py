@@ -1,8 +1,8 @@
 from flask import Flask, render_template
-from flask_admin import Admin
-from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
+from flask_login import LoginManager
+from flask_admin import Admin
 
 
 # Declarativa base para o SQLAlchemy
