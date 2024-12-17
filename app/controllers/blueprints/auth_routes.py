@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
 
-#  page login
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def page_login():
     form = Form_Login()
@@ -33,7 +33,7 @@ def page_login():
 
     return render_template('login.html', form=form)
 
-#  page logout
+
 @auth_bp.route('/logout')
 @login_required
 def page_logout():
