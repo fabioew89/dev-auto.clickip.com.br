@@ -8,20 +8,20 @@ def load_user(user_id):
 
 
 class Users(db.Model, UserMixin):
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String, nullable=True)
-    password = db.Column(db.String, nullable=True)
+    username = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         return self.username
 
 
 class Devices(db.Model):
-    __tablename__ = 'Devices'
+    __tablename__ = 'devices'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    hostname = db.Column(db.String, nullable=True)
-    ip_address = db.Column(db.String, nullable=True)
+    hostname = db.Column(db.String, nullable=False)
+    ip_address = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         return self.hostname, self.ip_address
