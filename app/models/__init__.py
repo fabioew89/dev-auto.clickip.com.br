@@ -13,8 +13,8 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String, nullable=True)
     password = db.Column(db.String, nullable=True)
 
-    def __str__(self):
-        return super().__str__(self.username)
+    def __repr__(self):
+        return self.username
 
 
 class Devices(db.Model):
@@ -23,5 +23,5 @@ class Devices(db.Model):
     hostname = db.Column(db.String, nullable=True)
     ip_address = db.Column(db.String, nullable=True)
 
-    def __str__(self):
-        return super().__str__(self.hostname, self.ip_address)
+    def __repr__(self):
+        return self.hostname, self.ip_address
