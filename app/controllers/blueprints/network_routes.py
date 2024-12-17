@@ -3,7 +3,7 @@ from flask_login import login_required
 from app.controllers.forms import Network_Form
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
-from app.models.model import Table_Register, Table_Devices
+from app.models import Users, Devices
 from app import db
 
 # Inicializa o Blueprint
@@ -13,8 +13,8 @@ network_bp = Blueprint('network', __name__)
 # Rota: get_interface_summary
 @network_bp.route('/get_interface_summary', methods=['GET', 'POST'])
 def interface_summary():
-    users = db.session.execute(db.select(Table_Register)).scalars().all()
-    devices = db.session.execute(db.select(Table_Devices)).scalars().all()
+    users = db.session.execute(db.select(Users)).scalars().all()
+    devices = db.session.execute(db.select(Devices)).scalars().all()
 
     output = None
 
@@ -40,8 +40,8 @@ def interface_summary():
 # Rota: get_interface_configuration
 @network_bp.route('/get_interface_configuration', methods=['GET', 'POST'])
 def interface_configuration():
-    users = db.session.execute(db.select(Table_Register)).scalars().all()
-    devices = db.session.execute(db.select(Table_Devices)).scalars().all()
+    users = db.session.execute(db.select(Users)).scalars().all()
+    devices = db.session.execute(db.select(Devices)).scalars().all()
 
     output = None
 
@@ -72,10 +72,10 @@ def interface_unit():
     output = None
 
     users = db.session.execute(
-        db.select(Table_Register).order_by(Table_Register.id)
+        db.select(Users).order_by(Users.id)
     ).scalars()
     hosts = db.session.execute(
-        db.select(Table_Devices).order_by(Table_Devices.id)
+        db.select(Devices).order_by(Devices.id)
     ).scalars()
 
     form.username.choices = [

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from app import db
-from app.models.model import Table_Devices
+from app.models import Devices
 from app.controllers.forms import Form_Devices
 
 device_bp = Blueprint('device', __name__)
@@ -10,11 +10,11 @@ device_bp = Blueprint('device', __name__)
 @device_bp.route('/create', methods=['GET', 'POST'])
 def page_register_device():
     form_device = Form_Devices(request.form)
-    table = db.session.execute(db.select(Table_Devices)).scalars().all()
+    table = db.session.execute(db.select(Devices)).scalars().all()
 
     if form_device.validate_on_submit():
         # Insere um novo dispositivo na tabela
-        new_device = Table_Devices(
+        new_device = Devices(
             hostname=form_device.hostname.data,
             ip_address=form_device.ip_address.data
         )
@@ -39,7 +39,7 @@ def page_register_device():
 def page_edit_device(id):
     # Localiza o dispositivo pelo ID
     device = db.session.execute(
-        db.select(Table_Devices).filter_by(id=id)
+        db.select(Devices).filter_by(id=id)
     ).scalar_one_or_none()
     if device is None:
         flash(f'Dispositivo com ID {id} não encontrado.', category='danger')
@@ -67,7 +67,7 @@ def page_edit_device(id):
 def remove_device(id):
     # Localiza o dispositivo pelo ID
     device = db.session.execute(
-        db.select(Table_Devices).filter_by(id=id)
+        db.select(Devices).filter_by(id=id)
     ).scalar_one_or_none()
 
     if device:

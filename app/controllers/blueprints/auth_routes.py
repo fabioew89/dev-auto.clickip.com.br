@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user
 from app import db
-from app.models.model import Table_Register
+from app.models import Users
 from app.controllers.forms import Form_Login
 from werkzeug.security import check_password_hash
 
@@ -15,7 +15,7 @@ def page_login():
         username = form.username.data
         password = form.password.data
         user = db.session.execute(
-            db.select(Table_Register)
+            db.select(Users)
             .filter_by(username=username)
         ).scalar_one_or_none()
 

@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, url_for, redirect, render_template
 from app import db
 from app.controllers.forms import Form_Register
-from app.models.model import Table_Register
+from app.models import Users
 from werkzeug.security import generate_password_hash
 
 user_bp = Blueprint('user', __name__)
@@ -13,7 +13,7 @@ def page_register():
     form = Form_Register()
     if form.validate_on_submit():
         # Criação de um novo usuário com senha criptografada
-        user = Table_Register(
+        user = Users(
             username=form.username.data,
             password=generate_password_hash(
                 form.password.data, method='pbkdf2:sha256'
@@ -40,7 +40,7 @@ def page_list_user():
     form = Form_Register()
 
     table = db.session.execute(
-        db.select(Table_Register)
+        db.select(Users)
     ).scalars().all()
 
     return render_template(
@@ -55,7 +55,7 @@ def page_list_user():
 def page_edit_user(id):
     # Busca o usuário no banco de dados
     user = db.session.execute(
-        db.select(Table_Register).filter_by(id=id)
+        db.select(Users).filter_by(id=id)
     ).scalar_one_or_none()
     if user is None:
         flash(f'Usuário com ID {id} não encontrado.', category='danger')
@@ -82,7 +82,7 @@ def page_edit_user(id):
 def remove_user(id):
     # Busca o usuário no banco de dados
     user = db.session.execute(
-        db.select(Table_Register).filter_by(id=id)
+        db.select(Users).filter_by(id=id)
     ).scalar_one_or_none()
 
     if user:

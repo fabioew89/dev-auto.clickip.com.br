@@ -4,13 +4,13 @@ from wtforms import StringField, PasswordField, SubmitField, \
 from wtforms.validators import DataRequired, Length, EqualTo, \
     ValidationError, IPAddress, NumberRange
 from app import db
-from app.models.model import Table_Register
+from app.models import Users
 
 
 class Form_Register(FlaskForm):
     def validate_username(self, field):
         username = db.session.execute(
-            db.select(Table_Register).filter_by(username=field.data)
+            db.select(Users).filter_by(username=field.data)
         ).scalar_one_or_none()
         if username:
             raise ValidationError('Usuário já cadastrado')
