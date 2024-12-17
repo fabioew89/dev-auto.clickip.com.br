@@ -13,7 +13,7 @@ class Base(DeclarativeBase):
 # Inicializando extensões
 db = SQLAlchemy(model_class=Base)
 lm = LoginManager()
-admin = Admin(name='auto.clickip.local', template_mode='bootstrap4')
+admin = Admin()
 
 
 def create_app():
