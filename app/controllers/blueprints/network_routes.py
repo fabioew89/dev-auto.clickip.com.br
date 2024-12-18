@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, flash
 from flask_login import login_required
-from app.controllers.forms import Network_Form
+from app.controllers.forms import Form_Network
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
 from app.models import Users, Devices
@@ -67,7 +67,7 @@ def interface_configuration():
 @network_bp.route('/set_interface_unit', methods=['GET', 'POST'])
 @login_required
 def interface_unit():
-    form = Network_Form()
+    form = Form_Network()
 
     output = None
 

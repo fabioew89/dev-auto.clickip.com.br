@@ -66,7 +66,7 @@ class Form_Devices(FlaskForm):
     submit = SubmitField('Cadastrar')
 
 
-class Network_Form(FlaskForm):
+class Form_Network(FlaskForm):
     hostname = SelectField(
         'Hostname', choices=[]
     )
