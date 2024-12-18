@@ -61,14 +61,6 @@
         <a href="#" class="dropdown-toggle mr-3" type="button" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Editar</a>
         <div class="dropdown-menu">
           <h6 class="dropdown-header">Ações</h6>
-          <!-- Submenu -->
-          <div class="dropdown-submenu">
-            <a href="#" class="dropdown-item dropdown-toggle">Usuário</a>
-            <div class="dropdown-menu">
-              <a href="{{url_for('user.page_register')}}" class="dropdown-item">Novo</a>
-              <a href="{{url_for('user.page_list_user')}}" class="dropdown-item">Lista</a>
-            </div>
-          </div>
           <a class="dropdown-item" href="{{url_for('device.page_register_device')}}">Device</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item disabled" href="{{url_for('auth.page_logout')}}">Logout</a>
