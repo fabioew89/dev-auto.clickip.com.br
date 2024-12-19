@@ -18,22 +18,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Entrar')
 
 
-class Form_Devices(FlaskForm):
-    hostname = StringField(
-        'Hostname', validators=[
-            DataRequired(),
-            Length(min=3, max=30)
-        ]
-    )
-    ip_address = StringField(
-        'IP Address', validators=[
-            DataRequired(),
-            IPAddress(ipv4=True)
-        ]
-    )
-    submit = SubmitField('Cadastrar')
-
-
 class NetworkForm(FlaskForm):
     hostname = SelectField(
         'Hostname', choices=[]
