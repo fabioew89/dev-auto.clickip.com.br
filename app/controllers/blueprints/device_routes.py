@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from app import db
+from flask_login import login_required
 from app.models import Devices
 from app.controllers.forms import Form_Devices
 
@@ -8,6 +9,7 @@ device_bp = Blueprint('device', __name__)
 
 # Rota para registrar um novo dispositivo
 @device_bp.route('/create', methods=['GET', 'POST'])
+@login_required
 def page_register_device():
     form_device = Form_Devices(request.form)
     table = db.session.execute(db.select(Devices)).scalars().all()
@@ -36,6 +38,7 @@ def page_register_device():
 
 # Rota para editar os dados de um dispositivo existente
 @device_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
 def page_edit_device(id):
     # Localiza o dispositivo pelo ID
     device = db.session.execute(
@@ -64,6 +67,7 @@ def page_edit_device(id):
 
 # Rota para remover um dispositivo existente
 @device_bp.route('/<int:id>/del')
+@login_required
 def remove_device(id):
     # Localiza o dispositivo pelo ID
     device = db.session.execute(
