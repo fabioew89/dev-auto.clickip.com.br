@@ -18,7 +18,7 @@ class UsersView(ModelView):
     details_modal = True
 
     column_default_sort = 'username'
-    # column_exclude_list = 'password'
+    column_exclude_list = 'password'
 
     form_extra_fields = {
         'password': PasswordField(
@@ -54,6 +54,8 @@ class DeviceView(ModelView):
 
     edit_modal = True
     details_modal = True
+
+    column_default_sort = 'hostname'
 
     form_extra_fields = {
         'ip_address': StringField(
