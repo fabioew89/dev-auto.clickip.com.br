@@ -6,7 +6,7 @@
 </p>
 
 <hr>
-<form method="POST" action="{{url_for('auth.page_login')}}">
+<form method="POST" action="{{url_for('auth.login')}}">
     {{ form.hidden_tag() }}
 
     {{ form.username(class_="form-control mb-3", placeholder='user.name') }}

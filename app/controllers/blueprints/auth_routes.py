@@ -2,15 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user
 from app import db
 from app.models import Users
-from app.controllers.forms import Form_Login
+from app.controllers.forms import LoginForm
 from werkzeug.security import check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
-def page_login():
-    form = Form_Login()
+def login():
+    form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
@@ -36,7 +36,7 @@ def page_login():
 
 @auth_bp.route('/logout')
 @login_required
-def page_logout():
+def logout():
     logout_user()
     flash('Deslogado!!!', category='info')
-    return redirect(url_for('network.interface_summary'))
+    return redirect(url_for('auth.login'))

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, flash
 from flask_login import login_required
-from app.controllers.forms import Form_Network
+from app.controllers.forms import NetworkForm
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
 from app.models import Users, Devices
@@ -13,6 +13,7 @@ network_bp = Blueprint('network', __name__)
 # Rota: get_interface_summary
 @network_bp.route('/get_interface_summary', methods=['GET', 'POST'])
 def interface_summary():
+    form = NetworkForm()
     users = db.session.execute(db.select(Users)).scalars().all()
     devices = db.session.execute(db.select(Devices)).scalars().all()
 
@@ -31,6 +32,7 @@ def interface_summary():
 
     return render_template(
         'route/get_interface_summary.html',
+        form=form,
         users=users,
         output=output,
         devices=devices,
@@ -67,7 +69,7 @@ def interface_configuration():
 @network_bp.route('/set_interface_unit', methods=['GET', 'POST'])
 @login_required
 def interface_unit():
-    form = Form_Network()
+    form = NetworkForm()
 
     output = None
 

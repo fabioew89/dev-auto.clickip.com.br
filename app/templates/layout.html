@@ -39,9 +39,9 @@
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
       <span class="mr-3 text-uppercase font-weight-light"> &#8764; {{current_user.username}} &#8764;</span>
-      <a class="breadcrumb-item" href="{{url_for('auth.page_logout')}}">Logout</a>
+      <a class="breadcrumb-item" href="{{url_for('auth.logout')}}">Logout</a>
       {% else %}
-      <a class="breadcrumb-item" href="{{url_for('auth.page_login')}}">Login</a>
+      <a class="breadcrumb-item" href="{{url_for('auth.login')}}">Login</a>
       {% endif %}
     </nav>
   </div>

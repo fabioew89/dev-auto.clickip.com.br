@@ -1,42 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, \
     SelectField, IntegerField
-from wtforms.validators import DataRequired, Length, EqualTo, \
-    ValidationError, IPAddress, NumberRange
-from app import db
-from app.models import Users
+from wtforms.validators import DataRequired, Length, IPAddress, NumberRange
 
 
-class Form_Register(FlaskForm):
-    def validate_username(self, field):
-        username = db.session.execute(
-            db.select(Users).filter_by(username=field.data)
-        ).scalar_one_or_none()
-        if username:
-            raise ValidationError('Usuário já cadastrado')
-
-    username = StringField(
-        'Username', validators=[
-            DataRequired(),
-            Length(min=3, max=25)
-        ]
-    )
-    password = PasswordField(
-        'Password', validators=[
-            DataRequired(),
-            Length(min=6)
-        ]
-    )
-    password_confirm = PasswordField(
-        'Confirm Password', validators=[
-            DataRequired(),
-            EqualTo('password', message='As senhas devem coincidir')
-        ]
-    )
-    submit = SubmitField('Cadastrar')
-
-
-class Form_Login(FlaskForm):
+class LoginForm(FlaskForm):
     username = StringField(
         'Username', validators=[
             DataRequired()
@@ -60,18 +28,21 @@ class Form_Devices(FlaskForm):
     ip_address = StringField(
         'IP Address', validators=[
             DataRequired(),
-            IPAddress()
+            IPAddress(ipv4=True)
         ]
     )
     submit = SubmitField('Cadastrar')
 
 
-class Form_Network(FlaskForm):
+class NetworkForm(FlaskForm):
     hostname = SelectField(
         'Hostname', choices=[]
     )
-    username = SelectField(
-        'Username', choices=[]
+    username = StringField(
+        'Username', validators=[
+            DataRequired(),
+            Length(min=3, max=30)
+        ]
     )
     password = PasswordField(
         'Password', validators=[

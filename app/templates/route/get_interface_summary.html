@@ -7,9 +7,12 @@
 
 <hr>
 
-<form method="POST" action="{{ url_for('network.interface_summary') }}" autocomplete="off">
+<form method="POST" action="{{ url_for('network.interface_summary') }}" autocomplete="on">
+    {{ form.hidden_tag() }}
+    {{ current_user.username }}
+
+
     <div class="form-row">
-       
         <!-- Routers -->
         <div class="form-group col">
             <label for="hostname" hidden>Selecione um Router</label>
@@ -24,16 +27,7 @@
 
     <div class="form-row">
         <!-- Usuários -->
-        <div class="form-group col">
-            <label for="username" hidden>Selecione o usuário.</label>
-            <select name="username" id="username" class="form-control">
-                <label for="username">Selecione um usuário</label>
-                {% for user in users %}
-                <option value="{{user.username}}">{{user.username}}</option>
-                {% endfor %}
-            </select>
-        </div>
-
+        
         <!-- Passwords -->
         <div class="form-group col">
             <label for="password" hidden>Senha</label>

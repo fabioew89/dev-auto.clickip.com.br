@@ -8,8 +8,6 @@
 <hr />
 
 <form action="{{url_for('network.interface_unit')}}" method="POST">
-  {{ form.hidden_tag() }}
-
   <!-- ROW -->
   <div class="form-row">
     <div class="form-group col">{{ form.hostname(class="form-control") }}</div>
