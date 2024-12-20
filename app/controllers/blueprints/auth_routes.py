@@ -14,9 +14,9 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
+
         user = db.session.execute(
-            db.select(Users)
-            .filter_by(username=username)
+            db.select(Users).filter_by(username=username)
         ).scalar_one_or_none()
 
         if user and check_password_hash(user.password, password):
