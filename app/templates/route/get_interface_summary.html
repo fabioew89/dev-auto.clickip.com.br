@@ -9,29 +9,27 @@
 
 <form method="POST" action="{{ url_for('network.interface_summary') }}" autocomplete="on">
     {{ form.hidden_tag() }}
-    {{ current_user.username }}
-
 
     <div class="form-row">
         <!-- Routers -->
         <div class="form-group col">
-            <label for="hostname" hidden>Selecione um Router</label>
             <select name="hostname" id="hostname" class="form-control">
                 {% for device in devices %}
                 <option value="{{device.ip_address}}">{{device.hostname}}</option>
                 {% endfor %}
             </select>
         </div>
-
     </div>
 
     <div class="form-row">
-        <!-- Usuários -->
-        
+        <div class="form-group col">
+            <!-- Usuários -->
+            <input type="text" class="form-control" name="username" id="username" value="{{ current_user.username }}"
+                readonly style="user-select: none;">
+        </div>
         <!-- Passwords -->
         <div class="form-group col">
-            <label for="password" hidden>Senha</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
+            {{ form.password(class='form-control', placeholder='Senha') }}
         </div>
     </div>
 
