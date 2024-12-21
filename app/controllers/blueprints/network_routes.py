@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.controllers.forms import NetworkForm
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
@@ -14,8 +14,9 @@ network_bp = Blueprint('network', __name__)
 @network_bp.route('/get_interface_summary', methods=['GET', 'POST'])
 def interface_summary():
     form = NetworkForm()
-    users = db.session.execute(db.select(Users)).scalars().all()
+
     devices = db.session.execute(db.select(Devices)).scalars().all()
+    username = db.session.execute(db.select(Users).filter_by(username=current_user.username)).scalar()  # noqa: E501
 
     output = None
 
@@ -33,7 +34,6 @@ def interface_summary():
     return render_template(
         'route/get_interface_summary.html',
         form=form,
-        users=users,
         output=output,
         devices=devices,
     )
