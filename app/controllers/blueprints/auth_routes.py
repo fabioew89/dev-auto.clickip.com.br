@@ -4,6 +4,9 @@ from app import db
 from app.models import Users
 from app.controllers.forms import LoginForm
 from werkzeug.security import check_password_hash
+from cryptography.fernet import Fernet
+
+f = Fernet(Fernet.generate_key())
 
 auth_bp = Blueprint('auth', __name__)
 
