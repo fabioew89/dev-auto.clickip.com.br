@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, flash
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, AnonymousUserMixin
 from app.controllers.forms import NetworkForm
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
@@ -16,7 +16,8 @@ def interface_summary():
     form = NetworkForm()
 
     devices = db.session.execute(db.select(Devices)).scalars().all()
-    username = db.session.execute(db.select(Users).filter_by(username=current_user.username)).scalar()  # noqa: E501
+    if not AnonymousUserMixin:
+        username = db.session.execute(db.select(Users).filter_by(username=current_user.username)).scalar()  # noqa: E501
 
     output = None
 
@@ -73,19 +74,11 @@ def interface_unit():
 
     output = None
 
-    users = db.session.execute(
-        db.select(Users).order_by(Users.id)
-    ).scalars()
-    hosts = db.session.execute(
-        db.select(Devices).order_by(Devices.id)
-    ).scalars()
+    users = db.session.execute(db.select(Users).order_by(Users.id)).scalars()
+    hosts = db.session.execute(db.select(Devices).order_by(Devices.id)).scalars()  # noqa: E501
 
-    form.username.choices = [
-        (user.username, user.username) for user in users
-    ]
-    form.hostname.choices = [
-        (host.ip_address, host.hostname) for host in hosts
-    ]
+    form.username.choices = [(user.username, user.username) for user in users]
+    form.hostname.choices = [(host.ip_address, host.hostname) for host in hosts]  # noqa: E501
 
     if form.validate_on_submit():
         hostname = form.hostname.data
