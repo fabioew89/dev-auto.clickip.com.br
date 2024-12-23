@@ -25,7 +25,7 @@ def create_app():
     lm.init_app(app)
     admin.init_app(app)
 
-    lm.login_view = 'auth.page_login'
+    lm.login_view = 'auth.login'
     lm.login_message = 'Please log in to access this page.'
     lm.login_message_category = 'info'
     lm.session_protection = "strong"
