@@ -3,38 +3,47 @@ from flask_login import login_required, login_user, logout_user
 from app import db
 from app.models import Users
 from app.controllers.forms import LoginForm
-from werkzeug.security import check_password_hash
 from cryptography.fernet import Fernet
-
-f = Fernet(Fernet.generate_key())
 
 auth_bp = Blueprint('auth', __name__)
 
 
+def check_password(stored_password, provided_password):
+    f = Fernet(b'bdilxeLGCHnJo-2HtofB9wGcXaUV7D5NZgxh5Nt5fpg=')
+
+    try:
+        decrypted_password = f.decrypt(stored_password).decode('utf-8')
+        return decrypted_password == provided_password
+    except Exception as e:
+        print(f'[Erro] Falha ao verificar a senha: {e}')
+        return False
+
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+    login_form = LoginForm()
 
-        user = db.session.execute(
-            db.select(Users).filter_by(username=username)
+    if login_form.validate_on_submit():
+        input_username = login_form.username.data
+        input_password = login_form.password.data
+
+        user_record = db.session.execute(
+            db.select(Users).filter_by(username=input_username)
         ).scalar_one_or_none()
 
-        if user and check_password_hash(user.password, password):
-            login_user(user, remember=True)
-            flash(f'Sucesso ao logar {username}', category='success')
+        if user_record and check_password(user_record.password, input_password):  # noqa: E501
+            login_user(user_record, remember=True)
+            flash(f'Sucesso ao logar {input_username}', category='success')
             return redirect(url_for('network.interface_summary'))
         else:
-            flash('Email ou senha incorretos', category='danger')
+            flash('Usuário ou senha incorretos', category='danger')
 
-    if form.errors:
-        for field_name, err_messages in form.errors.items():
-            for err in err_messages:
-                flash(f'Erro no campo {field_name}: {err}', category='danger')
+    if login_form.errors:
+        for field_name, error_messages in login_form.errors.items():
+            for error_message in error_messages:
+                flash(f'Erro no campo {field_name}: {error_message}', category='danger')  # noqa: E501
 
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=login_form)
 
 
 @auth_bp.route('/logout')

@@ -2,11 +2,9 @@ from app import db, admin
 from app.models import Users, Devices
 from flask_admin.contrib.sqla import ModelView
 from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired, Length, EqualTo, IPAddress
-from werkzeug.security import generate_password_hash
+from wtforms.validators import DataRequired, \
+    Length, EqualTo, IPAddress, InputRequired
 from cryptography.fernet import Fernet
-
-f = Fernet(Fernet.generate_key())
 
 
 class UsersView(ModelView):
@@ -21,7 +19,7 @@ class UsersView(ModelView):
     details_modal = True
 
     column_default_sort = 'username'
-    # column_exclude_list = 'password'
+    column_exclude_list = 'password'
 
     form_extra_fields = {
         'password': PasswordField(validators=[DataRequired(), Length(min=6)]),
@@ -29,12 +27,9 @@ class UsersView(ModelView):
     }
 
     def on_model_change(self, form, model, is_created):
+        f = Fernet(b'bdilxeLGCHnJo-2HtofB9wGcXaUV7D5NZgxh5Nt5fpg=')
         if form.password.data:
-            # model.password = f.encrypt(form.password.data)
-            model.password = generate_password_hash(
-                form.password.data,
-                method='pbkdf2:sha256:600000'
-            )
+            model.password = f.encrypt(form.password.data.encode('utf-8'))
 
 
 class DeviceView(ModelView):
@@ -50,9 +45,7 @@ class DeviceView(ModelView):
 
     column_default_sort = 'hostname'
 
-    form_extra_fields = {
-        'ip_address': StringField('IP Address', validators=[DataRequired(), IPAddress(ipv4=True)])  # noqa: E501
-    }
+    form_extra_fields = {'ip_address': StringField('IP Address', validators=[InputRequired(), IPAddress(ipv4=True)])}  # noqa: E501
 
 
 def create_admin():
