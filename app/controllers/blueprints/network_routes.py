@@ -1,13 +1,16 @@
 from flask import Blueprint, request, render_template, flash
-from flask_login import login_required, current_user, AnonymousUserMixin
+from flask_login import login_required, current_user
 from app.controllers.forms import NetworkForm
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
 from app.models import Users, Devices
 from app import db
+from cryptography.fernet import Fernet
 
 # Inicializa o Blueprint
 network_bp = Blueprint('network', __name__)
+
+f = Fernet(b'bdilxeLGCHnJo-2HtofB9wGcXaUV7D5NZgxh5Nt5fpg=')
 
 
 # Rota: get_interface_summary
@@ -16,8 +19,11 @@ def interface_summary():
     form = NetworkForm()
 
     devices = db.session.execute(db.select(Devices)).scalars().all()
-    if not AnonymousUserMixin:
-        username = db.session.execute(db.select(Users).filter_by(username=current_user.username)).scalar()  # noqa: E501
+
+    user_record = db.session.execute(
+        db.select(Users).filter_by(username=current_user.username)
+    ).scalar_one_or_none()
+    decrypted_password = f.decrypt(user_record.password)
 
     output = None
 
@@ -37,6 +43,7 @@ def interface_summary():
         form=form,
         output=output,
         devices=devices,
+        password=decrypted_password
     )
 
 

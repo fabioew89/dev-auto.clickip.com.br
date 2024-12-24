@@ -32,7 +32,7 @@ def login():
         ).scalar_one_or_none()
 
         if user_record and check_password(user_record.password, input_password):  # noqa: E501
-            login_user(user_record, remember=True)
+            login_user(user_record, remember=login_form.checkbox.data)
             flash(f'Sucesso ao logar {input_username}', category='success')
             return redirect(url_for('network.interface_summary'))
         else:
@@ -42,7 +42,6 @@ def login():
         for field_name, error_messages in login_form.errors.items():
             for error_message in error_messages:
                 flash(f'Erro no campo {field_name}: {error_message}', category='danger')  # noqa: E501
-
     return render_template('login.html', form=login_form)
 
 

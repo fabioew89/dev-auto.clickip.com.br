@@ -22,14 +22,14 @@
     </div>
 
     <div class="form-row">
+        <!-- Usuários -->
         <div class="form-group col">
-            <!-- Usuários -->
-            <input type="text" class="form-control" name="username" id="username" value="{{current_user.username}}"
+            <input type="text" class="form-control" name="username" id="username" value="{{ current_user.username }}"
                 readonly style="user-select: none;">
         </div>
         <!-- Passwords -->
         <div class="form-group col">
-            {{ form.password(class='form-control', placeholder='Senha') }}
+            <input type="text" class="form-control mb-3" value="{{ password }}" readonly>
         </div>
     </div>
 

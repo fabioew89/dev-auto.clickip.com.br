@@ -22,8 +22,24 @@ class UsersView(ModelView):
     column_exclude_list = 'password'
 
     form_extra_fields = {
-        'password': PasswordField(validators=[DataRequired(), Length(min=6)]),
-        'Password Confirm': PasswordField(validators=[DataRequired(), EqualTo('password', message='Your password must be match')])  # noqa: E501
+        'username': StringField(
+            validators=[
+                DataRequired(),
+                Length(min=5, max=30)
+            ]
+        ),
+        'password': PasswordField(
+            validators=[
+                DataRequired(),
+                Length(min=6)
+            ]
+        ),
+        'Password Confirm': PasswordField(
+            validators=[
+                DataRequired(),
+                EqualTo('password', message='Your password must be match')
+            ]
+        ),
     }
 
     def on_model_change(self, form, model, is_created):

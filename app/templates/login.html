@@ -9,10 +9,16 @@
 <form method="POST" action="{{url_for('auth.login')}}">
     {{ form.hidden_tag() }}
 
-    {{ form.username(class_="form-control mb-3", placeholder='user.name') }}
-
-    {{ form.password(class_="form-control mb-3", placeholder='passowrd') }}
-
-    {{ form.submit(class='btn btn-primary') }}
+    <div class="form-group">
+        {{ form.username(class="form-control mb-3", placeholder='user.name') }}
+        {{ form.password(class="form-control mb-3", placeholder='password') }}
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="custom-control custom-checkbox">
+            {{ form.checkbox(class="custom-control-input") }}
+            {{ form.checkbox.label(class="custom-control-label") }}
+        </div>
+        {{ form.submit(class='btn btn-primary') }}
+    </div>
 </form>
 {% endblock %}
