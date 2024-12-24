@@ -1,10 +1,12 @@
 from flask import Blueprint, request, render_template, flash
-from flask_login import login_required, current_user
-from app.controllers.forms import NetworkForm
+from flask_login import current_user, login_required, fresh_login_required
 from app.controllers.networks import set_interface_unit, \
     get_interface_summary, get_interface_configuration
+
+from app.controllers.forms import NetworkForm
 from app.models import Users, Devices
 from app import db
+
 from cryptography.fernet import Fernet
 
 # Inicializa o Blueprint
@@ -15,6 +17,8 @@ f = Fernet(b'bdilxeLGCHnJo-2HtofB9wGcXaUV7D5NZgxh5Nt5fpg=')
 
 # Rota: get_interface_summary
 @network_bp.route('/get_interface_summary', methods=['GET', 'POST'])
+@login_required
+@fresh_login_required
 def interface_summary():
     form = NetworkForm()
 
@@ -23,14 +27,15 @@ def interface_summary():
     user_record = db.session.execute(
         db.select(Users).filter_by(username=current_user.username)
     ).scalar_one_or_none()
-    decrypted_password = f.decrypt(user_record.password)
+
+    decrypted_password = f.decrypt(user_record.password).decode('utf-8')
 
     output = None
 
     if request.method == 'POST':
-        hostname = request.form.get('hostname')
-        username = request.form.get('username')
-        password = request.form.get('password')
+        hostname = form.hostname.data
+        username = current_user.username
+        password = decrypted_password
 
         output = get_interface_summary(
             hostname,
@@ -49,6 +54,8 @@ def interface_summary():
 
 # Rota: get_interface_configuration
 @network_bp.route('/get_interface_configuration', methods=['GET', 'POST'])
+@login_required
+@fresh_login_required
 def interface_configuration():
     users = db.session.execute(db.select(Users)).scalars().all()
     devices = db.session.execute(db.select(Devices)).scalars().all()
@@ -76,6 +83,7 @@ def interface_configuration():
 # Rota: set_interface_unit
 @network_bp.route('/set_interface_unit', methods=['GET', 'POST'])
 @login_required
+@fresh_login_required
 def interface_unit():
     form = NetworkForm()
 
