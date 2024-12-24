@@ -29,7 +29,8 @@ def create_app():
     lm.login_message = 'Please log in to access this page.'
     lm.login_message_category = 'info'
     lm.session_protection = "strong"
-    lm.refresh_view = "accounts.reauthenticate"
+
+    lm.refresh_view = "auth.login"
     lm.needs_refresh_message = (
         u"To protect your account, please reauthenticate to access this page."
     )
