@@ -10,8 +10,8 @@
 <form method="POST" action="{{ url_for('network.interface_summary') }}" autocomplete="on">
     {{ form.hidden_tag() }}
 
-    <!-- Routers -->
     <div class="form-row">
+        <!-- Routers -->
         <div class="form-group col">
             <select name="hostname" id="hostname" class="form-control">
                 {% for device in devices %}
@@ -23,16 +23,16 @@
 
     <div class="form-row">
         <!-- Usuários -->
-        <div class="form-group col">
-            <input type="text" class="form-control" name="username" id="username" value="{{ current_user.username }}"
-                readonly>
+        <div class="form-group col mb-3">
+            <input type="text" class="form-control" value="{{ current_user.username }}" readonly>
         </div>
 
         <!-- Passwords -->
-        <div class="form-group col" style="margin-bottom: 0;">
-            <input type="password" class="form-control" value="your_password" readonly>
-            <i class="far fa-eye"
-                style="position: relative; float: inline-end; bottom: 1.6rem; right: 1rem; opacity: .5;"></i>
+        <div class="input-group col mb-3">
+            <input type="password" class="form-control" value="{{ current_user.password }}" readonly>
+            <div class="input-group-append">
+                <i class="fas fa-eye input-group-text"></i>
+            </div>
         </div>
     </div>
 
