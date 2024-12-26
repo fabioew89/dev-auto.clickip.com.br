@@ -6,19 +6,27 @@
 </p>
 
 <hr>
-<form method="POST" action="{{url_for('auth.login')}}">
+<form method="POST" action="{{url_for('auth.login')}}" autocomplete="off">
     {{ form.hidden_tag() }}
 
     <div class="form-group">
         {{ form.username(class="form-control mb-3", placeholder='user.name') }}
-        {{ form.password(class="form-control mb-3", placeholder='password') }}
+
+        <div class="input-group">
+            {{ form.password(class="form-control", placeholder='password') }}
+            <div class="input-group-append">
+                <i class="fas fa-eye input-group-text"></i>
+            </div>
+        </div>
     </div>
-    <div class="d-flex justify-content-between">
+
+    <div class="d-flex justify-content-between align-items-center">
+        {{ form.submit(class='btn btn-primary') }}
         <div class="custom-control custom-checkbox">
             {{ form.checkbox(class="custom-control-input") }}
             {{ form.checkbox.label(class="custom-control-label") }}
         </div>
-        {{ form.submit(class='btn btn-primary') }}
     </div>
 </form>
+
 {% endblock %}
