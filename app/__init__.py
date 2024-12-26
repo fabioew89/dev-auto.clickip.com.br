@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
 from flask_admin import Admin
+from livereload import Server
 
 
 # Declarativa base para o SQLAlchemy
@@ -47,5 +48,10 @@ def create_app():
     @app.route('/')
     def page_home():
         return render_template('home.html')
+
+    server = Server(app.wsgi_app)
+    server.watch('app/templates/**/*')
+    server.watch('app/static/**/*')
+    server.serve(port=5000)
 
     return app
