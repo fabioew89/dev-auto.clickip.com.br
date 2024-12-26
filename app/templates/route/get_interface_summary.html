@@ -5,11 +5,13 @@
 <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.
 </p>
 
+
+
 <hr>
 
 <form method="POST" action="{{ url_for('network.interface_summary') }}" autocomplete="on">
     {{ form.hidden_tag() }}
-    
+
     <!-- Routers -->
     <div class="form-row">
         <div class="form-group col">
@@ -20,21 +22,25 @@
             </select>
         </div>
     </div>
-    
+
     <div class="form-row">
         <!-- Usuários -->
         <div class="form-group col">
             <input type="text" class="form-control" name="username" id="username" value="{{ current_user.username }}"
-            readonly>
+                readonly>
         </div>
-        
+
         <!-- Passwords -->
         <div class="form-group col" style="margin-bottom: 0;">
             <input type="password" class="form-control" value="your_password" readonly>
-            <span style="position: relative;float: right;bottom: 2rem; right: 1rem;" onclick="alert()">@</span>
+            <i class="far fa-eye"
+                style="position: relative; float: inline-end; bottom: 1.6rem; right: 1rem; opacity: .5;"
+                onclick="eyes()"></i>
+            <!-- <i class="far fa-eye-slash"></i>  -->
+
         </div>
     </div>
-    
+
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 
