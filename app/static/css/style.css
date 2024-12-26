@@ -2,10 +2,8 @@ body{
     background-color: cadetblue;
     
     .fa-eye{
-        color: green;
         
         &:hover{
-            color: red;
             cursor: pointer;
             
         }
