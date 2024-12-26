@@ -1,14 +1,13 @@
-function selectOption(optionText, optionValue) {
-    // Coloca o valor selecionado no campo oculto do formulário
-    document.getElementById('selectedOption').value = optionValue;
+$(document).ready(function() {
+  // Toggle password visibility
+  $('.fa-eye').on('click', function() {
+    $(this).toggleClass('fa-eye-slash');
 
-    // Envia o formulário automaticamente
-    document.getElementById('optionForm').submit();
-  }
-
-
-$(document).ready(function(){
-  $("p").click(function(){
-    $(this).hide();
-  });
-});  
+    if ($(this).hasClass('fa-eye-slash')) {
+      $(this).prev().attr('type', 'text');
+    }
+    else {
+      $(this).prev().attr('type', 'password');
+    }
+ });
+});
