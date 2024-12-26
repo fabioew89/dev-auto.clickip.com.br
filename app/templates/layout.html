@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  
-  <head>
-    <!-- fontawesome -->
-    <script src="https://kit.fontawesome.com/19bb9c4807.js" crossorigin="anonymous"></script>
-    <!-- Meta tags Obrigatórias -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+
+<head>
+  <!-- Meta tags Obrigatórias -->
+  <meta charset="utf-8" />
+
+  <!-- viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- fontawesome -->
+  <script src="https://kit.fontawesome.com/19bb9c4807.js" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-    <!-- non necessary yet -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}"> -->
+
+  <!-- non necessary yet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}">
 
   <title>{% block title %}auto.clickip.local{% endblock %}</title>
 </head>
@@ -67,10 +75,8 @@
 
   <!-- JavaScript (Opcional) -->
   <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+
   <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
