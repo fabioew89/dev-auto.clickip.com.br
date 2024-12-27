@@ -11,6 +11,7 @@
   <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/19bb9c4807.js" crossorigin="anonymous"></script>
 
+  <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
     integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
@@ -18,15 +19,18 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
 
-  <!-- non necessary yet -->
+  <!-- stylesheet -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}">
 
+  <!-- site title -->
   <title>{% block title %}auto.clickip.local{% endblock %}</title>
 </head>
 
-<body class="container" style="background-color: cadetblue">
+<body class="container">
+
   <!-- breadcrumb -->
   <div class="d-flex justify-content-between">
+
     <!-- left side menu -->
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
@@ -44,7 +48,6 @@
       </ul>
     </nav>
 
-
     <!-- right side menu -->
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
@@ -58,6 +61,7 @@
 
   <!-- jumbotron -->
   <div class="jumbotron">
+
     <!-- Flash messages with flask -->
     {% with messages = get_flashed_messages(with_categories=True) %} {% for
     category, message in messages %}
@@ -76,7 +80,7 @@
   <!-- JavaScript (Opcional) -->
   <script src="{{ url_for('static',filename='js/main.js') }}"></script>
 
-  <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+  <!-- Popper.js, Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
