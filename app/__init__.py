@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
@@ -47,8 +47,9 @@ def create_app():
     # Rota básica para teste
     @app.route('/')
     def page_home():
-        return render_template('home.html')
+        return redirect(url_for('auth.login'))
 
+    # config livereload only for development frontend
     server = Server(app.wsgi_app)
     server.watch('app/templates/**/*')
     server.watch('app/static/**/*')
