@@ -27,17 +27,17 @@
 
     <div class="form-row">
         <!-- Usuários -->
-        <div class="form-group col">
-            <select name="username" id="username" class="form-control">
-                {% for user in users %}
-                <option value="{{user.username}}">{{user.username}}</option>
-                {% endfor %}
-            </select>
+        <div class="form-group col mb-3">
+            <input type="text" class="form-control" value="{{ current_user.username }}" readonly>
         </div>
 
         <!-- Passwords -->
-        <div class="form-group col">
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+        <div class="input-group col mb-3">
+            <input type="password" class="form-control" id="password-input" value="{{ current_user.password }}"
+                readonly>
+            <div class="input-group-append">
+                <i class="fas fa-eye input-group-text" id="toggle-password"></i>
+            </div>
         </div>
     </div>
 
