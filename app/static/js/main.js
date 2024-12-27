@@ -1,13 +1,10 @@
 $(document).ready(function() {
   // Toggle password visibility
-  $('.fa-eye').on('click', function() {
+  $('#toggle-password').on('click', function() {
     $(this).toggleClass('fa-eye-slash');
 
-    if ($(this).hasClass('fa-eye-slash')) {
-      $(this).prev().attr('type', 'text');
-    }
-    else {
-      $(this).prev().attr('type', 'password');
-    }
- });
+    const passwordInput = $('#password-input');
+    const inputType = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+    passwordInput.attr('type', inputType);
+  });
 });
