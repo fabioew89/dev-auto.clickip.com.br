@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1 class="display-4">{% block title %}Login{% endblock %}</h1>
-<p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.
-</p>
 
+<h1 class="display-4">{% block title %}Login{% endblock %}</h1>
+<p class="lead">
+    Aplicação Flask para automatizar configurações de rede, integrando validação
+    de endereços IPv4/IPv6, autenticação de usuários e registro de dispositivos,
+    com suporte a Netmiko para execução de comandos SSH.
+</p>
 <hr>
 <form method="POST" action="{{url_for('auth.login')}}" autocomplete="off">
     {{ form.hidden_tag() }}
