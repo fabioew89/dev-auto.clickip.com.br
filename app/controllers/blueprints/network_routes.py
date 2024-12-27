@@ -20,7 +20,7 @@ f = Fernet(b'bdilxeLGCHnJo-2HtofB9wGcXaUV7D5NZgxh5Nt5fpg=')
 @login_required
 @fresh_login_required
 def interface_summary():
-    network_form = NetworkForm()
+    form = NetworkForm()
 
     available_devices = db.session.execute(db.select(Devices)).scalars().all()
 
@@ -33,7 +33,7 @@ def interface_summary():
     summary_output = None
 
     if request.method == 'POST':
-        selected_hostname = network_form.hostname.data
+        selected_hostname = form.hostname.data
         logged_username = current_user.username
         user_password = user_decrypted_password
 
@@ -43,9 +43,17 @@ def interface_summary():
             user_password,
         )
 
+        flash('Comando enviado com sucesso!', category='success')
+
+    else:
+        if form.errors:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"Erro no campo {field}: {error}", category='danger')
+
     return render_template(
         'route/get_interface_summary.html',
-        form=network_form,
+        form=form,
         output=summary_output,
         devices=available_devices,
     )
@@ -56,24 +64,39 @@ def interface_summary():
 @login_required
 @fresh_login_required
 def interface_configuration():
-    users = db.session.execute(db.select(Users)).scalars().all()
+    form = NetworkForm()
+
     devices = db.session.execute(db.select(Devices)).scalars().all()
 
     output = None
 
+    current_user_record = db.session.execute(
+        db.select(Users).filter_by(username=current_user.username)
+    ).scalar_one_or_none()
+
+    user_decrypted_password = f.decrypt(current_user_record.password).decode('utf-8')  # noqa: E501
+
     if request.method == 'POST':
-        hostname = request.form.get('hostname')
-        username = request.form.get('username')
-        password = request.form.get('password')
+        hostname = form.hostname.data
+        username = current_user.username
+        password = user_decrypted_password
         unit = request.form.get('unit')
 
         output = get_interface_configuration(
             hostname, username, password, unit
         )
 
+        flash('Comando enviado com sucesso!', category='success')
+
+    else:
+        if form.errors:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"Erro no campo {field}: {error}", category='danger')
+
     return render_template(
         'route/get_interface_configuration.html',
-        users=users,
+        form=form,
         output=output,
         devices=devices,
     )
@@ -111,7 +134,7 @@ def interface_unit():
             bandwidth, ipv4_gw, ipv6_gw, ipv6_cli, inet6_48
         )
 
-        flash('Formulário enviado com sucesso!', category='success')
+        flash('Comando enviado com sucesso!', category='success')
 
     else:
         if form.errors:
