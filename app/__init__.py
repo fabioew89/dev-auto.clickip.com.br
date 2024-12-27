@@ -50,9 +50,9 @@ def create_app():
         return redirect(url_for('auth.login'))
 
     # config livereload only for development frontend
-    server = Server(app.wsgi_app)
-    server.watch('app/templates/**/*')
-    server.watch('app/static/**/*')
-    server.serve(port=5000)
+    # server = Server(app.wsgi_app)
+    # server.watch('app/templates/**/*')
+    # server.watch('app/static/**/*')
+    # server.serve(port=5000)
 
     return app
