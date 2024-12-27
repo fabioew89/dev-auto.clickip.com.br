@@ -36,7 +36,8 @@ class NetworkForm(FlaskForm):
     )
     password = PasswordField(
         'Password', validators=[
-            DataRequired()
+            DataRequired(),
+            Length(min=6),
         ]
     )
     unit_vlan = IntegerField(
