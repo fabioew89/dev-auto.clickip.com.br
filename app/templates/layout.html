@@ -2,91 +2,112 @@
 <html lang="pt-br">
 
 <head>
-  <!-- Meta tags Obrigatórias -->
+  <!-- Meta Tags Obrigatórias -->
   <meta charset="utf-8" />
-
-  <!-- viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <!-- fontawesome -->
-  <script src="https://kit.fontawesome.com/19bb9c4807.js" crossorigin="anonymous"></script>
-
-  <!-- jquery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
-
-  <!-- stylesheet -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' )}}">
-
-  <!-- site title -->
+  <!-- Título do Site -->
   <title>{% block title %}auto.clickip.local{% endblock %}</title>
+
+  <!-- CSS Externo -->
+  <!-- Bootstrap CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+    crossorigin="anonymous" 
+  />
+  <!-- CSS Personalizado -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  <!-- FontAwesome -->
+  <script 
+    src="https://kit.fontawesome.com/19bb9c4807.js" 
+    crossorigin="anonymous">
+  </script>
+
+  <!-- JavaScript -->
+  <!-- jQuery -->
+  <script 
+    src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" 
+    crossorigin="anonymous">
+  </script>
+  <!-- Popper.js -->
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+    crossorigin="anonymous">
+  </script>
+  <!-- Bootstrap JS -->
+  <script 
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+    crossorigin="anonymous">
+  </script>
+  <!-- JS Personalizado -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 
 <body class="container">
 
-  <!-- breadcrumb -->
+  <!-- Breadcrumb and Menus -->
   <div class="d-flex justify-content-between">
 
-    <!-- left side menu -->
+    <!-- Left Side Menu -->
     <nav aria-label="breadcrumb">
       <ul class="breadcrumb">
-        <a class="breadcrumb-item" href="{{url_for('page_home')}}">Home</a>
-        <div class="dropdown ml-3">
-          <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Routers</a>
+        <li class="breadcrumb-item">
+          <a href="{{ url_for('page_home') }}">Home</a>
+        </li>
+        <li class="dropdown ml-3">
+          <a href="#" class="dropdown-toggle mr-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Routers
+          </a>
           <div class="dropdown-menu">
-            <a href="{{url_for('network.interface_summary')}}" class="dropdown-item">Interface Summary</a>
-            <a href="{{url_for('network.interface_configuration')}}" class="dropdown-item">Interface Configuration</a>
-            <a href="{{url_for('network.interface_unit')}}" class="dropdown-item">Config Interface Unit Vlan</a>
+            <a href="{{ url_for('network.interface_summary') }}" class="dropdown-item">Interface Summary</a>
+            <a href="{{ url_for('network.interface_configuration') }}" class="dropdown-item">Interface Configuration</a>
+            <a href="{{ url_for('network.interface_unit') }}" class="dropdown-item">Config Interface Unit Vlan</a>
             <a href="#" class="dropdown-item">Config Static Router</a>
           </div>
-        </div>
+        </li>
       </ul>
     </nav>
 
-    <!-- right side menu -->
+    <!-- Right Side Menu -->
     <nav class="breadcrumb">
       {% if current_user.is_authenticated %}
-      <span class="mr-3 text-uppercase font-weight-light"> &#8764; {{current_user.username}} &#8764;</span>
-      <a class="breadcrumb-item" href="{{url_for('auth.logout')}}">Logout</a>
+        <span class="mr-3 text-uppercase font-weight-light">
+          &#8764; {{ current_user.username }} &#8764;
+        </span>
+        <a class="breadcrumb-item" href="{{ url_for('auth.logout') }}">Logout</a>
       {% else %}
-      <a class="breadcrumb-item" href="{{url_for('auth.login')}}">Login</a>
+        <a class="breadcrumb-item" href="{{ url_for('auth.login') }}">Login</a>
       {% endif %}
     </nav>
+
   </div>
 
-  <!-- jumbotron -->
+  <!-- Jumbotron -->
   <div class="jumbotron">
 
-    <!-- Flash messages with flask -->
-    {% with messages = get_flashed_messages(with_categories=True) %} {% for
-    category, message in messages %}
-    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-      <p class="m-auto">{{ message }}</p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">
-        &times;
-      </button>
-    </div>
-    {% endfor %} {% endwith%}
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          <p class="m-auto">{{ message }}</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">
+            &times;
+          </button>
+        </div>
+      {% endfor %}
+    {% endwith %}
 
-    <!-- site content -->
-    {% block content %} data {% endblock content %}
+    <!-- Site Content -->
+    {% block content %} 
+      data 
+    {% endblock content %}
+
   </div>
 
-  <!-- JavaScript (Opcional) -->
-  <script src="{{ url_for('static',filename='js/main.js') }}"></script>
-
-  <!-- Popper.js, Bootstrap JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
 </body>
-
-</html>
