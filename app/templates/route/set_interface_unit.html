@@ -8,6 +8,7 @@
 <hr />
 
 <form action="{{url_for('network.interface_unit')}}" method="POST">
+  {{ form.hidden_tag() }}
   <!-- ROW -->
   <div class="form-row">
     <div class="form-group col">{{ form.hostname(class="form-control") }}</div>
@@ -48,11 +49,17 @@
 
   <!-- ROW -->
   <div class="form-row">
-    <div class="form-group col">
-      {{ form.username(class="form-control") }}
+    <!-- Usuários -->
+    <div class="form-group col mb-3">
+      <input type="text" class="form-control" value="{{ current_user.username }}" readonly>
     </div>
-    <div class="form-group col">
-      {{ form.password(class="form-control", placeholder="Password") }}
+
+    <!-- Passwords -->
+    <div class="input-group col mb-3">
+      <input type="password" class="form-control" id="password-input" value="{{ current_user.password[:24] }}" readonly>
+      <div class="input-group-append">
+        <i class="fas fa-eye input-group-text" id="toggle-password"></i>
+      </div>
     </div>
   </div>
 
