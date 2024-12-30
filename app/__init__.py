@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
 from flask_admin import Admin
-from livereload import Server
+# from livereload import Server
 
 
 # Declarativa base para o SQLAlchemy
@@ -47,7 +47,7 @@ def create_app():
     # Rota básica para teste
     @app.route('/')
     def page_home():
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('network.interface_summary'))
 
     # config livereload only for development frontend
     # server = Server(app.wsgi_app)
