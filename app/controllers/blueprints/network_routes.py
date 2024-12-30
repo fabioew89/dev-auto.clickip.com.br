@@ -22,7 +22,7 @@ f = Fernet(b'bdilxeLGCHnJo-2HtofB9wGcXaUV7D5NZgxh5Nt5fpg=')
 def interface_summary():
     form = NetworkForm()
 
-    available_devices = db.session.execute(db.select(Devices)).scalars().all()
+    devices = db.session.execute(db.select(Devices)).scalars().all()
 
     current_user_record = db.session.execute(
         db.select(Users).filter_by(username=current_user.username)
@@ -30,14 +30,14 @@ def interface_summary():
 
     user_decrypted_password = f.decrypt(current_user_record.password).decode('utf-8')  # noqa: E501
 
-    summary_output = None
+    output = None
 
     if request.method == 'POST':
         selected_hostname = form.hostname.data
         logged_username = current_user.username
         user_password = user_decrypted_password
 
-        summary_output = get_interface_summary(
+        output = get_interface_summary(
             selected_hostname,
             logged_username,
             user_password,
@@ -54,8 +54,8 @@ def interface_summary():
     return render_template(
         'route/get_interface_summary.html',
         form=form,
-        output=summary_output,
-        devices=available_devices,
+        output=output,
+        devices=devices,
     )
 
 
@@ -109,18 +109,22 @@ def interface_configuration():
 def interface_unit():
     form = NetworkForm()
 
+    current_user_record = db.session.execute(
+        db.select(Users).filter_by(username=current_user.username)
+    ).scalar_one_or_none()
+
+    user_decrypted_password = f.decrypt(current_user_record.password).decode('utf-8')  # noqa: E501
+
     output = None
 
-    users = db.session.execute(db.select(Users).order_by(Users.id)).scalars()
     hosts = db.session.execute(db.select(Devices).order_by(Devices.id)).scalars()  # noqa: E501
 
-    form.username.choices = [(user.username, user.username) for user in users]
     form.hostname.choices = [(host.ip_address, host.hostname) for host in hosts]  # noqa: E501
 
     if form.validate_on_submit():
         hostname = form.hostname.data
-        username = form.username.data
-        password = form.password.data
+        username = current_user.username
+        password = user_decrypted_password
         unit = form.unit_vlan.data
         description = form.description.data
         bandwidth = form.bandwidth.data
