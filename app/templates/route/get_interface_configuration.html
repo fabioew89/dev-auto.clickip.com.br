@@ -33,7 +33,7 @@
 
         <!-- Passwords -->
         <div class="input-group col mb-3">
-            <input type="password" class="form-control" id="password-input" value="{{ current_user.password[:24] }}"
+            <input type="password" class="form-control" id="password-input" value="{{ current_user.password[:12] }}"
                 readonly>
             <div class="input-group-append">
                 <i class="fas fa-eye input-group-text" id="toggle-password"></i>
