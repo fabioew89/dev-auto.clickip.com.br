@@ -28,18 +28,18 @@ class NetworkForm(FlaskForm):
     hostname = SelectField(
         'Hostname', choices=[]
     )
-    username = StringField(
-        'Username', validators=[
-            DataRequired(),
-            Length(min=3, max=30)
-        ]
-    )
-    password = PasswordField(
-        'Password', validators=[
-            DataRequired(),
-            Length(min=6),
-        ]
-    )
+    # username = StringField(
+    #     'Username', validators=[
+    #         DataRequired(),
+    #         Length(min=3, max=30)
+    #     ]
+    # )
+    # password = PasswordField(
+    #     'Password', validators=[
+    #         DataRequired(),
+    #         Length(min=6),
+    #     ]
+    # )
     unit_vlan = IntegerField(
         'Unit VLAN', validators=[
             DataRequired(),
