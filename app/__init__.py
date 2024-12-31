@@ -47,7 +47,10 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(network_bp, url_prefix='/network')
 
-    # Rota básica para teste
+    with app.app_context():
+        db.create_all()
+
+    # Rota básica para home
     @app.route('/')
     def page_home():
         return redirect(url_for('network.interface_summary'))
