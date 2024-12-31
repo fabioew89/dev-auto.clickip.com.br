@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
 from flask_admin import Admin
+from flask_migrate import Migrate
 # from livereload import Server
 
 
@@ -15,6 +16,7 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 lm = LoginManager()
 admin = Admin()
+migrate = Migrate()
 
 
 def create_app():
@@ -25,6 +27,7 @@ def create_app():
     db.init_app(app)
     lm.init_app(app)
     admin.init_app(app)
+    migrate.init_app(app, db)
 
     lm.login_view = 'auth.login'
     lm.login_message = 'Please log in to access this page.'
