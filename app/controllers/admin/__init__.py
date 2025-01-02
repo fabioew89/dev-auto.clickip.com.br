@@ -9,7 +9,7 @@ from cryptography.fernet import Fernet
 
 class UsersView(ModelView):
     can_edit = True
-    can_delete = True
+    can_delete = False
     can_create = True
     can_export = True
     can_view_details = True
@@ -50,7 +50,7 @@ class UsersView(ModelView):
 
 class DeviceView(ModelView):
     can_edit = True
-    can_delete = True
+    can_delete = False
     can_create = True
     can_export = True
     can_view_details = True
@@ -61,7 +61,14 @@ class DeviceView(ModelView):
 
     column_default_sort = 'hostname'
 
-    form_extra_fields = {'ip_address': StringField('IP Address', validators=[InputRequired(), IPAddress(ipv4=True)])}  # noqa: E501
+    form_extra_fields = {
+        'ip_address': StringField(
+            'IP Address', validators=[
+                InputRequired(),
+                IPAddress(ipv4=True)
+                ]
+            ),
+        }
 
 
 def create_admin():
