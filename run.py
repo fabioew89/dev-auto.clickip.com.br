@@ -3,7 +3,8 @@ from flask_migrate import Migrate
 from app.controllers.admin import create_admin
 
 app = create_app()
-migrate = Migrate(app, db)
+
+Migrate(app, db)
 
 create_admin()
 
